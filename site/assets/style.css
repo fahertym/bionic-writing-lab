@@ -235,6 +235,16 @@ a:hover {
   margin: 0.5rem 0 0;
 }
 
+.toc-list li {
+  margin: 0.55rem 0;
+}
+
+.toc-secondary-link {
+  margin-left: 0.45rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
 .content-section {
   padding-top: 1.25rem;
   margin-top: 1.25rem;
@@ -244,6 +254,64 @@ a:hover {
 
 .content-section-header h3 {
   margin: 0.15rem 0 0.25rem;
+}
+
+.section-jump-link {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
+.section-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.section-nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+}
+
+.search-panel {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.search-form {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.search-label {
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  font: inherit;
+}
+
+.search-help {
+  margin: 0;
+  color: var(--muted);
+}
+
+code {
+  font-family: "SFMono-Regular", "Consolas", "Liberation Mono", monospace;
+  font-size: 0.9em;
 }
 
 .tag-list {
@@ -310,5 +378,10 @@ a:hover {
 
   .section-heading {
     display: block;
+  }
+
+  .toc-secondary-link {
+    display: block;
+    margin: 0.2rem 0 0;
   }
 }

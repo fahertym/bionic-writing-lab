@@ -3,9 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}{{ site.site_title }}{% endblock %}</title>
-    <meta name="description" content="{% block description %}{{ site.description }}{% endblock %}" />
+    <title>{% block title %}{{ meta.title if meta is defined else site.site_title }}{% endblock %}</title>
+    <meta
+      name="description"
+      content="{% block description %}{{ meta.description if meta is defined else site.description }}{% endblock %}"
+    />
+    {% if meta is defined %}
+    <link rel="canonical" href="{{ meta.canonical_url }}" />
+    <meta property="og:title" content="{{ meta.og_title }}" />
+    <meta property="og:description" content="{{ meta.og_description }}" />
+    <meta property="og:type" content="{{ meta.og_type }}" />
+    <meta property="og:url" content="{{ meta.og_url }}" />
+    {% endif %}
     <link rel="stylesheet" href="{{ asset_href }}" />
+    {% block extra_head %}{% endblock %}
   </head>
   <body>
     <div class="page-shell">
@@ -28,5 +39,6 @@
         <p>{{ site.copyright }}. Markdown is the source of truth, and the published site is generated from manifests and plain-text writing.</p>
       </footer>
     </div>
+    {% block scripts %}{% endblock %}
   </body>
 </html>

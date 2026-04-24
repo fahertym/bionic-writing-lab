@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ meta.title }}{% endblock %}
+{% block description %}{{ meta.description }}{% endblock %}
+
+{% block content %}
+<article class="publication">
+  <header class="publication-header">
+    <p class="kicker">{{ publication.kind|title }} Section</p>
+    <h2>{{ section.title }}</h2>
+    <p class="subtitle">From <a href="{{ section.back_to_publication_href }}">{{ publication.title }}</a></p>
+    <p class="meta">
+      {{ publication.author }}
+      {% if publication.date %} · Published {{ publication.date }}{% endif %}
+      {% if publication.updated %} · Updated {{ publication.updated }}{% endif %}
+      · {{ section.word_count }} words
+    </p>
+    <p class="lede">{{ publication.description }}</p>
+  </header>
+
+  <section class="toc-panel">
+    <p class="meta">Source {{ section.path }}</p>
+    <p><a href="{{ section.back_to_publication_href }}">Back to full publication</a></p>
+    <div class="section-nav">
+      {% if section.previous_section %}
+      <a class="section-nav-link" href="{{ section.previous_section.href }}">Previous: {{ section.previous_section.title }}</a>
+      {% endif %}
+      {% if section.next_section %}
+      <a class="section-nav-link" href="{{ section.next_section.href }}">Next: {{ section.next_section.title }}</a>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="body-copy">
+    {{ section.html | safe }}
+  </section>
+</article>
+{% endblock %}

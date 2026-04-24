@@ -196,6 +196,16 @@ def route_to_output_path(site_root: Path, route: str) -> Path:
     return site_root / stripped / "index.html"
 
 
+def extend_route(route: str, child_segment: str) -> str:
+    parent = route.strip("/")
+    child = child_segment.strip("/")
+    if not parent:
+        return f"/{child}/"
+    if not child:
+        return f"/{parent}/"
+    return f"/{parent}/{child}/"
+
+
 def relative_route(current_route: str, target_route: str) -> str:
     current_dir = route_directory(current_route)
     target_dir = route_directory(target_route)
@@ -250,6 +260,12 @@ def humanize_filename(path: Path) -> str:
     return cleaned.title() if cleaned else path.name
 
 
+def section_route_segment(path: Path) -> str:
+    raw_parts = path.with_suffix("").parts
+    cleaned_parts = [slugify(part) or "section" for part in raw_parts]
+    return "/".join(cleaned_parts)
+
+
 def extract_heading(content: str) -> str | None:
     match = re.search(r"^#\s+(.+?)\s*$", content, flags=re.MULTILINE)
     if not match:
@@ -284,6 +300,7 @@ def resolve_sections(publication: Dict[str, Any]) -> List[Dict[str, Any]]:
         display_path = source_display_path(publication, path)
         title = extract_heading(raw) or humanize_filename(display_path)
         anchor = slugify(display_path.with_suffix("").as_posix().replace("/", "-")) or f"section-{index}"
+        route_segment = section_route_segment(display_path)
         section_markdown = remove_first_h1(raw) if multi_file and extract_heading(raw) else raw
         if not section_markdown.strip():
             section_markdown = raw
@@ -293,10 +310,37 @@ def resolve_sections(publication: Dict[str, Any]) -> List[Dict[str, Any]]:
                 "path": display_path.as_posix(),
                 "title": title,
                 "anchor": anchor,
+                "route_segment": route_segment,
+                "route": extend_route(publication["_route"], route_segment),
                 "markdown": section_markdown,
                 "html": markdown_to_html(section_markdown),
+                "excerpt": render_excerpt(raw),
                 "word_count": len(strip_markdown(raw).split()),
             }
+        )
+
+    for index, section in enumerate(sections):
+        previous_section = sections[index - 1] if index > 0 else None
+        next_section = sections[index + 1] if index + 1 < len(sections) else None
+        section["previous_section"] = (
+            {
+                "title": previous_section["title"],
+                "anchor": previous_section["anchor"],
+                "route": previous_section["route"],
+                "route_segment": previous_section["route_segment"],
+            }
+            if previous_section
+            else None
+        )
+        section["next_section"] = (
+            {
+                "title": next_section["title"],
+                "anchor": next_section["anchor"],
+                "route": next_section["route"],
+                "route_segment": next_section["route_segment"],
+            }
+            if next_section
+            else None
         )
 
     return sections

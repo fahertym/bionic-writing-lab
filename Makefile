@@ -1,7 +1,7 @@
 PYTHON ?= $(shell if [ -x .venv/bin/python ]; then printf .venv/bin/python; else printf python3; fi)
 PORT ?= 8000
 
-.PHONY: validate site downloads build clean serve
+.PHONY: validate site downloads build smoke clean serve
 
 validate:
 	$(PYTHON) scripts/validate_publications.py
@@ -13,6 +13,9 @@ downloads:
 	$(PYTHON) scripts/export_downloads.py
 
 build: validate site downloads
+
+smoke:
+	$(PYTHON) scripts/smoke_check.py
 
 clean:
 	rm -rf dist/site dist/build

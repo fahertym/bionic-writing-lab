@@ -30,10 +30,13 @@ The build scripts use manifests to:
 - resolve Markdown sources
 - build HTML pages into `dist/site/`
 - create listing pages by publication kind
+- build a static `/search/` page backed by `dist/site/search-index.json`
 - connect series and collections to their member publications
 - preserve section-level structure for multi-file publications
+- add standalone section pages and previous/next reading links for multi-file publications
 - export Markdown and optional pandoc-based downloads into `dist/site/downloads/`
 - generate machine-readable indexes in `dist/site/publications.json` and `dist/site/feed.json`
+- add canonical and Open Graph metadata from site and publication config
 
 The publication schema lives at `schema/publication.schema.json`.
 
@@ -133,6 +136,7 @@ Useful individual commands:
 make validate
 make site
 make downloads
+make smoke
 make clean
 ```
 
@@ -169,6 +173,31 @@ The site build also writes:
 
 - `dist/site/publications.json` for later search/index work
 - `dist/site/feed.json` as a JSON feed of recent publications
+- `dist/site/search-index.json` for the static client-side search page at `/search/`
+
+The `/search/` page uses plain browser-side JavaScript to load and filter `search-index.json`. If JavaScript is unavailable, the page still points readers directly at the raw index file.
+
+## Multi-File Reading Navigation
+
+Multi-file publications keep their full publication page as the canonical reading surface.
+
+- The main publication page renders the full work with an on-page table of contents.
+- Each section now gets previous/next reading links inside the full page.
+- Multi-file publications can also emit simple standalone section pages with predictable routes based on source filenames, such as `/books/example-book/01-opening/`.
+
+This keeps long-form and grouped reading navigable without turning the site into a reader app.
+
+## Canonical Metadata
+
+The site builder uses `site/site.json` `base_url` to generate canonical URLs and basic Open Graph metadata.
+
+- Index, listing, and search pages use site-level metadata.
+- Publication pages use publication metadata.
+- Standalone section pages point their canonical URL back to the full publication page so the full publication remains the canonical version.
+
+## Smoke Checks
+
+Use `make smoke` after a build to confirm that core outputs exist, including the homepage, JSON indexes, search page, example publication routes, multi-file section routes, and downloads directory.
 
 ## Custom Domains Later
 

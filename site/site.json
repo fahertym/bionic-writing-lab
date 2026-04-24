@@ -13,7 +13,7 @@
     { "label": "Posts", "route": "/posts/" },
     { "label": "Pamphlets", "route": "/pamphlets/" },
     { "label": "Collections", "route": "/collections/" },
-    { "label": "Series", "route": "/series/" }
+    { "label": "Series", "route": "/series/" },
+    { "label": "Search", "route": "/search/" }
   ]
 }
-

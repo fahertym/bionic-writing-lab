@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero hero-compact">
+  <p class="kicker">Search</p>
+  <h2>Browse the archive in your browser</h2>
+  <p class="lede">This page loads a static JSON index and filters it client-side. No backend, crawler, or server search is required.</p>
+</section>
+
+<section class="panel search-panel">
+  <form class="search-form" role="search">
+    <label class="search-label" for="search-query">Search publications</label>
+    <input
+      id="search-query"
+      class="search-input"
+      type="search"
+      name="q"
+      placeholder="Search by title, tags, author, route, dates, or excerpt"
+      autocomplete="off"
+    />
+  </form>
+  <p class="search-help">
+    Search covers titles, subtitles, descriptions, kinds, tags, status, author, route, dates, and a short excerpt from each publication.
+  </p>
+  <p class="search-help">
+    The raw static index is exposed as <code>/search-index.json</code> for the built site and is available here at <a href="{{ search_index_href }}">{{ search_index_href }}</a>.
+  </p>
+  <noscript>
+    <p class="empty-state">JavaScript is disabled, so filtering is unavailable here. You can still inspect the built site index directly at <code>/search-index.json</code> using <a href="{{ search_index_href }}">{{ search_index_href }}</a>.</p>
+  </noscript>
+</section>
+
+<section class="panel">
+  <div class="section-heading">
+    <h3 id="search-status">Loading search index...</h3>
+  </div>
+  <div id="search-results" class="card-grid" aria-live="polite"></div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (async () => {
+    const input = document.getElementById("search-query");
+    const status = document.getElementById("search-status");
+    const results = document.getElementById("search-results");
+    const params = new URLSearchParams(window.location.search);
+    const initialQuery = params.get("q") || "";
+    input.value = initialQuery;
+
+    function renderCard(item) {
+      const tags = item.tags && item.tags.length ? `<p class="relationship-line">Tags: ${item.tags.join(", ")}</p>` : "";
+      const subtitle = item.subtitle ? `<p class="subtitle">${item.subtitle}</p>` : "";
+      const updated = item.updated ? ` · Updated ${item.updated}` : "";
+      const dated = item.date ? ` · Published ${item.date}` : "";
+      return `
+        <article class="card">
+          <p class="meta">${item.kind_label} · ${item.status}${dated}${updated}</p>
+          <h3><a href="${item.route}">${item.title}</a></h3>
+          ${subtitle}
+          <p>${item.description}</p>
+          <p class="relationship-line">${item.author} · <code>${item.route}</code></p>
+          <p>${item.excerpt}</p>
+          ${tags}
+        </article>
+      `;
+    }
+
+    function updateResults(items, query) {
+      const normalized = query.trim().toLowerCase();
+      const filtered = normalized
+        ? items.filter((item) => item.search_text.includes(normalized))
+        : items;
+
+      const countLabel = `${filtered.length} result${filtered.length === 1 ? "" : "s"}`;
+      status.textContent = normalized ? `${countLabel} for "${query}"` : `${countLabel} in the static index`;
+
+      if (!filtered.length) {
+        results.innerHTML = '<p class="empty-state">No publications matched that search yet.</p>';
+        return;
+      }
+
+      results.innerHTML = filtered.map(renderCard).join("");
+    }
+
+    try {
+      const response = await fetch("{{ search_index_href }}");
+      if (!response.ok) {
+        throw new Error(`Search index request failed with ${response.status}`);
+      }
+      const payload = await response.json();
+      const items = payload.publications || [];
+
+      const syncQuery = () => {
+        const query = input.value;
+        const nextParams = new URLSearchParams(window.location.search);
+        if (query.trim()) {
+          nextParams.set("q", query);
+        } else {
+          nextParams.delete("q");
+        }
+        const nextQueryString = nextParams.toString();
+        const nextUrl = nextQueryString ? `${window.location.pathname}?${nextQueryString}` : window.location.pathname;
+        window.history.replaceState({}, "", nextUrl);
+        updateResults(items, query);
+      };
+
+      input.addEventListener("input", syncQuery);
+      updateResults(items, initialQuery);
+    } catch (error) {
+      status.textContent = "Search index could not be loaded";
+      results.innerHTML = `<p class="empty-state">${error.message}</p>`;
+    }
+  })();
+</script>
+{% endblock %}

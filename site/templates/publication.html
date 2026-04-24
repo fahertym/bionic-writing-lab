@@ -64,7 +64,10 @@
     <h3>Contents</h3>
     <ol class="toc-list">
       {% for item in publication.toc %}
-      <li><a href="#{{ item.anchor }}">{{ item.title }}</a></li>
+      <li>
+        <a href="{{ item.href }}">{{ item.title }}</a>
+        <span class="toc-secondary-link"><a href="{{ item.standalone_href }}">Open section page</a></span>
+      </li>
       {% endfor %}
     </ol>
   </section>
@@ -91,8 +94,17 @@
         <header class="content-section-header">
           <p class="meta">Source {{ section.path }}</p>
           <h3>{{ section.title }}</h3>
+          <p class="section-jump-link"><a href="{{ section.standalone_href }}">Read this section on its own page</a></p>
         </header>
         {{ section.html | safe }}
+        <nav class="section-nav" aria-label="Section navigation">
+          {% if section.previous_section %}
+          <a class="section-nav-link" href="{{ section.previous_section.href }}">Previous: {{ section.previous_section.title }}</a>
+          {% endif %}
+          {% if section.next_section %}
+          <a class="section-nav-link" href="{{ section.next_section.href }}">Next: {{ section.next_section.title }}</a>
+          {% endif %}
+        </nav>
       </section>
       {% endfor %}
     {% else %}

@@ -33,14 +33,8 @@ jobs:
       - name: Validate manifests
         run: make validate
 
-      - name: Build site
-        run: make site
+      - name: Build outputs
+        run: make build
 
-      - name: Build downloads
-        run: make downloads
-
-      - name: Check for built index
-        run: |
-          test -f dist/site/index.html
-          test -f dist/site/publications.json
-          test -f dist/site/feed.json
+      - name: Smoke check outputs
+        run: make smoke

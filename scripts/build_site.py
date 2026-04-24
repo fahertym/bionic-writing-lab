@@ -30,6 +30,28 @@ def build_navigation(site_config: dict, current_route: str) -> list[dict[str, st
     return navigation
 
 
+def build_page_meta(
+    site_config: dict,
+    *,
+    route: str,
+    title: str,
+    description: str,
+    og_type: str,
+    canonical_route: str | None = None,
+) -> dict[str, str]:
+    resolved_canonical_route = canonical_route or route
+    canonical_url = join_url(site_config["base_url"], resolved_canonical_route)
+    return {
+        "title": title,
+        "description": description,
+        "canonical_url": canonical_url,
+        "og_title": title,
+        "og_description": description,
+        "og_type": og_type,
+        "og_url": canonical_url,
+    }
+
+
 def linkify_publications(publications: list[dict], current_route: str) -> list[dict]:
     linked: list[dict] = []
     for publication in publications:
@@ -89,6 +111,44 @@ def publication_index_entry(site_config: dict, publication: dict) -> dict:
     }
 
 
+def search_index_entry(site_config: dict, publication: dict) -> dict:
+    section_titles = [section["title"] for section in publication["sections"]]
+    search_terms = [
+        publication["title"],
+        publication.get("subtitle") or "",
+        publication["description"],
+        publication["kind"],
+        kind_label(publication["kind"]),
+        " ".join(publication.get("tags", [])),
+        publication["status"],
+        publication["author"],
+        publication["_route"],
+        publication.get("date") or "",
+        publication.get("updated") or "",
+        publication["excerpt"],
+        " ".join(section_titles),
+    ]
+    return {
+        "id": publication["id"],
+        "title": publication["title"],
+        "subtitle": publication.get("subtitle"),
+        "description": publication["description"],
+        "excerpt": publication["excerpt"],
+        "author": publication["author"],
+        "kind": publication["kind"],
+        "kind_label": kind_label(publication["kind"]),
+        "status": publication["status"],
+        "tags": publication.get("tags", []),
+        "route": publication["_route"],
+        "url": join_url(site_config["base_url"], publication["_route"]),
+        "date": publication.get("date"),
+        "updated": publication.get("updated"),
+        "section_count": publication["section_count"],
+        "section_titles": section_titles,
+        "search_text": " ".join(part for part in search_terms if part).lower(),
+    }
+
+
 def build_feed(site_config: dict, publications: list[dict]) -> dict:
     items: list[dict] = []
     for publication in publications:
@@ -116,6 +176,71 @@ def build_feed(site_config: dict, publications: list[dict]) -> dict:
         "authors": [{"name": site_config["author"]}],
         "items": items,
     }
+
+
+def render_publication_sections(publication: dict, current_route: str) -> list[dict]:
+    rendered_sections: list[dict] = []
+    for section in publication["sections"]:
+        rendered_section = dict(section)
+        rendered_section["standalone_href"] = relative_route(current_route, section["route"])
+
+        previous_section = section.get("previous_section")
+        if previous_section:
+            rendered_section["previous_section"] = {
+                **previous_section,
+                "href": f"#{previous_section['anchor']}",
+                "standalone_href": relative_route(current_route, previous_section["route"]),
+            }
+
+        next_section = section.get("next_section")
+        if next_section:
+            rendered_section["next_section"] = {
+                **next_section,
+                "href": f"#{next_section['anchor']}",
+                "standalone_href": relative_route(current_route, next_section["route"]),
+            }
+
+        rendered_sections.append(rendered_section)
+    return rendered_sections
+
+
+def render_publication_toc(publication: dict, current_route: str) -> list[dict]:
+    return [
+        {
+            "anchor": section["anchor"],
+            "title": section["title"],
+            "href": f"#{section['anchor']}",
+            "standalone_href": relative_route(current_route, section["route"]),
+        }
+        for section in publication["sections"]
+    ]
+
+
+def build_section_page_context(publication: dict, section: dict, current_route: str) -> dict:
+    rendered_section = dict(section)
+    rendered_section["back_to_publication_href"] = relative_route(current_route, publication["_route"])
+
+    previous_section = section.get("previous_section")
+    if previous_section:
+        rendered_section["previous_section"] = {
+            **previous_section,
+            "href": relative_route(current_route, previous_section["route"]),
+        }
+
+    next_section = section.get("next_section")
+    if next_section:
+        rendered_section["next_section"] = {
+            **next_section,
+            "href": relative_route(current_route, next_section["route"]),
+        }
+
+    return rendered_section
+
+
+def build_section_page_title(publication: dict, section: dict, site_title: str) -> str:
+    if section["title"] == publication["title"]:
+        return f"{publication['title']} · {site_title}"
+    return f"{section['title']} · {publication['title']} · {site_title}"
 
 
 def render_site() -> int:
@@ -150,11 +275,20 @@ def render_site() -> int:
     index_template = env.get_template("index.html")
     listing_template = env.get_template("listing.html")
     publication_template = env.get_template("publication.html")
+    search_template = env.get_template("search.html")
+    section_template = env.get_template("section.html")
 
     write_text(
         route_to_output_path(DIST_SITE_DIR, "/"),
         index_template.render(
             site=site_config,
+            meta=build_page_meta(
+                site_config,
+                route="/",
+                title=site_config["site_title"],
+                description=site_config["description"],
+                og_type="website",
+            ),
             current_route="/",
             nav_items=build_navigation(site_config, "/"),
             recent_publications=linkify_publications(publication_contexts[:6], "/"),
@@ -175,6 +309,13 @@ def render_site() -> int:
             route_to_output_path(DIST_SITE_DIR, route),
             listing_template.render(
                 site=site_config,
+                meta=build_page_meta(
+                    site_config,
+                    route=route,
+                    title=f"{kind_labels[kind]} · {site_config['site_title']}",
+                    description=site_config["description"],
+                    og_type="website",
+                ),
                 current_route=route,
                 nav_items=build_navigation(site_config, route),
                 listing_title=kind_labels[kind],
@@ -183,6 +324,25 @@ def render_site() -> int:
                 asset_href=relative_file(route, "assets/style.css"),
             ),
         )
+
+    search_route = "/search/"
+    write_text(
+        route_to_output_path(DIST_SITE_DIR, search_route),
+        search_template.render(
+            site=site_config,
+            meta=build_page_meta(
+                site_config,
+                route=search_route,
+                title=f"Search · {site_config['site_title']}",
+                description=site_config["description"],
+                og_type="website",
+            ),
+            current_route=search_route,
+            nav_items=build_navigation(site_config, search_route),
+            asset_href=relative_file(search_route, "assets/style.css"),
+            search_index_href=relative_file(search_route, "search-index.json"),
+        ),
+    )
 
     for publication in publication_contexts:
         render_publication = dict(publication)
@@ -195,16 +355,52 @@ def render_site() -> int:
         render_publication["collection_memberships"] = linkify_publications(
             publication["collection_memberships"], publication["_route"]
         )
+        render_publication["sections"] = render_publication_sections(publication, publication["_route"])
+        render_publication["toc"] = render_publication_toc(publication, publication["_route"])
         write_text(
             route_to_output_path(DIST_SITE_DIR, publication["_route"]),
             publication_template.render(
                 site=site_config,
+                meta=build_page_meta(
+                    site_config,
+                    route=publication["_route"],
+                    title=f"{publication['title']} · {site_config['site_title']}",
+                    description=publication["description"],
+                    og_type="article",
+                ),
                 current_route=publication["_route"],
                 nav_items=build_navigation(site_config, publication["_route"]),
                 publication=render_publication,
                 asset_href=relative_file(publication["_route"], "assets/style.css"),
             ),
         )
+
+        if publication["multi_file"]:
+            for section in publication["sections"]:
+                section_route = section["route"]
+                write_text(
+                    route_to_output_path(DIST_SITE_DIR, section_route),
+                    section_template.render(
+                        site=site_config,
+                        meta=build_page_meta(
+                            site_config,
+                            route=section_route,
+                            title=build_section_page_title(
+                                publication,
+                                section,
+                                site_config["site_title"],
+                            ),
+                            description=publication["description"],
+                            og_type="article",
+                            canonical_route=publication["_route"],
+                        ),
+                        current_route=section_route,
+                        nav_items=build_navigation(site_config, section_route),
+                        publication=render_publication,
+                        section=build_section_page_context(publication, section, section_route),
+                        asset_href=relative_file(section_route, "assets/style.css"),
+                    ),
+                )
 
     write_json(
         DIST_SITE_DIR / "publications.json",
@@ -218,6 +414,18 @@ def render_site() -> int:
         },
     )
     write_json(DIST_SITE_DIR / "feed.json", build_feed(site_config, publication_contexts))
+    write_json(
+        DIST_SITE_DIR / "search-index.json",
+        {
+            "site": {
+                "title": site_config["site_title"],
+                "base_url": site_config["base_url"],
+                "search_route": "/search/",
+                "generated_from": "publication manifests",
+            },
+            "publications": [search_index_entry(site_config, item) for item in publication_contexts],
+        },
+    )
 
     print(f"Built static site for {len(publication_contexts)} publication(s) into {DIST_SITE_DIR}")
     return 0
