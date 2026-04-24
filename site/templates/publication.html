@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}{{ publication.title }} · {{ site_title }}{% endblock %}
+{% block description %}{{ publication.description }}{% endblock %}
+
+{% block content %}
+<article class="publication">
+  <header class="publication-header">
+    <p class="kicker">{{ publication.kind|title }}</p>
+    <h2>{{ publication.title }}</h2>
+    {% if publication.subtitle %}
+    <p class="subtitle">{{ publication.subtitle }}</p>
+    {% endif %}
+    <p class="meta">
+      {{ publication.author }}
+      {% if publication.date %} · Published {{ publication.date }}{% endif %}
+      {% if publication.updated %} · Updated {{ publication.updated }}{% endif %}
+      · {{ publication.word_count }} words
+    </p>
+    <p class="lede">{{ publication.description }}</p>
+    {% if publication.tags %}
+    <ul class="tag-list">
+      {% for tag in publication.tags %}
+      <li>{{ tag }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </header>
+
+  {% if publication.downloads %}
+  <section class="download-panel">
+    <h3>Downloads</h3>
+    <ul class="download-list">
+      {% for item in publication.downloads %}
+      <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+      {% endfor %}
+    </ul>
+    {% if publication.download_warnings %}
+    <p class="download-note">Some requested formats were skipped during the current build.</p>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  <section class="body-copy">
+    {{ publication.body_html | safe }}
+  </section>
+</article>
+{% endblock %}
+

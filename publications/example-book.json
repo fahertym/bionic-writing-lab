@@ -1,0 +1,20 @@
+{
+  "id": "example-book",
+  "title": "Example Book",
+  "subtitle": "A sample long-form publication",
+  "author": "Matt Faherty",
+  "kind": "book",
+  "slug": "example-book",
+  "description": "A small sample book built from multiple Markdown chapters.",
+  "status": "draft",
+  "tags": ["book", "example", "long-form"],
+  "source": "content/books/example-book",
+  "sources": ["01-opening.md", "02-shaping-a-publication.md"],
+  "web_route": "/books/example-book/",
+  "output_formats": ["site", "markdown", "pdf", "epub", "docx"],
+  "downloadable": true,
+  "order": 1,
+  "date": "2026-04-23",
+  "updated": "2026-04-23"
+}
+

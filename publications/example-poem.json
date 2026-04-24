@@ -1,0 +1,18 @@
+{
+  "id": "example-poem",
+  "title": "Example Poem",
+  "author": "Matt Faherty",
+  "kind": "poem",
+  "slug": "example-poem",
+  "description": "A poem published directly from Markdown.",
+  "status": "active",
+  "tags": ["poem", "example"],
+  "source": "content/poems/example-poem.md",
+  "web_route": "/poems/example-poem/",
+  "output_formats": ["site", "markdown"],
+  "downloadable": true,
+  "order": 1,
+  "date": "2026-04-23",
+  "updated": "2026-04-23"
+}
+

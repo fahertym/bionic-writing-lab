@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ listing_title }} · {{ site_title }}{% endblock %}
+{% block description %}{{ listing_description }}{% endblock %}
+
+{% block content %}
+<section class="hero hero-compact">
+  <p class="kicker">Listing</p>
+  <h2>{{ listing_title }}</h2>
+  <p class="lede">{{ listing_description }}</p>
+</section>
+
+{% if publications %}
+<div class="card-grid">
+  {% for publication in publications %}
+  <article class="card">
+    <p class="meta">{{ publication.status|title }}{% if publication.updated %} · Updated {{ publication.updated }}{% endif %}</p>
+    <h3><a href="{{ publication.href }}">{{ publication.title }}</a></h3>
+    {% if publication.subtitle %}
+    <p class="subtitle">{{ publication.subtitle }}</p>
+    {% endif %}
+    <p>{{ publication.description }}</p>
+  </article>
+  {% endfor %}
+</div>
+{% else %}
+<section class="panel">
+  <p class="empty-state">No publications of this kind are defined yet.</p>
+</section>
+{% endif %}
+{% endblock %}
+

@@ -1,0 +1,19 @@
+{
+  "id": "example-series",
+  "title": "Example Series",
+  "subtitle": "A sample web-facing series page",
+  "author": "Matt Faherty",
+  "kind": "series",
+  "slug": "example-series",
+  "description": "A series landing page for related publications.",
+  "status": "active",
+  "tags": ["series", "example"],
+  "source": "content/series/example-series/README.md",
+  "web_route": "/series/example-series/",
+  "output_formats": ["site", "markdown"],
+  "downloadable": true,
+  "order": 1,
+  "date": "2026-04-23",
+  "updated": "2026-04-23"
+}
+

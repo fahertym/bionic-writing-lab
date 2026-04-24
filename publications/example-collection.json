@@ -1,0 +1,20 @@
+{
+  "id": "example-collection",
+  "title": "Example Collection",
+  "subtitle": "Grouped short-form writing",
+  "author": "Matt Faherty",
+  "kind": "collection",
+  "slug": "example-collection",
+  "description": "A collection page assembled from a README and a pair of shorter pieces.",
+  "status": "active",
+  "tags": ["collection", "example", "short-form"],
+  "source": "content/collections/example-collection",
+  "sources": ["README.md", "01-paper-tools.md", "02-static-rituals.md"],
+  "web_route": "/collections/example-collection/",
+  "output_formats": ["site", "markdown", "epub"],
+  "downloadable": true,
+  "order": 1,
+  "date": "2026-04-23",
+  "updated": "2026-04-23"
+}
+

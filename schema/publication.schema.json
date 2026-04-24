@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bionicwritinglab.example/schema/publication.schema.json",
+  "title": "Publication Manifest",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "author",
+    "kind",
+    "slug",
+    "description",
+    "status",
+    "web_route",
+    "output_formats",
+    "downloadable"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["book", "series", "essay", "poem", "post", "pamphlet", "collection"]
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "web_route": {
+      "type": "string",
+      "pattern": "^/.+/$"
+    },
+    "output_formats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["site", "markdown", "pdf", "epub", "docx"]
+      },
+      "minItems": 1
+    },
+    "downloadable": {
+      "type": "boolean"
+    },
+    "series": {
+      "type": "string"
+    },
+    "collection": {
+      "type": "string"
+    },
+    "order": {
+      "type": "number"
+    },
+    "cover": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "updated": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true,
+  "anyOf": [
+    {
+      "required": ["source"]
+    },
+    {
+      "required": ["sources"]
+    }
+  ]
+}
+

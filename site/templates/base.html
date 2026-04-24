@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}{{ site_title }}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ site_description }}{% endblock %}" />
+    <link rel="stylesheet" href="{{ asset_href }}" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <p class="eyebrow">Markdown-first publishing layer</p>
+        <h1 class="site-name"><a href="{{ nav_items[0].href }}">Bionic Writing Lab</a></h1>
+        <nav class="site-nav" aria-label="Primary">
+          {% for item in nav_items %}
+          <a href="{{ item.href }}">{{ item.label }}</a>
+          {% endfor %}
+        </nav>
+      </header>
+
+      <main class="page-content">
+        {% block content %}{% endblock %}
+      </main>
+
+      <footer class="site-footer">
+        <p>Markdown is the source of truth. Everything in this site is generated from publication manifests and plain-text content.</p>
+      </footer>
+    </div>
+  </body>
+</html>
+

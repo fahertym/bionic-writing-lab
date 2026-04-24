@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site_title }}{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <p class="kicker">Publishing layer</p>
+  <h2>One static system for books, essays, poems, collections, and web-native writing.</h2>
+  <p class="lede">{{ site_description }}</p>
+</section>
+
+<section class="panel">
+  <h3>Current Publications</h3>
+  <div class="card-grid">
+    {% for publication in publications %}
+    <article class="card">
+      <p class="meta">{{ publication.kind|title }}{% if publication.updated %} · Updated {{ publication.updated }}{% endif %}</p>
+      <h4><a href="{{ publication.href }}">{{ publication.title }}</a></h4>
+      {% if publication.subtitle %}
+      <p class="subtitle">{{ publication.subtitle }}</p>
+      {% endif %}
+      <p>{{ publication.excerpt }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+{% for kind, items in grouped_publications.items() %}
+<section class="panel">
+  <div class="section-heading">
+    <h3>{{ kind_labels[kind] }}</h3>
+    <a class="section-link" href="{{ nav_items[loop.index].href }}">Browse {{ kind_labels[kind] }}</a>
+  </div>
+  {% if items %}
+  <ul class="publication-list">
+    {% for publication in items %}
+    <li>
+      <a href="{{ publication.href }}">{{ publication.title }}</a>
+      <span>{{ publication.description }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="empty-state">No {{ kind_labels[kind].lower() }} are published yet.</p>
+  {% endif %}
+</section>
+{% endfor %}
+{% endblock %}
+

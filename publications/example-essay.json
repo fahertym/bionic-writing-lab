@@ -1,0 +1,18 @@
+{
+  "id": "example-essay",
+  "title": "A Short Essay on Publication Surfaces",
+  "author": "Matt Faherty",
+  "kind": "essay",
+  "slug": "example-essay",
+  "description": "A short-form publication about source files and rendered outputs.",
+  "status": "active",
+  "tags": ["essay", "example", "workflow"],
+  "source": "content/essays/example-essay.md",
+  "web_route": "/essays/example-essay/",
+  "output_formats": ["site", "markdown", "pdf"],
+  "downloadable": true,
+  "order": 1,
+  "date": "2026-04-23",
+  "updated": "2026-04-23"
+}
+
