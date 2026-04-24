@@ -1,18 +1,35 @@
 {% extends "base.html" %}
 
-{% block title %}{{ site_title }}{% endblock %}
+{% block title %}{{ site.site_title }}{% endblock %}
 
 {% block content %}
 <section class="hero">
-  <p class="kicker">Publishing layer</p>
-  <h2>One static system for books, essays, poems, collections, and web-native writing.</h2>
-  <p class="lede">{{ site_description }}</p>
+  <p class="kicker">Public archive and writing lab</p>
+  <h2>{{ site.tagline }}</h2>
+  <p class="lede">{{ site.description }}</p>
+  <div class="hero-grid">
+    <div>
+      <h3>Markdown-first publishing</h3>
+      <p>Draft in plain text, keep manifests readable, and generate the site and downloads as outputs instead of treating exports as source files.</p>
+    </div>
+    <div>
+      <h3>Many publication kinds</h3>
+      <p>Books, essays, poems, pamphlets, collections, posts, and series all belong here without being forced into one manuscript shape.</p>
+    </div>
+    <div>
+      <h3>Static by design</h3>
+      <p>The site is built for GitHub Pages now and can move to a custom domain later without introducing a backend.</p>
+    </div>
+  </div>
 </section>
 
 <section class="panel">
-  <h3>Current Publications</h3>
+  <div class="section-heading">
+    <h3>Recent Publications</h3>
+    <p class="section-copy">The current example set shows how different kinds of writing can share one publishing layer.</p>
+  </div>
   <div class="card-grid">
-    {% for publication in publications %}
+    {% for publication in recent_publications %}
     <article class="card">
       <p class="meta">{{ publication.kind|title }}{% if publication.updated %} · Updated {{ publication.updated }}{% endif %}</p>
       <h4><a href="{{ publication.href }}">{{ publication.title }}</a></h4>
@@ -25,11 +42,22 @@
   </div>
 </section>
 
+<section class="panel split-panel">
+  <div>
+    <h3>Downloads stay honest</h3>
+    <p>Every downloadable publication keeps Markdown available, and Pandoc exports can add PDF, EPUB, or DOCX when the toolchain is present.</p>
+  </div>
+  <div>
+    <h3>Built for a larger archive</h3>
+    <p>Bionic Writing Lab is meant to become a durable public home for writing projects, not just a single book site. GitHub Pages works now, and a custom domain can come later.</p>
+  </div>
+</section>
+
 {% for kind, items in grouped_publications.items() %}
 <section class="panel">
   <div class="section-heading">
     <h3>{{ kind_labels[kind] }}</h3>
-    <a class="section-link" href="{{ nav_items[loop.index].href }}">Browse {{ kind_labels[kind] }}</a>
+    <a class="section-link" href="{{ kind_routes[kind] }}">Browse {{ kind_labels[kind] }}</a>
   </div>
   {% if items %}
   <ul class="publication-list">
@@ -46,4 +74,3 @@
 </section>
 {% endfor %}
 {% endblock %}
-

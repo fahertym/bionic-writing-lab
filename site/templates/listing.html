@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ listing_title }} · {{ site_title }}{% endblock %}
+{% block title %}{{ listing_title }} · {{ site.site_title }}{% endblock %}
 {% block description %}{{ listing_description }}{% endblock %}
 
 {% block content %}
@@ -20,6 +20,16 @@
     <p class="subtitle">{{ publication.subtitle }}</p>
     {% endif %}
     <p>{{ publication.description }}</p>
+    {% if publication.series_memberships or publication.collection_memberships %}
+    <p class="relationship-line">
+      {% for parent in publication.series_memberships %}
+      In series: {{ parent.title }}{% if not loop.last or publication.collection_memberships %} · {% endif %}
+      {% endfor %}
+      {% for parent in publication.collection_memberships %}
+      In collection: {{ parent.title }}{% if not loop.last %} · {% endif %}
+      {% endfor %}
+    </p>
+    {% endif %}
   </article>
   {% endfor %}
 </div>
@@ -29,4 +39,3 @@
 </section>
 {% endif %}
 {% endblock %}
-

@@ -1,0 +1,19 @@
+{
+  "id": "example-pamphlet",
+  "title": "Example Pamphlet",
+  "subtitle": "A compact publication between essay and book",
+  "author": "Matt Faherty",
+  "kind": "pamphlet",
+  "slug": "example-pamphlet",
+  "description": "A pamphlet-format publication intended for focused web reading and simple exports.",
+  "status": "active",
+  "tags": ["pamphlet", "example", "focused-release"],
+  "source": "content/pamphlets/example-pamphlet.md",
+  "web_route": "/pamphlets/example-pamphlet/",
+  "output_formats": ["site", "markdown", "pdf"],
+  "downloadable": true,
+  "order": 1,
+  "date": "2026-04-23",
+  "updated": "2026-04-23"
+}
+

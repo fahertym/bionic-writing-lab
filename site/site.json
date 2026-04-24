@@ -1,0 +1,19 @@
+{
+  "site_title": "Bionic Writing Lab",
+  "tagline": "Markdown-first static publishing for books, essays, poems, pamphlets, collections, posts, and web-native writing.",
+  "author": "Matt Faherty",
+  "description": "A public archive and publishing lab for Markdown-first writing. Books, essays, poems, pamphlets, collections, posts, and experiments live here as static publications generated from plain text.",
+  "base_url": "https://fahertym.github.io/bionic-writing-lab",
+  "language": "en",
+  "copyright": "(c) 2026 Matt Faherty",
+  "nav_links": [
+    { "label": "Books", "route": "/books/" },
+    { "label": "Essays", "route": "/essays/" },
+    { "label": "Poems", "route": "/poems/" },
+    { "label": "Posts", "route": "/posts/" },
+    { "label": "Pamphlets", "route": "/pamphlets/" },
+    { "label": "Collections", "route": "/collections/" },
+    { "label": "Series", "route": "/series/" }
+  ]
+}
+

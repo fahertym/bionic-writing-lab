@@ -9,6 +9,7 @@
   "status": "active",
   "tags": ["series", "example"],
   "source": "content/series/example-series/README.md",
+  "members": ["example-book", "example-pamphlet"],
   "web_route": "/series/example-series/",
   "output_formats": ["site", "markdown"],
   "downloadable": true,
@@ -16,4 +17,3 @@
   "date": "2026-04-23",
   "updated": "2026-04-23"
 }
-

@@ -40,5 +40,7 @@ jobs:
         run: make downloads
 
       - name: Check for built index
-        run: test -f dist/site/index.html
-
+        run: |
+          test -f dist/site/index.html
+          test -f dist/site/publications.json
+          test -f dist/site/feed.json

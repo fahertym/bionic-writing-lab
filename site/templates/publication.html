@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ publication.title }} · {{ site_title }}{% endblock %}
+{% block title %}{{ publication.title }} · {{ site.site_title }}{% endblock %}
 {% block description %}{{ publication.description }}{% endblock %}
 
 {% block content %}
@@ -25,6 +25,24 @@
       {% endfor %}
     </ul>
     {% endif %}
+    {% if publication.series_memberships or publication.collection_memberships %}
+    <div class="relationship-panel">
+      {% if publication.series_memberships %}
+      <p><strong>Series:</strong>
+        {% for parent in publication.series_memberships %}
+        <a href="{{ parent.href }}">{{ parent.title }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+      </p>
+      {% endif %}
+      {% if publication.collection_memberships %}
+      <p><strong>Collections:</strong>
+        {% for parent in publication.collection_memberships %}
+        <a href="{{ parent.href }}">{{ parent.title }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+      </p>
+      {% endif %}
+    </div>
+    {% endif %}
   </header>
 
   {% if publication.downloads %}
@@ -41,9 +59,45 @@
   </section>
   {% endif %}
 
+  {% if publication.multi_file %}
+  <section class="toc-panel">
+    <h3>Contents</h3>
+    <ol class="toc-list">
+      {% for item in publication.toc %}
+      <li><a href="#{{ item.anchor }}">{{ item.title }}</a></li>
+      {% endfor %}
+    </ol>
+  </section>
+  {% endif %}
+
+  {% if publication.member_publications %}
+  <section class="member-panel">
+    <h3>{% if publication.kind == "series" %}Series Members{% else %}Collection Members{% endif %}</h3>
+    <ul class="publication-list">
+      {% for member in publication.member_publications %}
+      <li>
+        <a href="{{ member.href }}">{{ member.title }}</a>
+        <span>{{ member.kind|title }}{% if member.subtitle %} · {{ member.subtitle }}{% endif %}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
   <section class="body-copy">
-    {{ publication.body_html | safe }}
+    {% if publication.multi_file %}
+      {% for section in publication.sections %}
+      <section class="content-section" id="{{ section.anchor }}">
+        <header class="content-section-header">
+          <p class="meta">Source {{ section.path }}</p>
+          <h3>{{ section.title }}</h3>
+        </header>
+        {{ section.html | safe }}
+      </section>
+      {% endfor %}
+    {% else %}
+      {{ publication.body_html | safe }}
+    {% endif %}
   </section>
 </article>
 {% endblock %}
-

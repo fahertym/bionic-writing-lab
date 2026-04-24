@@ -26,10 +26,14 @@ Each publication lives in a JSON manifest inside `publications/`. A manifest def
 The build scripts use manifests to:
 
 - validate publication metadata
+- validate site-level config in `site/site.json`
 - resolve Markdown sources
 - build HTML pages into `dist/site/`
 - create listing pages by publication kind
+- connect series and collections to their member publications
+- preserve section-level structure for multi-file publications
 - export Markdown and optional pandoc-based downloads into `dist/site/downloads/`
+- generate machine-readable indexes in `dist/site/publications.json` and `dist/site/feed.json`
 
 The publication schema lives at `schema/publication.schema.json`.
 
@@ -39,8 +43,10 @@ The publication schema lives at `schema/publication.schema.json`.
 - `publications/` holds manifest JSON files
 - `schema/` holds the JSON schema
 - `site/` holds Jinja templates and CSS assets
+- `site/site.json` holds site metadata and navigation config
 - `scripts/` holds the Python build and validation tools
 - `dist/` is generated output and is intentionally ignored in git
+- `docs/` holds planning notes for domains and future imports
 
 ## Add A New Essay
 
@@ -102,8 +108,9 @@ Collections and series can have their own landing-page Markdown plus their own m
 
 - A `collection` groups related pieces under one publication route.
 - A `series` provides a web-facing home for a sequence of related works.
+- Both can declare ordered `members` using publication ids.
 
-For the first pass, these are manifest-driven pages with Markdown content and metadata. They do not yet auto-assemble other publication pages into navigable member pages, but the schema is ready for that direction.
+Member publications can also point back to a parent with `series` or `collection`, but the simplest pattern is to keep membership order in the parent manifest.
 
 ## Build Locally
 
@@ -156,6 +163,13 @@ Every downloadable publication gets a Markdown download in `dist/site/downloads/
 
 If `pandoc` is available and the manifest requests `pdf`, `epub`, or `docx`, those formats are generated too. If `pandoc` is missing, the downloads step prints a clear warning and continues instead of failing the whole build.
 
+## Machine-Readable Indexes
+
+The site build also writes:
+
+- `dist/site/publications.json` for later search/index work
+- `dist/site/feed.json` as a JSON feed of recent publications
+
 ## Custom Domains Later
 
 This repo is compatible with GitHub Pages and can grow into a public Bionic Writing Lab site. A custom domain can be added later by:
@@ -165,3 +179,5 @@ This repo is compatible with GitHub Pages and can grow into a public Bionic Writ
 3. updating the canonical site URL in manifests or site config when the final domain is known
 
 That keeps the current scaffold simple while leaving room for a future `bionicwritinglab.com` setup.
+
+See [docs/custom-domain.md](/home/matt/docs/bionic-writing-lab/docs/custom-domain.md) for the planned approach and [docs/importing-villain.md](/home/matt/docs/bionic-writing-lab/docs/importing-villain.md) for the future Villain import plan.

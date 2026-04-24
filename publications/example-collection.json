@@ -10,6 +10,7 @@
   "tags": ["collection", "example", "short-form"],
   "source": "content/collections/example-collection",
   "sources": ["README.md", "01-paper-tools.md", "02-static-rituals.md"],
+  "members": ["example-essay", "example-poem", "example-post"],
   "web_route": "/collections/example-collection/",
   "output_formats": ["site", "markdown", "epub"],
   "downloadable": true,
@@ -17,4 +18,3 @@
   "date": "2026-04-23",
   "updated": "2026-04-23"
 }
-

@@ -65,6 +65,12 @@ a:hover {
   letter-spacing: -0.04em;
 }
 
+.site-tagline {
+  margin: 0 0 1rem;
+  max-width: 48rem;
+  color: var(--muted);
+}
+
 .site-name a {
   text-decoration: none;
 }
@@ -111,6 +117,25 @@ a:hover {
   padding: 1.5rem 0.25rem 0.5rem;
 }
 
+.hero-grid,
+.split-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.hero-grid {
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  margin-top: 1.4rem;
+}
+
+.hero-grid div,
+.split-panel > div {
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.38);
+}
+
 .hero-compact {
   padding-bottom: 0;
 }
@@ -140,6 +165,11 @@ a:hover {
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.section-copy,
+.relationship-line {
+  color: var(--muted);
 }
 
 .section-heading h3,
@@ -187,11 +217,33 @@ a:hover {
   border-bottom: 1px solid var(--line);
 }
 
-.download-panel {
+.download-panel,
+.toc-panel,
+.member-panel,
+.relationship-panel {
   margin-top: 1.25rem;
   padding: 1rem;
   border-radius: 1rem;
   background: var(--paper-strong);
+}
+
+.relationship-panel p {
+  margin: 0.25rem 0;
+}
+
+.toc-list {
+  margin: 0.5rem 0 0;
+}
+
+.content-section {
+  padding-top: 1.25rem;
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 1rem;
+}
+
+.content-section-header h3 {
+  margin: 0.15rem 0 0.25rem;
 }
 
 .tag-list {
@@ -260,4 +312,3 @@ a:hover {
     display: block;
   }
 }
-

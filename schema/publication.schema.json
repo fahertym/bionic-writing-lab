@@ -82,6 +82,12 @@
     "collection": {
       "type": "string"
     },
+    "members": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "order": {
       "type": "number"
     },
@@ -105,4 +111,3 @@
     }
   ]
 }
-

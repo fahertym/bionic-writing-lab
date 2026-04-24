@@ -4,6 +4,7 @@ from publication_lib import (
     DIST_SITE_DIR,
     export_publication_downloads,
     load_publications,
+    load_site_config,
     sort_publications,
     validate_publications,
 )
@@ -11,7 +12,8 @@ from publication_lib import (
 
 def main() -> int:
     publications = load_publications()
-    errors = validate_publications(publications)
+    site_config = load_site_config()
+    errors = validate_publications(publications, site_config)
     if errors:
         print("Downloads not built because validation failed:")
         for error in errors:
@@ -37,4 +39,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
