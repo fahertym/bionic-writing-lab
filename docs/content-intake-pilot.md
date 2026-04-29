@@ -142,3 +142,17 @@ For each imported piece:
 - public build does not expose non-public work
 
 Stop after the first small batch and review the shape before importing more.
+
+## Pilot Batch 1
+
+Batch 1 imports five `fragment` candidates from the Villain in the Verse v2 manuscript family. This is not a book import. The goal is to preserve a few sharp argument seeds while proving the intake rhythm.
+
+Imported publication IDs:
+
+- `coercion-with-gift-wrapping`
+- `collective-punishment-as-coercion`
+- `gods-name-on-the-letterhead`
+- `bitter-water-as-control`
+- `cosmic-monarchy-fossilized`
+
+Initial concept mapping focuses on `religion-as-infrastructure`, `coercion`, `institutional-laundering`, `legitimacy`, and `democratic-infrastructure`. The draft `religion-mythology-and-power` path now holds an internal sequence for review, but it remains non-public.

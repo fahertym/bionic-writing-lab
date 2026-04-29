@@ -1,0 +1,25 @@
+{
+  "id": "coercion-with-gift-wrapping",
+  "title": "Coercion With Gift Wrapping",
+  "author": "Matt Faherty",
+  "kind": "fragment",
+  "slug": "coercion-with-gift-wrapping",
+  "description": "A Villain in the Verse fragment on salvation language as coercion disguised as a free gift.",
+  "status": "imported",
+  "tags": [
+    "villain-in-the-verse",
+    "religion",
+    "coercion",
+    "fragment"
+  ],
+  "source": "content/fragments/coercion-with-gift-wrapping.md",
+  "web_route": "/fragments/coercion-with-gift-wrapping/",
+  "output_formats": [
+    "site",
+    "markdown"
+  ],
+  "downloadable": false,
+  "order": 0,
+  "date": "2026-04-29",
+  "updated": "2026-04-29"
+}
