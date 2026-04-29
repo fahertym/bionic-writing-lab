@@ -100,3 +100,16 @@ For every import:
 - use reading paths after there are enough pieces for a reader route
 
 The import pipeline is a loading dock. The archive is built by review.
+
+## After Import
+
+After files and manifests are imported, do a metadata pass before publishing anything.
+
+For each piece:
+
+- attach obvious concept IDs in the relevant concept manifest
+- add publication relationships only when provenance is clear
+- keep reading path membership draft until the route is useful
+- rerun public and draft builds to confirm lifecycle visibility
+
+Do not use the import command as the final editorial step. Import creates a controlled starting point; review creates the archive.
