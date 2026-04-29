@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Reading Paths · {{ site.site_title }}{% endblock %}
+{% block description %}Curated routes through publications in Bionic Writing Lab.{% endblock %}
+
+{% block content %}
+<section class="hero hero-compact">
+  <p class="kicker">Reading Paths</p>
+  <h2>Curated routes through the work.</h2>
+  <p class="lede">Reading paths are ordered trails through existing publications. They are not tags, series, or collections; they are suggested routes for readers.</p>
+</section>
+
+{% if reading_paths %}
+<div class="card-grid">
+  {% for reading_path in reading_paths %}
+  <article class="card">
+    <p class="meta">
+      {{ reading_path.item_publications|length }} publication{% if reading_path.item_publications|length != 1 %}s{% endif %}
+      {% if reading_path.status != "published" %}
+      · {{ reading_path.status_label }}
+      {% endif %}
+    </p>
+    <h3><a href="{{ reading_path.href }}">{{ reading_path.title }}</a></h3>
+    <p>{{ reading_path.description }}</p>
+    {% if reading_path.tags %}
+    <p class="relationship-line">Tags: {{ reading_path.tags|join(", ") }}</p>
+    {% endif %}
+  </article>
+  {% endfor %}
+</div>
+{% else %}
+<section class="panel">
+  <p class="empty-state">No reading paths are published yet.</p>
+</section>
+{% endif %}
+{% endblock %}

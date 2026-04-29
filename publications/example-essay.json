@@ -5,8 +5,11 @@
   "kind": "essay",
   "slug": "example-essay",
   "description": "A short-form publication about source files and rendered outputs.",
-  "status": "active",
+  "status": "published",
   "tags": ["essay", "example", "workflow"],
+  "relationships": {
+    "expands": ["example-fragment"]
+  },
   "source": "content/essays/example-essay.md",
   "web_route": "/essays/example-essay/",
   "output_formats": ["site", "markdown", "pdf"],
@@ -15,4 +18,3 @@
   "date": "2026-04-23",
   "updated": "2026-04-23"
 }
-

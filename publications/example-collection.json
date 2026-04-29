@@ -6,7 +6,7 @@
   "kind": "collection",
   "slug": "example-collection",
   "description": "A collection page assembled from a README and a pair of shorter pieces.",
-  "status": "active",
+  "status": "published",
   "tags": ["collection", "example", "short-form"],
   "source": "content/collections/example-collection",
   "sources": ["README.md", "01-paper-tools.md", "02-static-rituals.md"],

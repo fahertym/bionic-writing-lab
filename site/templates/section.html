@@ -6,7 +6,12 @@
 {% block content %}
 <article class="publication">
   <header class="publication-header">
-    <p class="kicker">{{ publication.kind|title }} Section</p>
+    <p class="kicker">
+      {{ publication.kind|title }} Section
+      {% if publication.status != "published" %}
+      <span class="status-badge">{{ publication.status_label }}</span>
+      {% endif %}
+    </p>
     <h2>{{ section.title }}</h2>
     <p class="subtitle">From <a href="{{ section.back_to_publication_href }}">{{ publication.title }}</a></p>
     <p class="meta">
@@ -16,6 +21,15 @@
       · {{ section.word_count }} words
     </p>
     <p class="lede">{{ publication.description }}</p>
+    {% if publication.status in ["archived", "superseded"] %}
+    <div class="lifecycle-notice">
+      {% if publication.status == "archived" %}
+      This publication is archived. It remains available for reference but is not part of the current public sequence.
+      {% else %}
+      This publication has been superseded. It remains available for reference, but a newer version or argument may exist.
+      {% endif %}
+    </div>
+    {% endif %}
   </header>
 
   <section class="toc-panel">

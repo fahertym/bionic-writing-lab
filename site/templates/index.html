@@ -4,21 +4,21 @@
 
 {% block content %}
 <section class="hero">
-  <p class="kicker">Public archive and writing lab</p>
-  <h2>{{ site.tagline }}</h2>
-  <p class="lede">{{ site.description }}</p>
+  <p class="kicker">Public archive and publishing lab</p>
+  <h2>Writing about the machinery underneath things.</h2>
+  <p class="lede">A publishing lab for arguments that outgrew the feed. The lab converts fragments, drafts, arguments, essays, books, fiction, and AI-assisted notes into structured public artifacts.</p>
   <div class="hero-grid">
     <div>
-      <h3>Markdown-first publishing</h3>
-      <p>Draft in plain text, keep manifests readable, and generate the site and downloads as outputs instead of treating exports as source files.</p>
+      <h3>Not a feed</h3>
+      <p>Fragments should not die in the feed. Drafts, notes, essays, pamphlets, books, poems, and fiction can mature without being flattened into one chronological stream.</p>
     </div>
     <div>
-      <h3>Many publication kinds</h3>
-      <p>Books, essays, poems, pamphlets, collections, posts, and series all belong here without being forced into one manuscript shape.</p>
+      <h3>Forms stay distinct</h3>
+      <p>Form matters. A poem is not a post. A pamphlet is not a chapter by force. A concept is not a tag.</p>
     </div>
     <div>
-      <h3>Static by design</h3>
-      <p>The site is built for GitHub Pages now and can move to a custom domain later without introducing a backend.</p>
+      <h3>Source and surface</h3>
+      <p>Source is durable; surfaces are generated. Markdown and manifests produce site pages, downloads, feeds, search, concepts, paths, and relationship views.</p>
     </div>
   </div>
 </section>
@@ -26,7 +26,7 @@
 <section class="panel">
   <div class="section-heading">
     <h3>Recent Publications</h3>
-    <p class="section-copy">The current example set shows how different kinds of writing can share one publishing layer.</p>
+    <p class="section-copy">Published pieces from the lab, across short work, long work, grouped projects, and experiments.</p>
   </div>
   <div class="card-grid">
     {% for publication in recent_publications %}
@@ -44,12 +44,27 @@
 
 <section class="panel split-panel">
   <div>
-    <h3>Downloads stay honest</h3>
-    <p>Every downloadable publication keeps Markdown available, and Pandoc exports can add PDF, EPUB, or DOCX when the toolchain is present.</p>
+    <h3>Structured public artifacts</h3>
+    <p>Concepts, reading paths, and publication relationships make the work navigable by idea, route, and provenance instead of only by date.</p>
   </div>
   <div>
-    <h3>Built for a larger archive</h3>
-    <p>Bionic Writing Lab is meant to become a durable public home for writing projects, not just a single book site. GitHub Pages works now, and a custom domain can come later.</p>
+    <h3>A cybernetic scriptorium</h3>
+    <p>The lab is a machine room for systems writing: serious, archival, writerly, and built to turn rough material into durable public structure.</p>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="section-heading">
+    <h3>Start By Form</h3>
+    <p class="section-copy">Choose the shape of the work before choosing the latest entry.</p>
+  </div>
+  <div class="kind-entry-grid">
+    {% for kind, items in grouped_publications.items() %}
+    <a class="kind-entry" href="{{ kind_routes[kind] }}">
+      <span>{{ kind_labels[kind] }}</span>
+      <small>{{ items|length }} published</small>
+    </a>
+    {% endfor %}
   </div>
 </section>
 

@@ -18,9 +18,14 @@
       placeholder="Search by title, tags, author, route, dates, or excerpt"
       autocomplete="off"
     />
+    <div id="facet-controls" class="facet-grid" aria-label="Search filters"></div>
+    <div class="search-actions">
+      <button id="clear-search" class="text-button" type="button">Clear search and filters</button>
+    </div>
   </form>
   <p class="search-help">
-    Search covers titles, subtitles, descriptions, kinds, tags, status, author, route, dates, and a short excerpt from each publication.
+    Search covers titles, subtitles, descriptions, kinds, tags, concepts, reading paths, relationship IDs, status, author, route, dates, and a short excerpt from each publication.
+    Different filter groups combine together; multiple choices inside one group match any selected choice.
   </p>
   <p class="search-help">
     The raw static index is exposed as <code>/search-index.json</code> for the built site and is available here at <a href="{{ search_index_href }}">{{ search_index_href }}</a>.
@@ -44,39 +49,150 @@
     const input = document.getElementById("search-query");
     const status = document.getElementById("search-status");
     const results = document.getElementById("search-results");
+    const facetControls = document.getElementById("facet-controls");
+    const clearButton = document.getElementById("clear-search");
     const params = new URLSearchParams(window.location.search);
     const initialQuery = params.get("q") || "";
     input.value = initialQuery;
+    const facetConfig = [
+      { key: "kind", label: "Kind", value: (item) => item.kind, text: (item) => item.kind_label || item.kind },
+      { key: "tag", label: "Tag", value: (item) => item.tags || [] },
+      { key: "year", label: "Year", value: (item) => item.year },
+      { key: "concept", label: "Concept", value: (item) => item.concept_ids || [], textItems: (item) => item.concepts || [] },
+      { key: "path", label: "Reading Path", value: (item) => item.path_ids || [], textItems: (item) => item.reading_paths || [] },
+    ];
+
+    function escapeHTML(value) {
+      return String(value || "").replace(/[&<>"']/g, (character) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      }[character]));
+    }
+
+    function humanize(value) {
+      return String(value || "").replace(/[-_]/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+    }
+
+    function asArray(value) {
+      if (!value) {
+        return [];
+      }
+      return Array.isArray(value) ? value.filter(Boolean) : [value];
+    }
+
+    function selectedValues(key) {
+      return Array.from(facetControls.querySelectorAll(`input[name="${key}"]:checked`)).map((item) => item.value);
+    }
+
+    function buildFacetOptions(items, config) {
+      const options = new Map();
+      for (const item of items) {
+        if (config.textItems) {
+          for (const textItem of config.textItems(item)) {
+            const id = textItem.id;
+            if (!id) {
+              continue;
+            }
+            const existing = options.get(id) || { value: id, label: textItem.title || id, count: 0 };
+            existing.count += 1;
+            options.set(id, existing);
+          }
+          continue;
+        }
+
+        for (const value of asArray(config.value(item))) {
+          const label = config.text ? config.text(item) : humanize(value);
+          const existing = options.get(value) || { value, label, count: 0 };
+          existing.count += 1;
+          options.set(value, existing);
+        }
+      }
+      return Array.from(options.values()).sort((left, right) => {
+        if (config.key === "year") {
+          return String(right.value).localeCompare(String(left.value));
+        }
+        return left.label.localeCompare(right.label);
+      });
+    }
+
+    function renderFacets(items) {
+      facetControls.innerHTML = facetConfig.map((config) => {
+        const options = buildFacetOptions(items, config);
+        if (!options.length) {
+          return "";
+        }
+        const choices = options.map((option) => {
+          const id = `facet-${config.key}-${option.value}`.replace(/[^a-zA-Z0-9_-]/g, "-");
+          const checked = params.getAll(config.key).includes(option.value) ? " checked" : "";
+          return `
+            <label class="facet-option" for="${escapeHTML(id)}">
+              <input id="${escapeHTML(id)}" type="checkbox" name="${escapeHTML(config.key)}" value="${escapeHTML(option.value)}"${checked} />
+              <span>${escapeHTML(option.label)} <small>${option.count}</small></span>
+            </label>
+          `;
+        }).join("");
+        return `
+          <fieldset class="facet-group">
+            <legend>${escapeHTML(config.label)}</legend>
+            <div class="facet-options">${choices}</div>
+          </fieldset>
+        `;
+      }).join("");
+    }
 
     function renderCard(item) {
-      const tags = item.tags && item.tags.length ? `<p class="relationship-line">Tags: ${item.tags.join(", ")}</p>` : "";
-      const subtitle = item.subtitle ? `<p class="subtitle">${item.subtitle}</p>` : "";
-      const updated = item.updated ? ` · Updated ${item.updated}` : "";
-      const dated = item.date ? ` · Published ${item.date}` : "";
+      const tags = item.tags && item.tags.length ? `<p class="relationship-line">Tags: ${item.tags.map(escapeHTML).join(", ")}</p>` : "";
+      const concepts = item.concepts && item.concepts.length ? `<p class="relationship-line">Concepts: ${item.concepts.map((concept) => escapeHTML(concept.title)).join(", ")}</p>` : "";
+      const paths = item.reading_paths && item.reading_paths.length ? `<p class="relationship-line">Paths: ${item.reading_paths.map((path) => escapeHTML(path.title)).join(", ")}</p>` : "";
+      const subtitle = item.subtitle ? `<p class="subtitle">${escapeHTML(item.subtitle)}</p>` : "";
+      const updated = item.updated ? ` · Updated ${escapeHTML(item.updated)}` : "";
+      const dated = item.date ? ` · Published ${escapeHTML(item.date)}` : "";
+      const year = item.year ? ` · ${escapeHTML(item.year)}` : "";
+      const statusBadge = item.show_status ? `<span class="status-badge">${escapeHTML(humanize(item.status))}</span>` : "";
       return `
         <article class="card">
-          <p class="meta">${item.kind_label} · ${item.status}${dated}${updated}</p>
-          <h3><a href="${item.route}">${item.title}</a></h3>
+          <p class="meta">${escapeHTML(item.kind_label)}${year}${dated}${updated}${statusBadge}</p>
+          <h3><a href="${escapeHTML(item.route)}">${escapeHTML(item.title)}</a></h3>
           ${subtitle}
-          <p>${item.description}</p>
-          <p class="relationship-line">${item.author} · <code>${item.route}</code></p>
-          <p>${item.excerpt}</p>
+          <p>${escapeHTML(item.description)}</p>
+          <p class="relationship-line">${escapeHTML(item.author)} · <code>${escapeHTML(item.route)}</code></p>
+          <p>${escapeHTML(item.excerpt)}</p>
           ${tags}
+          ${concepts}
+          ${paths}
         </article>
       `;
     }
 
+    function matchesFacet(item, config) {
+      const selected = selectedValues(config.key);
+      if (!selected.length) {
+        return true;
+      }
+      const values = asArray(config.value(item));
+      return selected.some((value) => values.includes(value));
+    }
+
+    function filterItems(items, query) {
+      const normalized = query.trim().toLowerCase();
+      return items.filter((item) => {
+        const textMatches = normalized ? item.search_text.includes(normalized) : true;
+        return textMatches && facetConfig.every((config) => matchesFacet(item, config));
+      });
+    }
+
     function updateResults(items, query) {
       const normalized = query.trim().toLowerCase();
-      const filtered = normalized
-        ? items.filter((item) => item.search_text.includes(normalized))
-        : items;
+      const filtered = filterItems(items, query);
 
       const countLabel = `${filtered.length} result${filtered.length === 1 ? "" : "s"}`;
       status.textContent = normalized ? `${countLabel} for "${query}"` : `${countLabel} in the static index`;
 
       if (!filtered.length) {
-        results.innerHTML = '<p class="empty-state">No publications matched that search yet.</p>';
+        results.innerHTML = '<p class="empty-state">No publications matched those search terms and filters.</p>';
         return;
       }
 
@@ -89,7 +205,12 @@
         throw new Error(`Search index request failed with ${response.status}`);
       }
       const payload = await response.json();
-      const items = payload.publications || [];
+      const includeDrafts = Boolean(payload.site && payload.site.visibility && payload.site.visibility.include_drafts);
+      const items = (payload.publications || []).map((item) => ({
+        ...item,
+        show_status: includeDrafts && item.status !== "published",
+      }));
+      renderFacets(items);
 
       const syncQuery = () => {
         const query = input.value;
@@ -99,6 +220,12 @@
         } else {
           nextParams.delete("q");
         }
+        for (const config of facetConfig) {
+          nextParams.delete(config.key);
+          for (const value of selectedValues(config.key)) {
+            nextParams.append(config.key, value);
+          }
+        }
         const nextQueryString = nextParams.toString();
         const nextUrl = nextQueryString ? `${window.location.pathname}?${nextQueryString}` : window.location.pathname;
         window.history.replaceState({}, "", nextUrl);
@@ -106,10 +233,18 @@
       };
 
       input.addEventListener("input", syncQuery);
+      facetControls.addEventListener("change", syncQuery);
+      clearButton.addEventListener("click", () => {
+        input.value = "";
+        for (const checkbox of facetControls.querySelectorAll("input[type='checkbox']")) {
+          checkbox.checked = false;
+        }
+        syncQuery();
+      });
       updateResults(items, initialQuery);
     } catch (error) {
       status.textContent = "Search index could not be loaded";
-      results.innerHTML = `<p class="empty-state">${error.message}</p>`;
+      results.innerHTML = `<p class="empty-state">${escapeHTML(error.message)}</p>`;
     }
   })();
 </script>

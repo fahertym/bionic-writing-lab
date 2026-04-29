@@ -5,7 +5,7 @@
   "kind": "poem",
   "slug": "example-poem",
   "description": "A poem published directly from Markdown.",
-  "status": "active",
+  "status": "published",
   "tags": ["poem", "example"],
   "source": "content/poems/example-poem.md",
   "web_route": "/poems/example-poem/",
@@ -15,4 +15,3 @@
   "date": "2026-04-23",
   "updated": "2026-04-23"
 }
-

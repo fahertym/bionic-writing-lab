@@ -5,7 +5,7 @@
   "kind": "post",
   "slug": "example-post",
   "description": "A short post published through the same manifest-driven system as longer works.",
-  "status": "active",
+  "status": "published",
   "tags": ["post", "example", "web"],
   "source": "content/posts/example-post.md",
   "web_route": "/posts/example-post/",
@@ -15,4 +15,3 @@
   "date": "2026-04-23",
   "updated": "2026-04-23"
 }
-

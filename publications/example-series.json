@@ -6,7 +6,7 @@
   "kind": "series",
   "slug": "example-series",
   "description": "A series landing page for related publications.",
-  "status": "active",
+  "status": "published",
   "tags": ["series", "example"],
   "source": "content/series/example-series/README.md",
   "members": ["example-book", "example-pamphlet"],

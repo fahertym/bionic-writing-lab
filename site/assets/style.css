@@ -1,12 +1,26 @@
 :root {
-  --paper: #f8f2e8;
-  --paper-strong: #efe3d0;
-  --ink: #1f1a17;
-  --muted: #6d6056;
-  --accent: #9a3d1a;
-  --accent-soft: #cf7d4b;
-  --line: rgba(31, 26, 23, 0.16);
-  --shadow: rgba(31, 26, 23, 0.08);
+  --void: #030604;
+  --deep-black: #070d0a;
+  --dark-panel: #0d1712;
+  --soft-panel: #12211a;
+  --emerald: #00e676;
+  --neo-green: #39ff14;
+  --jade: #18d88f;
+  --mint: #b9fbc0;
+  --ink: #eaf7ef;
+  --muted: #8ba99a;
+  --line: #1f3a2d;
+  --amber: #f5c542;
+  --violet: #8b5cf6;
+  --cyan: #45e6ff;
+  --danger: #ff4d6d;
+  --paper: var(--deep-black);
+  --paper-strong: var(--soft-panel);
+  --accent: var(--emerald);
+  --accent-soft: var(--jade);
+  --panel-bg: rgba(13, 23, 18, 0.88);
+  --panel-soft: rgba(18, 33, 26, 0.76);
+  --shadow: rgba(0, 230, 118, 0.11);
   --max-width: 72rem;
 }
 
@@ -22,19 +36,21 @@ body {
   margin: 0;
   color: var(--ink);
   background:
-    radial-gradient(circle at top left, rgba(207, 125, 75, 0.18), transparent 28rem),
-    linear-gradient(180deg, #fcf7ef 0%, var(--paper) 35%, #f3e7d5 100%);
+    radial-gradient(circle at top left, rgba(0, 230, 118, 0.14), transparent 24rem),
+    radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.08), transparent 28rem),
+    linear-gradient(180deg, var(--void) 0%, var(--paper) 42%, #050907 100%);
   font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
   line-height: 1.7;
 }
 
 a {
-  color: inherit;
-  text-decoration-color: rgba(154, 61, 26, 0.45);
+  color: var(--cyan);
+  text-decoration-color: rgba(69, 230, 255, 0.42);
   text-underline-offset: 0.16em;
 }
 
 a:hover {
+  color: var(--mint);
   text-decoration-color: var(--accent);
 }
 
@@ -48,7 +64,7 @@ a:hover {
 .panel,
 .publication,
 .site-footer {
-  background: rgba(248, 242, 232, 0.82);
+  background: var(--panel-bg);
   border: 1px solid var(--line);
   box-shadow: 0 1rem 2.5rem -2rem var(--shadow);
   backdrop-filter: blur(10px);
@@ -57,6 +73,7 @@ a:hover {
 .site-header {
   padding: 1.4rem 1.5rem;
   border-radius: 1.2rem;
+  border-top-color: rgba(0, 230, 118, 0.42);
 }
 
 .site-name {
@@ -72,6 +89,7 @@ a:hover {
 }
 
 .site-name a {
+  color: var(--ink);
   text-decoration: none;
 }
 
@@ -79,7 +97,8 @@ a:hover {
 .kicker,
 .meta,
 .section-link,
-.download-note {
+.download-note,
+.status-badge {
   font-family: "Avenir Next", "Segoe UI", sans-serif;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -104,7 +123,13 @@ a:hover {
   padding: 0.35rem 0.7rem;
   border-radius: 999px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(18, 33, 26, 0.78);
+  color: var(--mint);
+}
+
+.site-nav a:hover {
+  border-color: rgba(0, 230, 118, 0.55);
+  color: var(--ink);
 }
 
 .page-content {
@@ -118,7 +143,8 @@ a:hover {
 }
 
 .hero-grid,
-.split-panel {
+.split-panel,
+.kind-entry-grid {
   display: grid;
   gap: 1rem;
 }
@@ -133,7 +159,7 @@ a:hover {
   padding: 1rem;
   border-radius: 1rem;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.38);
+  background: var(--panel-soft);
 }
 
 .hero-compact {
@@ -183,11 +209,35 @@ a:hover {
   gap: 1rem;
 }
 
+.kind-entry-grid {
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+}
+
+.kind-entry {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--panel-soft);
+  text-decoration: none;
+}
+
+.kind-entry span {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.kind-entry small {
+  color: var(--muted);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+}
+
 .card {
   padding: 1rem;
   border-radius: 1rem;
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.4));
+  background: linear-gradient(180deg, rgba(18, 33, 26, 0.86), rgba(13, 23, 18, 0.72));
 }
 
 .card h3,
@@ -198,12 +248,14 @@ a:hover {
 
 .publication-list,
 .download-list,
-.tag-list {
+.tag-list,
+.link-list {
   padding-left: 1.1rem;
 }
 
 .publication-list li,
-.download-list li {
+.download-list li,
+.link-list li {
   margin: 0.5rem 0;
 }
 
@@ -217,10 +269,30 @@ a:hover {
   border-bottom: 1px solid var(--line);
 }
 
+.status-badge {
+  display: inline-flex;
+  margin-left: 0.55rem;
+  padding: 0.16rem 0.45rem;
+  border: 1px solid rgba(245, 197, 66, 0.42);
+  border-radius: 999px;
+  color: var(--amber);
+  background: rgba(245, 197, 66, 0.1);
+  vertical-align: middle;
+}
+
+.lifecycle-notice {
+  margin-top: 1rem;
+  padding: 0.75rem 0.9rem;
+  border-left: 0.2rem solid var(--amber);
+  background: rgba(245, 197, 66, 0.1);
+  color: var(--muted);
+}
+
 .download-panel,
 .toc-panel,
 .member-panel,
-.relationship-panel {
+.relationship-panel,
+.concept-definition {
   margin-top: 1.25rem;
   padding: 1rem;
   border-radius: 1rem;
@@ -231,12 +303,65 @@ a:hover {
   margin: 0.25rem 0;
 }
 
+.publication-relationships {
+  display: grid;
+  gap: 1rem;
+}
+
+.publication-relationships h4 {
+  margin: 0 0 0.35rem;
+}
+
+.relationship-group-stack {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.relationship-group {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+}
+
+.relationship-group:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.concept-definition h3 {
+  margin-top: 0;
+}
+
+.concept-definition p {
+  margin-bottom: 0;
+}
+
 .toc-list {
   margin: 0.5rem 0 0;
 }
 
 .toc-list li {
   margin: 0.55rem 0;
+}
+
+.path-list {
+  display: grid;
+  gap: 1rem;
+  padding-left: 1.4rem;
+}
+
+.path-list li {
+  padding-left: 0.25rem;
+}
+
+.path-list span {
+  display: block;
+  color: var(--muted);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+}
+
+.path-list p {
+  margin-top: 0.25rem;
 }
 
 .toc-secondary-link {
@@ -274,7 +399,7 @@ a:hover {
   padding: 0.55rem 0.85rem;
   border-radius: 999px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.45);
+  background: var(--panel-soft);
   text-decoration: none;
 }
 
@@ -299,13 +424,81 @@ a:hover {
   padding: 0.85rem 1rem;
   border: 1px solid var(--line);
   border-radius: 0.9rem;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(3, 6, 4, 0.72);
   color: var(--ink);
   font: inherit;
 }
 
+.search-input:focus {
+  border-color: var(--accent);
+  outline: 2px solid rgba(0, 230, 118, 0.22);
+}
+
 .search-help {
   margin: 0;
+  color: var(--muted);
+}
+
+.search-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.text-button {
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-soft);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.text-button:hover {
+  border-color: rgba(0, 230, 118, 0.55);
+}
+
+.facet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+}
+
+.facet-group {
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  background: var(--panel-soft);
+}
+
+.facet-group legend {
+  padding: 0 0.25rem;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.facet-options {
+  display: grid;
+  gap: 0.35rem;
+  max-height: 11rem;
+  overflow: auto;
+}
+
+.facet-option {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.45rem;
+  align-items: baseline;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
+.facet-option small {
   color: var(--muted);
 }
 
@@ -326,9 +519,9 @@ code {
 .tag-list li {
   padding: 0.25rem 0.7rem;
   border-radius: 999px;
-  border: 1px solid rgba(154, 61, 26, 0.24);
-  background: rgba(154, 61, 26, 0.08);
-  color: var(--accent);
+  border: 1px solid rgba(24, 216, 143, 0.34);
+  background: rgba(24, 216, 143, 0.1);
+  color: var(--mint);
   font-family: "Avenir Next", "Segoe UI", sans-serif;
   font-size: 0.78rem;
 }

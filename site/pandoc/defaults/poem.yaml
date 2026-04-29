@@ -1,0 +1,9 @@
+from: markdown+hard_line_breaks+raw_tex+raw_html
+standalone: true
+toc: false
+number-sections: false
+wrap: preserve
+variables:
+  documentclass: article
+  papersize: letter
+  geometry: margin=1.1in
