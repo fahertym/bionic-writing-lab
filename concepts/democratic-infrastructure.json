@@ -1,0 +1,11 @@
+{
+  "id": "democratic-infrastructure",
+  "title": "Democratic Infrastructure",
+  "slug": "democratic-infrastructure",
+  "short_definition": "The tools, institutions, protocols, and habits that let people coordinate power without surrendering it to owners, bosses, platforms, or states by default.",
+  "description": "Democratic infrastructure asks what material systems are required for self-governance to become practical: governance tools, cooperative economics, civic interfaces, accountability, and shared decision machinery.",
+  "status": "draft",
+  "tags": ["democracy", "infrastructure", "icn"],
+  "related_concepts": ["legitimacy", "institutional-laundering", "ai-as-amplifier"],
+  "publications": []
+}

@@ -1,0 +1,11 @@
+{
+  "id": "legitimacy",
+  "title": "Legitimacy",
+  "slug": "legitimacy",
+  "short_definition": "The social permission structure that makes power appear rightful, natural, necessary, or deserved.",
+  "description": "Legitimacy is what power needs when force alone is too expensive or too revealing. It turns command into authority and compliance into common sense.",
+  "status": "draft",
+  "tags": ["power", "authority", "institutions"],
+  "related_concepts": ["institutional-laundering", "religion-as-infrastructure", "coercion"],
+  "publications": []
+}

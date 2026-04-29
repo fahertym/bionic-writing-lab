@@ -130,6 +130,8 @@ Concepts are defined recurring ideas that can appear across publications. They l
 
 They are not tags. `kind` is form, `tag` is loose topic metadata, `series` and `collection` are publication structures, `reading path` is a curated route, and `concept` is a defined idea with a short definition, description, related concepts, and linked publications. See [docs/concepts.md](/home/matt/docs/bionic-writing-lab/docs/concepts.md).
 
+The first real draft concept map and import order are described in [docs/content-map.md](/home/matt/docs/bionic-writing-lab/docs/content-map.md) and [docs/import-plan.md](/home/matt/docs/bionic-writing-lab/docs/import-plan.md).
+
 ## Fragments
 
 Fragments are first-class seed forms: argument shards, reply drafts, debate skeletons, concept stubs, AI-assisted notes, rough observations, and compressed ideas that may later mature into posts, essays, pamphlets, chapters, or books.

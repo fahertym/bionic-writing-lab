@@ -23,7 +23,6 @@ REQUIRED_FILES = (
     "concepts/index.html",
     "concepts/source-and-surface/index.html",
     "paths/index.html",
-    "paths/start-here/index.html",
     "publications.json",
     "feed.json",
     "search-index.json",

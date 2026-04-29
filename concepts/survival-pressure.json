@@ -1,0 +1,11 @@
+{
+  "id": "survival-pressure",
+  "title": "Survival Pressure",
+  "slug": "survival-pressure",
+  "short_definition": "The coercive condition created when refusal carries material penalties like hunger, homelessness, exclusion, debt, or loss of access.",
+  "description": "Survival pressure names the force that appears when a person is formally free to refuse but materially punished for doing so. It is the background pressure that turns choices into compliance.",
+  "status": "draft",
+  "tags": ["power", "coercion", "economics"],
+  "related_concepts": ["coercion", "property-as-command", "artificial-scarcity"],
+  "publications": []
+}
