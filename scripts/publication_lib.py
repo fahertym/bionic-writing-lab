@@ -622,8 +622,10 @@ def validate_reading_paths(reading_paths: List[Dict[str, Any]], publications: Li
 
         items = reading_path.get("items")
         if "items" in reading_path:
-            if not isinstance(items, list) or not items:
-                errors.append(f"{manifest_label}: items must be a non-empty list")
+            if not isinstance(items, list):
+                errors.append(f"{manifest_label}: items must be a list")
+            elif not items and status in PUBLIC_STATUSES:
+                errors.append(f"{manifest_label}: published reading paths must have at least one item")
             else:
                 seen_items: set[str] = set()
                 for item_id in items:

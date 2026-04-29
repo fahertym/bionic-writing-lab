@@ -2,13 +2,8 @@
   "id": "start-here",
   "title": "Start Here",
   "slug": "start-here",
-  "description": "A short example route through the current sample publications.",
-  "status": "published",
-  "tags": ["example", "orientation"],
-  "items": [
-    "example-fragment",
-    "example-essay",
-    "example-pamphlet",
-    "example-book"
-  ]
+  "description": "A future entry route through the real public work once the first import pass has enough published pieces.",
+  "status": "draft",
+  "tags": ["orientation", "planned"],
+  "items": []
 }

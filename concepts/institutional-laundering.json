@@ -1,0 +1,11 @@
+{
+  "id": "institutional-laundering",
+  "title": "Institutional Laundering",
+  "slug": "institutional-laundering",
+  "short_definition": "The process by which institutions convert violence, extraction, prejudice, or domination into procedure, legitimacy, tradition, or neutral administration.",
+  "description": "Institutional laundering hides power inside respectable forms. Harm becomes policy, hierarchy becomes order, and coercion becomes paperwork.",
+  "status": "draft",
+  "tags": ["institutions", "legitimacy", "power"],
+  "related_concepts": ["legitimacy", "coercion", "religion-as-infrastructure"],
+  "publications": []
+}
