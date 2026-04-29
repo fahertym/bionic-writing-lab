@@ -6,8 +6,11 @@
   "kind": "pamphlet",
   "slug": "example-pamphlet",
   "description": "A pamphlet-format publication intended for focused web reading and simple exports.",
-  "status": "active",
+  "status": "published",
   "tags": ["pamphlet", "example", "focused-release"],
+  "relationships": {
+    "expands": ["example-essay"]
+  },
   "source": "content/pamphlets/example-pamphlet.md",
   "web_route": "/pamphlets/example-pamphlet/",
   "output_formats": ["site", "markdown", "pdf"],
@@ -16,4 +19,3 @@
   "date": "2026-04-23",
   "updated": "2026-04-23"
 }
-

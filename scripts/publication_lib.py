@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import posixpath
 import re
 import shutil
@@ -15,11 +16,15 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLICATIONS_DIR = ROOT / "publications"
+PATHS_DIR = ROOT / "paths"
+CONCEPTS_DIR = ROOT / "concepts"
 SCHEMA_PATH = ROOT / "schema" / "publication.schema.json"
 SITE_DIR = ROOT / "site"
 SITE_CONFIG_PATH = SITE_DIR / "site.json"
 SITE_TEMPLATES_DIR = SITE_DIR / "templates"
 SITE_ASSETS_DIR = SITE_DIR / "assets"
+SITE_PANDOC_DIR = SITE_DIR / "pandoc"
+SITE_PANDOC_DEFAULTS_DIR = SITE_PANDOC_DIR / "defaults"
 DIST_DIR = ROOT / "dist"
 DIST_SITE_DIR = DIST_DIR / "site"
 
@@ -27,6 +32,7 @@ SUPPORTED_KINDS = (
     "book",
     "series",
     "essay",
+    "fragment",
     "poem",
     "post",
     "pamphlet",
@@ -34,7 +40,53 @@ SUPPORTED_KINDS = (
 )
 SUPPORTED_OUTPUT_FORMATS = ("site", "markdown", "pdf", "epub", "docx")
 PANDOC_OUTPUT_FORMATS = ("pdf", "epub", "docx")
+SINGLE_FILE_KINDS = ("essay", "fragment", "poem", "post", "pamphlet")
+FOLDER_KINDS = ("book", "collection", "series")
+DEFAULT_OUTPUT_FORMATS = {
+    "book": ["site", "markdown", "pdf", "epub", "docx"],
+    "collection": ["site", "markdown", "epub"],
+    "essay": ["site", "markdown", "pdf"],
+    "fragment": ["site", "markdown"],
+    "pamphlet": ["site", "markdown", "pdf"],
+    "poem": ["site", "markdown"],
+    "post": ["site", "markdown"],
+    "series": ["site", "markdown"],
+}
+SUPPORTED_STATUSES = (
+    "draft",
+    "imported",
+    "review",
+    "published",
+    "archived",
+    "superseded",
+    "private",
+)
+PUBLIC_STATUSES = ("published",)
 RELATIONSHIP_KINDS = ("series", "collection")
+PUBLICATION_RELATIONSHIP_KEYS = (
+    "expands",
+    "responds_to",
+    "supersedes",
+    "related",
+    "excerpt_of",
+    "adapted_from",
+)
+PUBLICATION_RELATIONSHIP_LABELS = {
+    "expands": "Expands",
+    "responds_to": "Responds To",
+    "supersedes": "Supersedes",
+    "related": "Related",
+    "excerpt_of": "Excerpt Of",
+    "adapted_from": "Adapted From",
+}
+PUBLICATION_INVERSE_RELATIONSHIP_LABELS = {
+    "expands": "Expanded By",
+    "responds_to": "Responses",
+    "supersedes": "Superseded By",
+    "related": "Related",
+    "excerpt_of": "Excerpts",
+    "adapted_from": "Adaptations",
+}
 SITE_CONFIG_REQUIRED_FIELDS = (
     "site_title",
     "tagline",
@@ -53,6 +105,7 @@ KIND_TO_SECTION = {
     "post": "posts",
     "pamphlet": "pamphlets",
     "collection": "collections",
+    "fragment": "fragments",
 }
 
 
@@ -72,6 +125,14 @@ def write_json(path: Path, payload: Any) -> None:
 
 def list_manifest_paths() -> List[Path]:
     return sorted(PUBLICATIONS_DIR.glob("*.json"))
+
+
+def list_reading_path_manifest_paths() -> List[Path]:
+    return sorted(PATHS_DIR.glob("*.json"))
+
+
+def list_concept_manifest_paths() -> List[Path]:
+    return sorted(CONCEPTS_DIR.glob("*.json"))
 
 
 def load_schema() -> Dict[str, Any]:
@@ -101,6 +162,26 @@ def load_publications() -> List[Dict[str, Any]]:
         )
         publications.append(publication)
     return publications
+
+
+def load_reading_paths() -> List[Dict[str, Any]]:
+    reading_paths: List[Dict[str, Any]] = []
+    for manifest_path in list_reading_path_manifest_paths():
+        reading_path = load_json(manifest_path)
+        reading_path["_manifest_path"] = manifest_path
+        reading_path["_route"] = f"/paths/{reading_path.get('slug', reading_path.get('id', ''))}/"
+        reading_paths.append(reading_path)
+    return reading_paths
+
+
+def load_concepts() -> List[Dict[str, Any]]:
+    concepts: List[Dict[str, Any]] = []
+    for manifest_path in list_concept_manifest_paths():
+        concept = load_json(manifest_path)
+        concept["_manifest_path"] = manifest_path
+        concept["_route"] = f"/concepts/{concept.get('slug', concept.get('id', ''))}/"
+        concepts.append(concept)
+    return concepts
 
 
 def normalize_route(route: str | None, kind: str, slug: str) -> str:
@@ -169,8 +250,77 @@ def slugify(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", lowered).strip("-")
 
 
+def parse_csv(value: str) -> List[str]:
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
+def validate_output_formats(formats: List[str]) -> List[str]:
+    errors: List[str] = []
+    if not formats:
+        errors.append("formats must include at least one output format")
+    for fmt in formats:
+        if fmt not in SUPPORTED_OUTPUT_FORMATS:
+            expected = ", ".join(SUPPORTED_OUTPUT_FORMATS)
+            errors.append(f"unsupported output format '{fmt}' (expected one of: {expected})")
+    return errors
+
+
 def kind_label(kind: str) -> str:
     return KIND_TO_SECTION[kind].replace("-", " ").title()
+
+
+def status_label(status: str) -> str:
+    return status.replace("-", " ").title()
+
+
+def include_drafts_enabled() -> bool:
+    return os.environ.get("INCLUDE_DRAFTS", "").lower() in {"1", "true", "yes", "on"}
+
+
+def publication_is_public(publication: Dict[str, Any]) -> bool:
+    return publication.get("status") in PUBLIC_STATUSES
+
+
+def publication_is_included(publication: Dict[str, Any]) -> bool:
+    return include_drafts_enabled() or publication_is_public(publication)
+
+
+def reading_path_is_public(reading_path: Dict[str, Any]) -> bool:
+    return reading_path.get("status") in PUBLIC_STATUSES
+
+
+def reading_path_is_included(reading_path: Dict[str, Any]) -> bool:
+    return include_drafts_enabled() or reading_path_is_public(reading_path)
+
+
+def concept_is_public(concept: Dict[str, Any]) -> bool:
+    return concept.get("status") in PUBLIC_STATUSES
+
+
+def concept_is_included(concept: Dict[str, Any]) -> bool:
+    return include_drafts_enabled() or concept_is_public(concept)
+
+
+def filter_publications_for_build(publications: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    return [publication for publication in publications if publication_is_included(publication)]
+
+
+def filter_reading_paths_for_build(reading_paths: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    return [reading_path for reading_path in reading_paths if reading_path_is_included(reading_path)]
+
+
+def filter_concepts_for_build(concepts: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    return [concept for concept in concepts if concept_is_included(concept)]
+
+
+def build_visibility_metadata(publications: List[Dict[str, Any]], included_publications: List[Dict[str, Any]]) -> Dict[str, Any]:
+    return {
+        "mode": "all-status preview" if include_drafts_enabled() else "public",
+        "include_drafts": include_drafts_enabled(),
+        "included_statuses": list(SUPPORTED_STATUSES) if include_drafts_enabled() else list(PUBLIC_STATUSES),
+        "publication_count": len(publications),
+        "included_publication_count": len(included_publications),
+    }
 
 
 def clear_directory(path: Path) -> None:
@@ -355,12 +505,33 @@ def assemble_markdown(publication: Dict[str, Any]) -> str:
     return "\n\n".join(parts).strip() + "\n"
 
 
+def assemble_pandoc_markdown(publication: Dict[str, Any]) -> str:
+    paths = resolve_source_paths(publication)
+    parts: List[str] = []
+    for path in paths:
+        content = path.read_text(encoding="utf-8").strip()
+        if content:
+            parts.append(content)
+
+    if publication.get("kind") not in {"book", "collection"} or len(parts) <= 1:
+        return "\n\n".join(parts).strip() + "\n"
+
+    page_break = "\n\n\\newpage\n\n<div style=\"page-break-after: always;\"></div>\n\n"
+    return page_break.join(parts).strip() + "\n"
+
+
 def publication_word_count(publication: Dict[str, Any]) -> int:
     return len(strip_markdown(assemble_markdown(publication)).split())
 
 
 def build_download_filename(publication: Dict[str, Any], extension: str) -> str:
     return f"{publication['slug']}.{extension}"
+
+
+def default_downloadable(kind: str, formats: List[str]) -> bool:
+    if kind == "fragment":
+        return False
+    return "markdown" in formats
 
 
 def validate_site_config(site_config: Dict[str, Any]) -> List[str]:
@@ -398,9 +569,176 @@ def validate_site_config(site_config: Dict[str, Any]) -> List[str]:
     return errors
 
 
+def validate_reading_paths(reading_paths: List[Dict[str, Any]], publications: List[Dict[str, Any]]) -> List[str]:
+    errors: List[str] = []
+    publication_ids = {publication.get("id") for publication in publications}
+    id_to_manifest: Dict[str, str] = {}
+    slug_to_manifest: Dict[str, str] = {}
+
+    required_fields = ("id", "title", "slug", "description", "status", "items")
+    for reading_path in reading_paths:
+        manifest_label = str(reading_path["_manifest_path"].relative_to(ROOT))
+
+        for field in required_fields:
+            if field not in reading_path:
+                errors.append(f"{manifest_label}: missing required field '{field}'")
+
+        path_id = reading_path.get("id")
+        if path_id:
+            if not isinstance(path_id, str) or slugify(path_id) != path_id:
+                errors.append(f"{manifest_label}: id '{path_id}' should use lowercase letters, numbers, and dashes only")
+            other_manifest = id_to_manifest.get(path_id)
+            if other_manifest:
+                errors.append(f"{manifest_label}: duplicate reading path id '{path_id}' also used by {other_manifest}")
+            id_to_manifest[path_id] = manifest_label
+
+        slug = reading_path.get("slug")
+        if slug:
+            if not isinstance(slug, str) or slugify(slug) != slug:
+                errors.append(f"{manifest_label}: slug '{slug}' should use lowercase letters, numbers, and dashes only")
+            other_manifest = slug_to_manifest.get(slug)
+            if other_manifest:
+                errors.append(f"{manifest_label}: duplicate reading path slug '{slug}' also used by {other_manifest}")
+            slug_to_manifest[slug] = manifest_label
+
+        status = reading_path.get("status")
+        if "status" not in reading_path:
+            errors.append(f"{manifest_label}: missing required field 'status'")
+        elif status not in SUPPORTED_STATUSES:
+            expected_statuses = ", ".join(SUPPORTED_STATUSES)
+            errors.append(f"{manifest_label}: invalid status '{status}' (expected one of: {expected_statuses})")
+
+        title = reading_path.get("title")
+        if "title" in reading_path and (not isinstance(title, str) or not title.strip()):
+            errors.append(f"{manifest_label}: title must be a non-empty string")
+
+        description = reading_path.get("description")
+        if "description" in reading_path and (not isinstance(description, str) or not description.strip()):
+            errors.append(f"{manifest_label}: description must be a non-empty string")
+
+        tags = reading_path.get("tags", [])
+        if tags and (not isinstance(tags, list) or not all(isinstance(tag, str) for tag in tags)):
+            errors.append(f"{manifest_label}: tags must be a list of strings")
+
+        items = reading_path.get("items")
+        if "items" in reading_path:
+            if not isinstance(items, list) or not items:
+                errors.append(f"{manifest_label}: items must be a non-empty list")
+            else:
+                seen_items: set[str] = set()
+                for item_id in items:
+                    if not isinstance(item_id, str):
+                        errors.append(f"{manifest_label}: each item id must be a string")
+                        continue
+                    if item_id in seen_items:
+                        errors.append(f"{manifest_label}: duplicate item id '{item_id}' in items")
+                    seen_items.add(item_id)
+                    if item_id not in publication_ids:
+                        errors.append(f"{manifest_label}: item reference '{item_id}' does not match a known publication id")
+
+    return errors
+
+
+def validate_concepts(concepts: List[Dict[str, Any]], publications: List[Dict[str, Any]]) -> List[str]:
+    errors: List[str] = []
+    publication_ids = {publication.get("id") for publication in publications}
+    concept_ids = {concept.get("id") for concept in concepts}
+    id_to_manifest: Dict[str, str] = {}
+    slug_to_manifest: Dict[str, str] = {}
+
+    required_fields = (
+        "id",
+        "title",
+        "slug",
+        "short_definition",
+        "description",
+        "status",
+        "related_concepts",
+        "publications",
+    )
+    for concept in concepts:
+        manifest_label = str(concept["_manifest_path"].relative_to(ROOT))
+
+        for field in required_fields:
+            if field not in concept:
+                errors.append(f"{manifest_label}: missing required field '{field}'")
+
+        concept_id = concept.get("id")
+        if concept_id:
+            if not isinstance(concept_id, str) or slugify(concept_id) != concept_id:
+                errors.append(f"{manifest_label}: id '{concept_id}' should use lowercase letters, numbers, and dashes only")
+            other_manifest = id_to_manifest.get(concept_id)
+            if other_manifest:
+                errors.append(f"{manifest_label}: duplicate concept id '{concept_id}' also used by {other_manifest}")
+            id_to_manifest[concept_id] = manifest_label
+
+        slug = concept.get("slug")
+        if slug:
+            if not isinstance(slug, str) or slugify(slug) != slug:
+                errors.append(f"{manifest_label}: slug '{slug}' should use lowercase letters, numbers, and dashes only")
+            other_manifest = slug_to_manifest.get(slug)
+            if other_manifest:
+                errors.append(f"{manifest_label}: duplicate concept slug '{slug}' also used by {other_manifest}")
+            slug_to_manifest[slug] = manifest_label
+
+        status = concept.get("status")
+        if "status" not in concept:
+            errors.append(f"{manifest_label}: missing required field 'status'")
+        elif status not in SUPPORTED_STATUSES:
+            expected_statuses = ", ".join(SUPPORTED_STATUSES)
+            errors.append(f"{manifest_label}: invalid status '{status}' (expected one of: {expected_statuses})")
+
+        for field in ("title", "short_definition", "description"):
+            value = concept.get(field)
+            if field in concept and (not isinstance(value, str) or not value.strip()):
+                errors.append(f"{manifest_label}: {field} must be a non-empty string")
+
+        tags = concept.get("tags", [])
+        if tags and (not isinstance(tags, list) or not all(isinstance(tag, str) for tag in tags)):
+            errors.append(f"{manifest_label}: tags must be a list of strings")
+
+        related_concepts = concept.get("related_concepts", [])
+        if "related_concepts" in concept:
+            if not isinstance(related_concepts, list):
+                errors.append(f"{manifest_label}: related_concepts must be a list")
+            else:
+                seen_related: set[str] = set()
+                for related_id in related_concepts:
+                    if not isinstance(related_id, str):
+                        errors.append(f"{manifest_label}: each related concept id must be a string")
+                        continue
+                    if related_id in seen_related:
+                        errors.append(f"{manifest_label}: duplicate related concept id '{related_id}' in related_concepts")
+                    seen_related.add(related_id)
+                    if related_id == concept_id:
+                        errors.append(f"{manifest_label}: concept cannot reference itself in related_concepts")
+                    if related_id not in concept_ids:
+                        errors.append(f"{manifest_label}: related_concepts reference '{related_id}' does not match a known concept id")
+
+        concept_publications = concept.get("publications", [])
+        if "publications" in concept:
+            if not isinstance(concept_publications, list):
+                errors.append(f"{manifest_label}: publications must be a list")
+            else:
+                seen_publications: set[str] = set()
+                for publication_id in concept_publications:
+                    if not isinstance(publication_id, str):
+                        errors.append(f"{manifest_label}: each publication id must be a string")
+                        continue
+                    if publication_id in seen_publications:
+                        errors.append(f"{manifest_label}: duplicate publication id '{publication_id}' in publications")
+                    seen_publications.add(publication_id)
+                    if publication_id not in publication_ids:
+                        errors.append(f"{manifest_label}: publications reference '{publication_id}' does not match a known publication id")
+
+    return errors
+
+
 def validate_publications(
     publications: List[Dict[str, Any]],
     site_config: Dict[str, Any] | None = None,
+    reading_paths: List[Dict[str, Any]] | None = None,
+    concepts: List[Dict[str, Any]] | None = None,
 ) -> List[str]:
     schema = load_schema()
     required = schema.get("required", [])
@@ -413,11 +751,11 @@ def validate_publications(
     slug_to_id: Dict[str, str] = {}
 
     for publication in publications:
-        manifest_label = publication["_manifest_path"].name
+        manifest_label = str(publication["_manifest_path"].relative_to(ROOT))
         publication_id = str(publication.get("id", manifest_label))
 
         for field in required:
-            if field not in publication:
+            if field not in publication and field != "status":
                 errors.append(f"{manifest_label}: missing required field '{field}'")
 
         kind = publication.get("kind")
@@ -468,6 +806,24 @@ def validate_publications(
         tags = publication.get("tags", [])
         if tags and (not isinstance(tags, list) or not all(isinstance(tag, str) for tag in tags)):
             errors.append(f"{manifest_label}: tags must be a list of strings")
+
+        relationships = publication.get("relationships")
+        if relationships is not None:
+            if not isinstance(relationships, dict):
+                errors.append(f"{manifest_label}: relationships must be an object")
+            else:
+                for relationship_key, relationship_value in relationships.items():
+                    if relationship_key not in PUBLICATION_RELATIONSHIP_KEYS:
+                        expected_keys = ", ".join(PUBLICATION_RELATIONSHIP_KEYS)
+                        errors.append(
+                            f"{manifest_label}: unsupported relationship key '{relationship_key}' "
+                            f"(expected one of: {expected_keys})"
+                        )
+                        continue
+                    if not isinstance(relationship_value, list):
+                        errors.append(f"{manifest_label}: relationships.{relationship_key} must be a list")
+                    elif not all(isinstance(item, str) for item in relationship_value):
+                        errors.append(f"{manifest_label}: relationships.{relationship_key} must contain publication id strings")
 
         if not publication.get("source") and not publication.get("sources"):
             errors.append(f"{manifest_label}: at least one of 'source' or 'sources' is required")
@@ -523,7 +879,7 @@ def validate_publications(
                     seen_members.add(member_id)
 
     for publication in publications:
-        manifest_label = publication["_manifest_path"].name
+        manifest_label = str(publication["_manifest_path"].relative_to(ROOT))
         publication_id = str(publication.get("id", manifest_label))
 
         members = publication.get("members", [])
@@ -547,6 +903,46 @@ def validate_publications(
                 )
             if parent_id == publication_id:
                 errors.append(f"{manifest_label}: a publication cannot reference itself as its own {relation_kind}")
+
+        relationships = publication.get("relationships")
+        if isinstance(relationships, dict):
+            for relationship_key, relationship_value in relationships.items():
+                if relationship_key not in PUBLICATION_RELATIONSHIP_KEYS or not isinstance(relationship_value, list):
+                    continue
+                seen_related_publications: set[str] = set()
+                for related_publication_id in relationship_value:
+                    if not isinstance(related_publication_id, str):
+                        continue
+                    if related_publication_id == publication_id:
+                        errors.append(
+                            f"{manifest_label}: relationships.{relationship_key} cannot reference itself "
+                            f"('{related_publication_id}')"
+                        )
+                    if related_publication_id in seen_related_publications:
+                        errors.append(
+                            f"{manifest_label}: duplicate relationships.{relationship_key} reference "
+                            f"'{related_publication_id}'"
+                        )
+                    seen_related_publications.add(related_publication_id)
+                    if related_publication_id not in id_to_publication:
+                        errors.append(
+                            f"{manifest_label}: relationships.{relationship_key} reference "
+                            f"'{related_publication_id}' does not match a known publication id"
+                        )
+
+        status = publication.get("status")
+        if "status" not in publication:
+            errors.append(f"{manifest_label}: missing required field 'status'")
+        elif status not in SUPPORTED_STATUSES:
+            expected_statuses = ", ".join(SUPPORTED_STATUSES)
+            errors.append(
+                f"{manifest_label}: invalid status '{status}' (expected one of: {expected_statuses})"
+            )
+
+    if reading_paths is not None:
+        errors.extend(validate_reading_paths(reading_paths, publications))
+    if concepts is not None:
+        errors.extend(validate_concepts(concepts, publications))
 
     return errors
 
@@ -575,6 +971,8 @@ def build_publication_context(publication: Dict[str, Any]) -> Dict[str, Any]:
         "body_html": markdown_to_html(single_file_body),
         "excerpt": render_excerpt(markdown_body),
         "word_count": publication_word_count(publication),
+        "status_label": status_label(publication.get("status", "")),
+        "is_public": publication_is_public(publication),
         "sections": sections,
         "section_count": len(sections),
         "multi_file": multi_file,
@@ -583,6 +981,8 @@ def build_publication_context(publication: Dict[str, Any]) -> Dict[str, Any]:
         "member_publications": [],
         "series_memberships": [],
         "collection_memberships": [],
+        "relationship_groups": [],
+        "inverse_relationship_groups": [],
     }
 
 
@@ -647,6 +1047,39 @@ def pandoc_available() -> bool:
     return shutil.which("pandoc") is not None
 
 
+def pandoc_defaults_path(kind: str) -> Path | None:
+    candidate = SITE_PANDOC_DEFAULTS_DIR / f"{kind}.yaml"
+    if candidate.exists():
+        return candidate
+    return None
+
+
+def pandoc_metadata_args(publication: Dict[str, Any], site_config: Dict[str, Any] | None) -> List[str]:
+    metadata: Dict[str, str] = {
+        "title": publication["title"],
+        "author": publication["author"],
+        "description": publication.get("description", ""),
+    }
+    if publication.get("subtitle"):
+        metadata["subtitle"] = publication["subtitle"]
+    if publication.get("date"):
+        metadata["date"] = publication["date"]
+    elif publication.get("created"):
+        metadata["date"] = publication["created"]
+    if publication.get("updated"):
+        metadata["updated"] = publication["updated"]
+    if publication.get("tags"):
+        metadata["keywords"] = ", ".join(publication["tags"])
+    if site_config and site_config.get("language"):
+        metadata["lang"] = site_config["language"]
+
+    args: List[str] = []
+    for key, value in metadata.items():
+        if value:
+            args.extend(["--metadata", f"{key}={value}"])
+    return args
+
+
 def copy_source_markdown(publication: Dict[str, Any], destination_root: Path) -> List[Path]:
     copied: List[Path] = []
     bundle_root = destination_root / "source" / publication["slug"]
@@ -664,7 +1097,11 @@ def copy_source_markdown(publication: Dict[str, Any], destination_root: Path) ->
     return copied
 
 
-def export_publication_downloads(publication: Dict[str, Any], site_root: Path) -> Tuple[List[Dict[str, str]], List[str]]:
+def export_publication_downloads(
+    publication: Dict[str, Any],
+    site_root: Path,
+    site_config: Dict[str, Any] | None = None,
+) -> Tuple[List[Dict[str, str]], List[str]]:
     if not publication.get("downloadable", False):
         return [], []
 
@@ -675,6 +1112,8 @@ def export_publication_downloads(publication: Dict[str, Any], site_root: Path) -
 
     markdown_output = downloads_dir / build_download_filename(publication, "md")
     markdown_output.write_text(assemble_markdown(publication), encoding="utf-8")
+    pandoc_input = downloads_dir / f"{publication['slug']}.pandoc.md"
+    pandoc_input.write_text(assemble_pandoc_markdown(publication), encoding="utf-8")
     copy_source_markdown(publication, site_root / "downloads")
     links.append(
         {
@@ -686,27 +1125,34 @@ def export_publication_downloads(publication: Dict[str, Any], site_root: Path) -
 
     requested = [fmt for fmt in publication.get("output_formats", []) if fmt in PANDOC_OUTPUT_FORMATS]
     if not requested:
+        if pandoc_input.exists():
+            pandoc_input.unlink()
         return links, warnings
 
     if not pandoc_available():
         warnings.append(f"{publication['id']}: pandoc is not available, skipped {', '.join(requested)} export")
+        if pandoc_input.exists():
+            pandoc_input.unlink()
         return links, warnings
 
     for fmt in requested:
         output_path = downloads_dir / build_download_filename(publication, fmt)
+        defaults_path = pandoc_defaults_path(publication["kind"])
         command = [
             "pandoc",
-            str(markdown_output),
-            "--from",
-            "markdown",
-            "--standalone",
-            "--metadata",
-            f"title={publication['title']}",
-            "--metadata",
-            f"author={publication['author']}",
+            str(pandoc_input),
+        ]
+        if defaults_path:
+            command.extend(["--defaults", str(defaults_path)])
+        else:
+            command.extend(["--from", "markdown", "--standalone"])
+        command.extend(
+            [
             "--output",
             str(output_path),
-        ]
+            ]
+        )
+        command.extend(pandoc_metadata_args(publication, site_config))
         try:
             result = subprocess.run(command, capture_output=True, text=True, check=False)
         except OSError as exc:
@@ -723,6 +1169,9 @@ def export_publication_downloads(publication: Dict[str, Any], site_root: Path) -
                 "href": f"downloads/{publication['_section']}/{output_path.name}",
             }
         )
+
+    if pandoc_input.exists():
+        pandoc_input.unlink()
 
     return links, warnings
 

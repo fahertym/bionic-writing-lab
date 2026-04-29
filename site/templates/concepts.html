@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Concepts · {{ site.site_title }}{% endblock %}
+{% block description %}Defined recurring ideas in Bionic Writing Lab.{% endblock %}
+
+{% block content %}
+<section class="hero hero-compact">
+  <p class="kicker">Concept Index</p>
+  <h2>Defined ideas that recur across the work.</h2>
+  <p class="lede">Concepts are not tags. They are named ideas with definitions, descriptions, related concepts, and linked publications.</p>
+</section>
+
+{% if concepts %}
+<div class="card-grid">
+  {% for concept in concepts %}
+  <article class="card">
+    <p class="meta">
+      {{ concept.concept_publications|length }} publication{% if concept.concept_publications|length != 1 %}s{% endif %}
+      {% if concept.status != "published" %}
+      · {{ concept.status_label }}
+      {% endif %}
+    </p>
+    <h3><a href="{{ concept.href }}">{{ concept.title }}</a></h3>
+    <p>{{ concept.short_definition }}</p>
+    {% if concept.tags %}
+    <p class="relationship-line">Tags: {{ concept.tags|join(", ") }}</p>
+    {% endif %}
+  </article>
+  {% endfor %}
+</div>
+{% else %}
+<section class="panel">
+  <p class="empty-state">No concepts are published yet.</p>
+</section>
+{% endif %}
+{% endblock %}

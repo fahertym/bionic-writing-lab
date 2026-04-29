@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}About · {{ site.site_title }}{% endblock %}
+{% block description %}{{ site.about_description }}{% endblock %}
+
+{% block content %}
+<article class="publication">
+  <header class="publication-header">
+    <p class="kicker">About</p>
+    <h2>Bionic Writing Lab</h2>
+    <p class="lede">{{ site.description }}</p>
+  </header>
+
+  <section class="body-copy">
+    <h3>Matt Faherty</h3>
+    <p>{{ site.about_description }}</p>
+
+    <p>The lab holds essays, books, pamphlets, fiction, poems, posts, notes, and experiments. It is built as a working archive rather than a feed: different forms keep their own shape, and the source remains plain text.</p>
+
+    <p>The recurring subject is machinery: systems, power, institutions, political machinery, technology, injury, survival, and the human consequences of structures people are taught to treat as natural.</p>
+
+    <p>Bionic Writing Lab is the explanatory side of that work: a place where fragments, drafts, concepts, arguments, essays, pamphlets, and books can accumulate without becoming disposable feed material.</p>
+
+    <h3>Related Infrastructure Work</h3>
+    <p>Matt also works on democratic infrastructure through the InterCooperative Network. That work is adjacent to this lab: ICN is institutional, governance, and economic coordination infrastructure; Bionic Writing Lab is cognitive, publishing, and explanatory infrastructure.</p>
+
+    <p>The lab can hold the systems writing that makes ICN legible without turning every page into an ICN advertisement.</p>
+
+    <ul class="link-list">
+      <li><a href="https://intercooperative.network">intercooperative.network</a></li>
+      <li><a href="https://icn.zone">icn.zone</a></li>
+    </ul>
+  </section>
+</article>
+{% endblock %}

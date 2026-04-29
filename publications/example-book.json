@@ -6,8 +6,11 @@
   "kind": "book",
   "slug": "example-book",
   "description": "A small sample book built from multiple Markdown chapters.",
-  "status": "draft",
+  "status": "published",
   "tags": ["book", "example", "long-form"],
+  "relationships": {
+    "related": ["example-collection"]
+  },
   "source": "content/books/example-book",
   "sources": ["01-opening.md", "02-shaping-a-publication.md"],
   "web_route": "/books/example-book/",
@@ -17,4 +20,3 @@
   "date": "2026-04-23",
   "updated": "2026-04-23"
 }
-

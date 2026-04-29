@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}{{ reading_path.title }} · {{ site.site_title }}{% endblock %}
+{% block description %}{{ reading_path.description }}{% endblock %}
+
+{% block content %}
+<article class="publication">
+  <header class="publication-header">
+    <p class="kicker">
+      Reading Path
+      {% if reading_path.status != "published" %}
+      <span class="status-badge">{{ reading_path.status_label }}</span>
+      {% endif %}
+    </p>
+    <h2>{{ reading_path.title }}</h2>
+    <p class="lede">{{ reading_path.description }}</p>
+    {% if reading_path.tags %}
+    <ul class="tag-list">
+      {% for tag in reading_path.tags %}
+      <li>{{ tag }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if reading_path.status in ["archived", "superseded"] %}
+    <div class="lifecycle-notice">
+      {% if reading_path.status == "archived" %}
+      This reading path is archived. It remains available for reference but is not part of the current public sequence.
+      {% else %}
+      This reading path has been superseded. It remains available for reference, but a newer route may exist.
+      {% endif %}
+    </div>
+    {% endif %}
+  </header>
+
+  <section class="body-copy">
+    {% if reading_path.item_publications %}
+    <ol class="path-list">
+      {% for publication in reading_path.item_publications %}
+      <li>
+        <a href="{{ publication.href }}">{{ publication.title }}</a>
+        <span>{{ publication.kind|title }}{% if publication.status != "published" %} · {{ publication.status_label }}{% endif %}</span>
+        <p>{{ publication.description }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+    {% else %}
+    <p class="empty-state">No visible publications are currently available in this path.</p>
+    {% endif %}
+  </section>
+</article>
+{% endblock %}

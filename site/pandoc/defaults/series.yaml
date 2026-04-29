@@ -1,0 +1,8 @@
+from: markdown+raw_tex+raw_html
+standalone: true
+toc: true
+number-sections: false
+variables:
+  documentclass: article
+  papersize: letter
+  geometry: margin=1in

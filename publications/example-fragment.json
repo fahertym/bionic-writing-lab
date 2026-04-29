@@ -1,0 +1,17 @@
+{
+  "id": "example-fragment",
+  "title": "Example Fragment",
+  "author": "Matt Faherty",
+  "kind": "fragment",
+  "slug": "example-fragment",
+  "description": "A short example of a fragment as a seed form for later work.",
+  "status": "published",
+  "tags": ["fragment", "example", "seed-form"],
+  "source": "content/fragments/example-fragment.md",
+  "web_route": "/fragments/example-fragment/",
+  "output_formats": ["site", "markdown"],
+  "downloadable": false,
+  "order": 1,
+  "date": "2026-04-29",
+  "updated": "2026-04-29"
+}

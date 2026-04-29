@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}{{ concept.title }} · {{ site.site_title }}{% endblock %}
+{% block description %}{{ concept.short_definition }}{% endblock %}
+
+{% block content %}
+<article class="publication">
+  <header class="publication-header">
+    <p class="kicker">
+      Concept
+      {% if concept.status != "published" %}
+      <span class="status-badge">{{ concept.status_label }}</span>
+      {% endif %}
+    </p>
+    <h2>{{ concept.title }}</h2>
+    <p class="lede">{{ concept.short_definition }}</p>
+    {% if concept.tags %}
+    <ul class="tag-list">
+      {% for tag in concept.tags %}
+      <li>{{ tag }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if concept.status in ["archived", "superseded"] %}
+    <div class="lifecycle-notice">
+      {% if concept.status == "archived" %}
+      This concept is archived. It remains available for reference but is not part of the current public index.
+      {% else %}
+      This concept has been superseded. It remains available for reference, but a newer concept may exist.
+      {% endif %}
+    </div>
+    {% endif %}
+  </header>
+
+  <section class="concept-definition">
+    <h3>Definition</h3>
+    <p>{{ concept.description }}</p>
+  </section>
+
+  {% if concept.concept_publications %}
+  <section class="member-panel">
+    <h3>Appears In</h3>
+    <ol class="path-list">
+      {% for publication in concept.concept_publications %}
+      <li>
+        <a href="{{ publication.href }}">{{ publication.title }}</a>
+        <span>{{ publication.kind|title }}{% if publication.status != "published" %} · {{ publication.status_label }}{% endif %}</span>
+        <p>{{ publication.description }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+  {% endif %}
+
+  {% if concept.related_concept_items %}
+  <section class="member-panel">
+    <h3>Related Concepts</h3>
+    <ul class="publication-list">
+      {% for related in concept.related_concept_items %}
+      <li>
+        <a href="{{ related.href }}">{{ related.title }}</a>
+        <span>{{ related.short_definition }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+</article>
+{% endblock %}

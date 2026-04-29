@@ -33,7 +33,7 @@
     },
     "kind": {
       "type": "string",
-      "enum": ["book", "series", "essay", "poem", "post", "pamphlet", "collection"]
+      "enum": ["book", "series", "essay", "fragment", "poem", "post", "pamphlet", "collection"]
     },
     "slug": {
       "type": "string",
@@ -44,7 +44,8 @@
       "minLength": 1
     },
     "status": {
-      "type": "string"
+      "type": "string",
+      "enum": ["draft", "imported", "review", "published", "archived", "superseded", "private"]
     },
     "tags": {
       "type": "array",
@@ -87,6 +88,48 @@
       "items": {
         "type": "string"
       }
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "expands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "responds_to": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "supersedes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "related": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "excerpt_of": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "adapted_from": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
     },
     "order": {
       "type": "number"

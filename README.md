@@ -11,6 +11,7 @@ This repo is the publishing layer, not another single-manuscript project. It is 
 - books
 - series
 - essays
+- fragments
 - poems
 - posts
 - pamphlets
@@ -50,6 +51,120 @@ The publication schema lives at `schema/publication.schema.json`.
 - `scripts/` holds the Python build and validation tools
 - `dist/` is generated output and is intentionally ignored in git
 - `docs/` holds planning notes for domains and future imports
+
+## Create A New Publication
+
+Use the authoring scaffold when starting a new piece. It creates the Markdown source and matching manifest together, fills in sensible defaults from the site config, refuses to overwrite existing files, and validates the repo after creation.
+
+```bash
+make new kind=essay title="Capitalism Behaves Like Cancer"
+make new kind=pamphlet title="The Freedom They Mean" tags="politics,freedom"
+make new kind=book title="Empire Exposed"
+```
+
+Supported kinds are `book`, `series`, `essay`, `fragment`, `poem`, `post`, `pamphlet`, and `collection`.
+
+Single-file kinds create one Markdown file:
+
+```text
+content/essays/capitalism-behaves-like-cancer.md
+publications/capitalism-behaves-like-cancer.json
+```
+
+Folder-based kinds create a content folder with a starter file:
+
+```text
+content/books/empire-exposed/00-introduction.md
+publications/empire-exposed.json
+```
+
+Optional arguments can override defaults:
+
+```bash
+make new kind=essay title="Property Is Command" \
+  subtitle="Notes on ownership and coercion" \
+  description="A draft essay about property, command, and survival pressure." \
+  status=review \
+  tags="property,coercion"
+```
+
+## Publication Status And Visibility
+
+Every manifest must use one of these statuses: `draft`, `imported`, `review`, `published`, `archived`, `superseded`, or `private`.
+
+Normal public builds are intentionally conservative:
+
+```bash
+make site
+make downloads
+make build
+```
+
+These include only `published` publications in generated publication pages, listing pages, `publications.json`, `feed.json`, `search-index.json`, and downloads. GitHub Pages uses this safe public build path.
+
+Use draft preview mode when you want to inspect everything locally:
+
+```bash
+INCLUDE_DRAFTS=1 make site
+make site-drafts
+make build-drafts
+```
+
+Preview mode includes all statuses, including `private`, and marks non-published pages with status badges. See [docs/publication-lifecycle.md](/home/matt/docs/bionic-writing-lab/docs/publication-lifecycle.md) for the recommended `draft/imported -> review -> published -> archived/superseded/private` workflow.
+
+## Public Site Identity
+
+The public site is framed as Matt Faherty's publishing lab for systems essays, political machinery, speculative fiction, notes, pamphlets, and long-form work. Site-level identity lives in `site/site.json`, with homepage and About page templates under `site/templates/`.
+
+The lab should not adopt any external publishing model wholesale. It is not a Substack clone, WordPress blog, Medium publication, GitBook/doc site, portfolio, startup page, or generic feed. See [docs/identity-and-design.md](/home/matt/docs/bionic-writing-lab/docs/identity-and-design.md) for the durable identity and design doctrine, and [docs/public-site.md](/home/matt/docs/bionic-writing-lab/docs/public-site.md) for the small public-site surface area.
+
+## Reading Paths
+
+Reading paths are curated routes through existing publications. They live in `paths/*.json`, generate `/paths/` and `/paths/<slug>/`, and add backlinks on publication pages when a publication appears in a visible path.
+
+They are distinct from other organization layers: `kind` is publication form, `tag` is a loose topic, `series` and `collection` are publication structures, and a reading path is an ordered route through works. See [docs/reading-paths.md](/home/matt/docs/bionic-writing-lab/docs/reading-paths.md).
+
+## Concept Index
+
+Concepts are defined recurring ideas that can appear across publications. They live in `concepts/*.json`, generate `/concepts/` and `/concepts/<slug>/`, and add backlinks on publication pages when a visible concept references that publication.
+
+They are not tags. `kind` is form, `tag` is loose topic metadata, `series` and `collection` are publication structures, `reading path` is a curated route, and `concept` is a defined idea with a short definition, description, related concepts, and linked publications. See [docs/concepts.md](/home/matt/docs/bionic-writing-lab/docs/concepts.md).
+
+## Fragments
+
+Fragments are first-class seed forms: argument shards, reply drafts, debate skeletons, concept stubs, AI-assisted notes, rough observations, and compressed ideas that may later mature into posts, essays, pamphlets, chapters, or books.
+
+They obey the normal lifecycle and are not automatically public. Fragments can appear in reading paths, concepts, search, publication relationships, and generated indexes when visible in the current build. See [docs/fragments.md](/home/matt/docs/bionic-writing-lab/docs/fragments.md).
+
+## Publication Relationships
+
+Publication relationships describe provenance between pieces: expansion, response, supersession, related work, excerpts, and adaptations. They are optional manifest metadata under `relationships`, and backlinks are generated automatically on referenced publication pages.
+
+Relationships are distinct from other organization layers: `kind` is form, `tag` is loose topic metadata, `series` and `collection` are publication structures, `reading path` is a curated route, `concept` is a defined recurring idea, and `relationship` is a provenance or evolution link between publications. See [docs/relationships.md](/home/matt/docs/bionic-writing-lab/docs/relationships.md).
+
+## Import Existing Markdown
+
+Use the import pipeline as a safe loading dock for existing Markdown files and folders. Imports copy Markdown into `content/`, create a manifest in `publications/`, mark the publication as `imported` by default, and write a report under `reports/imports/`.
+
+Preview first:
+
+```bash
+make import source=/path/to/essay.md kind=essay dry_run=1
+```
+
+Import a single essay:
+
+```bash
+make import source=/path/to/essay.md kind=essay title="Capitalism Behaves Like Cancer"
+```
+
+Import a folder-based book:
+
+```bash
+make import source=/path/to/empire-exposed kind=book title="Empire Exposed"
+```
+
+`imported` means the piece came from existing source and has not been reviewed for publication inside this repo yet. `draft` means new writing actively authored here. Normal public builds exclude imported material; draft preview builds include it. See [docs/importing.md](/home/matt/docs/bionic-writing-lab/docs/importing.md) for details.
 
 ## Add A New Essay
 
@@ -167,6 +282,8 @@ Every downloadable publication gets a Markdown download in `dist/site/downloads/
 
 If `pandoc` is available and the manifest requests `pdf`, `epub`, or `docx`, those formats are generated too. If `pandoc` is missing, the downloads step prints a clear warning and continues instead of failing the whole build.
 
+Pandoc exports use small kind-aware defaults in `site/pandoc/defaults/` for books, collections, essays, pamphlets, poems, and series. See [docs/downloads.md](/home/matt/docs/bionic-writing-lab/docs/downloads.md).
+
 ## Machine-Readable Indexes
 
 The site build also writes:
@@ -176,6 +293,8 @@ The site build also writes:
 - `dist/site/search-index.json` for the static client-side search page at `/search/`
 
 The `/search/` page uses plain browser-side JavaScript to load and filter `search-index.json`. If JavaScript is unavailable, the page still points readers directly at the raw index file.
+
+Search facets are generated from the same visible publication metadata. Readers can filter by kind, tag, year, concept, and reading path while text search still covers titles, descriptions, tags, excerpts, routes, dates, concept titles, path titles, and relationship IDs. Different filter groups combine with `AND`; multiple choices inside one group match any selected choice. See [docs/search.md](/home/matt/docs/bionic-writing-lab/docs/search.md).
 
 ## Multi-File Reading Navigation
 

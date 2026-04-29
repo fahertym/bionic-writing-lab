@@ -6,7 +6,12 @@
 {% block content %}
 <article class="publication">
   <header class="publication-header">
-    <p class="kicker">{{ publication.kind|title }}</p>
+    <p class="kicker">
+      {{ publication.kind|title }}
+      {% if publication.status != "published" %}
+      <span class="status-badge">{{ publication.status_label }}</span>
+      {% endif %}
+    </p>
     <h2>{{ publication.title }}</h2>
     {% if publication.subtitle %}
     <p class="subtitle">{{ publication.subtitle }}</p>
@@ -18,6 +23,15 @@
       · {{ publication.word_count }} words
     </p>
     <p class="lede">{{ publication.description }}</p>
+    {% if publication.status in ["archived", "superseded"] %}
+    <div class="lifecycle-notice">
+      {% if publication.status == "archived" %}
+      This publication is archived. It remains available for reference but is not part of the current public sequence.
+      {% else %}
+      This publication has been superseded. It remains available for reference, but a newer version or argument may exist.
+      {% endif %}
+    </div>
+    {% endif %}
     {% if publication.tags %}
     <ul class="tag-list">
       {% for tag in publication.tags %}
@@ -84,6 +98,74 @@
       </li>
       {% endfor %}
     </ul>
+  </section>
+  {% endif %}
+
+  {% if publication.reading_paths %}
+  <section class="member-panel">
+    <h3>Reading Paths</h3>
+    <ul class="publication-list">
+      {% for reading_path in publication.reading_paths %}
+      <li>
+        <a href="{{ reading_path.href }}">{{ reading_path.title }}</a>
+        <span>{{ reading_path.description }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if publication.concepts %}
+  <section class="member-panel">
+    <h3>Concepts</h3>
+    <ul class="publication-list">
+      {% for concept in publication.concepts %}
+      <li>
+        <a href="{{ concept.href }}">{{ concept.title }}</a>
+        <span>{{ concept.short_definition }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if publication.relationship_groups or publication.inverse_relationship_groups %}
+  <section class="member-panel publication-relationships">
+    <h3>Publication Relationships</h3>
+    {% if publication.relationship_groups %}
+    <div class="relationship-group-stack">
+      {% for group in publication.relationship_groups %}
+      <div class="relationship-group">
+        <h4>{{ group.label }}</h4>
+        <ul class="publication-list">
+          {% for item in group.publications %}
+          <li>
+            <a href="{{ item.href }}">{{ item.title }}</a>
+            <span>{{ item.kind|title }}{% if item.status != "published" %} · {{ item.status_label }}{% endif %}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% if publication.inverse_relationship_groups %}
+    <div class="relationship-group-stack">
+      {% for group in publication.inverse_relationship_groups %}
+      <div class="relationship-group">
+        <h4>{{ group.label }}</h4>
+        <ul class="publication-list">
+          {% for item in group.publications %}
+          <li>
+            <a href="{{ item.href }}">{{ item.title }}</a>
+            <span>{{ item.kind|title }}{% if item.status != "published" %} · {{ item.status_label }}{% endif %}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
   </section>
   {% endif %}
 
