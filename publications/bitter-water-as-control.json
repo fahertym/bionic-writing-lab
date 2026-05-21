@@ -1,0 +1,26 @@
+{
+  "id": "bitter-water-as-control",
+  "title": "Bitter Water As Control",
+  "author": "Matt Faherty",
+  "kind": "fragment",
+  "slug": "bitter-water-as-control",
+  "description": "A Villain in the Verse fragment on reproductive coercion authorized through religious law.",
+  "status": "imported",
+  "tags": [
+    "villain-in-the-verse",
+    "religion",
+    "coercion",
+    "reproductive-control",
+    "fragment"
+  ],
+  "source": "content/fragments/bitter-water-as-control.md",
+  "web_route": "/fragments/bitter-water-as-control/",
+  "output_formats": [
+    "site",
+    "markdown"
+  ],
+  "downloadable": false,
+  "order": 0,
+  "date": "2026-04-29",
+  "updated": "2026-04-29"
+}

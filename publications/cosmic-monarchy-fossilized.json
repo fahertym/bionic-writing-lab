@@ -1,0 +1,26 @@
+{
+  "id": "cosmic-monarchy-fossilized",
+  "title": "Cosmic Monarchy Fossilized",
+  "author": "Matt Faherty",
+  "kind": "fragment",
+  "slug": "cosmic-monarchy-fossilized",
+  "description": "A Villain in the Verse fragment on cosmic monarchy as fossilized political authority.",
+  "status": "imported",
+  "tags": [
+    "villain-in-the-verse",
+    "religion",
+    "legitimacy",
+    "democracy",
+    "fragment"
+  ],
+  "source": "content/fragments/cosmic-monarchy-fossilized.md",
+  "web_route": "/fragments/cosmic-monarchy-fossilized/",
+  "output_formats": [
+    "site",
+    "markdown"
+  ],
+  "downloadable": false,
+  "order": 0,
+  "date": "2026-04-29",
+  "updated": "2026-04-29"
+}

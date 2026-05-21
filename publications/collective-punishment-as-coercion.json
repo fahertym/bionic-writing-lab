@@ -1,0 +1,25 @@
+{
+  "id": "collective-punishment-as-coercion",
+  "title": "Collective Punishment As Coercion",
+  "author": "Matt Faherty",
+  "kind": "fragment",
+  "slug": "collective-punishment-as-coercion",
+  "description": "A Villain in the Verse fragment on collective punishment as distributed enforcement and coerced compliance.",
+  "status": "imported",
+  "tags": [
+    "villain-in-the-verse",
+    "religion",
+    "coercion",
+    "fragment"
+  ],
+  "source": "content/fragments/collective-punishment-as-coercion.md",
+  "web_route": "/fragments/collective-punishment-as-coercion/",
+  "output_formats": [
+    "site",
+    "markdown"
+  ],
+  "downloadable": false,
+  "order": 0,
+  "date": "2026-04-29",
+  "updated": "2026-04-29"
+}

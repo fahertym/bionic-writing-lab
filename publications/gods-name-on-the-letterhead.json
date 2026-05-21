@@ -1,0 +1,25 @@
+{
+  "id": "gods-name-on-the-letterhead",
+  "title": "God's Name On The Letterhead",
+  "author": "Matt Faherty",
+  "kind": "fragment",
+  "slug": "gods-name-on-the-letterhead",
+  "description": "A Villain in the Verse fragment on divine attribution as a legitimacy layer for human legal codes.",
+  "status": "imported",
+  "tags": [
+    "villain-in-the-verse",
+    "religion",
+    "legitimacy",
+    "fragment"
+  ],
+  "source": "content/fragments/gods-name-on-the-letterhead.md",
+  "web_route": "/fragments/gods-name-on-the-letterhead/",
+  "output_formats": [
+    "site",
+    "markdown"
+  ],
+  "downloadable": false,
+  "order": 0,
+  "date": "2026-04-29",
+  "updated": "2026-04-29"
+}
