@@ -8,7 +8,8 @@ concepts:
   - religion-as-infrastructure
   - institutional-laundering
 notes: A compact Villain v2 fragment on collective punishment as distributed enforcement.
-source_path: /home/matt/docs/villain-in-the-verse/publications/book1/manuscript/part3-the-injustice/08-collective-punishment.md
+source_repo: villain-in-the-verse
+source_path: publications/book1/manuscript/part2-the-violence/06-the-terms-of-service.md
 ---
 
 # Collective Punishment As Coercion

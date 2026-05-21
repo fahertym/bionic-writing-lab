@@ -8,7 +8,8 @@ concepts:
   - religion-as-infrastructure
   - institutional-laundering
 notes: A compact Villain v2 fragment on reproductive coercion authorized by religious law.
-source_path: /home/matt/docs/villain-in-the-verse/manuscript/part1_case_files__backup__20250921-171001/17-the-bitter-water-ordeal-state-sanctioned-trial-by-abortion.md
+source_repo: villain-in-the-verse
+source_path: publications/book1/manuscript/part2-the-violence/06-the-terms-of-service.md
 ---
 
 # Bitter Water As Control

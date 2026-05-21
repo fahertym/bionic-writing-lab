@@ -1,16 +1,3 @@
----
-source_type: villain-v2-manuscript-excerpt
-source_date: 2026-04-29
-intake_status: selected
-candidate_kind: fragment
-concepts:
-  - coercion
-  - religion-as-infrastructure
-  - institutional-laundering
-notes: A compact Villain v2 fragment on collective punishment as distributed enforcement.
-source_path: /home/matt/docs/villain-in-the-verse/publications/book1/manuscript/part3-the-injustice/08-collective-punishment.md
----
-
 # Collective Punishment As Coercion
 
 When everyone is responsible for everyone else, safety evaporates. Your neighbor's sin might bring plague on your family. Your father's theft might get your children stoned. So you watch everyone. Report violations. Police your community. Not because you want to, but because you'll die if you don't.

@@ -8,7 +8,8 @@ concepts:
   - legitimacy
   - democratic-infrastructure
 notes: A compact Villain v2 fragment on cosmic monarchy as fossilized political authority.
-source_path: /home/matt/docs/villain-in-the-verse/publications/book1/manuscript/part5-the-exit/14-the-divine-without-the-tyrant.md
+source_repo: villain-in-the-verse
+source_path: publications/book1/manuscript/part5-the-exit/14-the-divine-without-the-tyrant.md
 ---
 
 # Cosmic Monarchy Fossilized

@@ -8,7 +8,8 @@ concepts:
   - institutional-laundering
   - legitimacy
 notes: A compact Villain v2 fragment on divine attribution as legitimating machinery for human law.
-source_path: /home/matt/docs/villain-in-the-verse/publications/book1/manuscript/part2-the-violence/06-the-terms-of-service.md
+source_repo: villain-in-the-verse
+source_path: publications/book1/manuscript/part2-the-violence/06-the-terms-of-service.md
 ---
 
 # God's Name On The Letterhead

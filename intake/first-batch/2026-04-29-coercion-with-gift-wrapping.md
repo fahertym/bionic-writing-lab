@@ -8,7 +8,8 @@ concepts:
   - religion-as-infrastructure
   - legitimacy
 notes: A compact Villain v2 fragment defining salvation language as coercive offer structure.
-source_path: /home/matt/docs/villain-in-the-verse/publications/book1/manuscript/part4-the-system/10-the-salvation-shell-game.md
+source_repo: villain-in-the-verse
+source_path: publications/book1/manuscript/part4-the-system/10-the-salvation-shell-game.md
 ---
 
 # Coercion With Gift Wrapping
