@@ -6,7 +6,7 @@
   "kind": "pamphlet",
   "slug": "example-pamphlet",
   "description": "A pamphlet-format publication intended for focused web reading and simple exports.",
-  "status": "published",
+  "status": "draft",
   "tags": ["pamphlet", "example", "focused-release"],
   "relationships": {
     "expands": ["example-essay"]

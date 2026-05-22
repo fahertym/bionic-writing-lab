@@ -5,7 +5,7 @@
   "kind": "essay",
   "slug": "example-essay",
   "description": "A short-form publication about source files and rendered outputs.",
-  "status": "published",
+  "status": "draft",
   "tags": ["essay", "example", "workflow"],
   "relationships": {
     "expands": ["example-fragment"]

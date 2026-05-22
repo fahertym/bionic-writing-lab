@@ -4,88 +4,96 @@
 
 {% block content %}
 <section class="hero">
-  <p class="kicker">Public archive and publishing lab</p>
-  <h2>Writing about the machinery underneath things.</h2>
-  <p class="lede">A publishing lab for arguments that outgrew the feed. The lab converts fragments, drafts, arguments, essays, books, fiction, and AI-assisted notes into structured public artifacts.</p>
+  <div class="hero-stage">
+    <div class="hero-copy">
+      <p class="kicker">Public writing lab and systems archive</p>
+      <h2>Writing about the machinery underneath things.</h2>
+      <p class="lede">Bionic Writing Lab is Matt Faherty's public writing lab: essays, fragments, pamphlets, books, notes, and unfinished machinery for making hidden systems visible.</p>
+    </div>
+    <div class="hero-orbit" aria-hidden="true">
+      <span class="orbit-core"></span>
+      <span class="orbit-line orbit-line-a"></span>
+      <span class="orbit-line orbit-line-b"></span>
+      <span class="orbit-node orbit-node-a"></span>
+      <span class="orbit-node orbit-node-b"></span>
+      <span class="orbit-node orbit-node-c"></span>
+    </div>
+  </div>
   <div class="hero-grid">
-    <div>
-      <h3>Not a feed</h3>
-      <p>Fragments should not die in the feed. Drafts, notes, essays, pamphlets, books, poems, and fiction can mature without being flattened into one chronological stream.</p>
+    <div class="shelf-summary">
+      <span class="shelf-icon" aria-hidden="true">▤</span>
+      <div>
+      <h3>Writing</h3>
+      <p>Public work that can be browsed, cited, revised, and treated like more than a passing feed item.</p>
+      </div>
     </div>
-    <div>
-      <h3>Forms stay distinct</h3>
-      <p>Form matters. A poem is not a post. A pamphlet is not a chapter by force. A concept is not a tag.</p>
+    <div class="shelf-summary">
+      <span class="shelf-icon" aria-hidden="true">◇</span>
+      <div>
+      <h3>Fragments</h3>
+      <p>Seeds, notes, argument scraps, rough machinery, and unfinished pieces that still deserve a durable surface.</p>
+      </div>
     </div>
-    <div>
-      <h3>Source and surface</h3>
-      <p>Source is durable; surfaces are generated. Markdown and manifests produce site pages, downloads, feeds, search, concepts, paths, and relationship views.</p>
+    <div class="shelf-summary">
+      <span class="shelf-icon" aria-hidden="true">▦</span>
+      <div>
+      <h3>Books and pamphlets</h3>
+      <p>Long-form work, compact releases, and larger structures that need room to breathe.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="panel">
   <div class="section-heading">
-    <h3>Recent Publications</h3>
-    <p class="section-copy">Published pieces from the lab, across short work, long work, grouped projects, and experiments.</p>
+    <h3>Recent Writing</h3>
+    <p class="section-copy">The latest things published here.</p>
   </div>
-  <div class="card-grid">
+  <div class="card-grid home-recent-grid">
     {% for publication in recent_publications %}
     <article class="card">
-      <p class="meta">{{ publication.kind|title }}{% if publication.updated %} · Updated {{ publication.updated }}{% endif %}</p>
+      <p class="meta">{{ publication.kind|title }}{% if publication.updated %} · {{ publication.updated }}{% endif %}</p>
       <h4><a href="{{ publication.href }}">{{ publication.title }}</a></h4>
       {% if publication.subtitle %}
       <p class="subtitle">{{ publication.subtitle }}</p>
       {% endif %}
       <p>{{ publication.excerpt }}</p>
+      <a class="card-arrow" href="{{ publication.href }}" aria-label="Read {{ publication.title }}">→</a>
     </article>
     {% endfor %}
   </div>
 </section>
 
-<section class="panel split-panel">
-  <div>
-    <h3>Structured public artifacts</h3>
-    <p>Concepts, reading paths, and publication relationships make the work navigable by idea, route, and provenance instead of only by date.</p>
-  </div>
-  <div>
-    <h3>A cybernetic scriptorium</h3>
-    <p>The lab is a machine room for systems writing: serious, archival, writerly, and built to turn rough material into durable public structure.</p>
-  </div>
-</section>
-
 <section class="panel">
   <div class="section-heading">
-    <h3>Start By Form</h3>
-    <p class="section-copy">Choose the shape of the work before choosing the latest entry.</p>
+    <h3>Main Shelves</h3>
+    <p class="section-copy">Browse by the shape of the thing.</p>
   </div>
   <div class="kind-entry-grid">
-    {% for kind, items in grouped_publications.items() %}
-    <a class="kind-entry" href="{{ kind_routes[kind] }}">
-      <span>{{ kind_labels[kind] }}</span>
-      <small>{{ items|length }} published</small>
+    <a class="kind-entry" href="writing/">
+      <span class="shelf-icon" aria-hidden="true">▤</span>
+      <span class="kind-entry-text">Writing</span>
+      <small>{{ recent_publications|length }} published</small>
+      <span class="kind-arrow" aria-hidden="true">→</span>
     </a>
-    {% endfor %}
+    <a class="kind-entry" href="{{ kind_routes['essay'] }}">
+      <span class="shelf-icon" aria-hidden="true">◇</span>
+      <span class="kind-entry-text">Essays</span>
+      <small>{{ grouped_publications['essay']|length }} published</small>
+      <span class="kind-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="kind-entry" href="{{ kind_routes['fragment'] }}">
+      <span class="shelf-icon" aria-hidden="true">⌁</span>
+      <span class="kind-entry-text">Fragments</span>
+      <small>{{ grouped_publications['fragment']|length }} published</small>
+      <span class="kind-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="kind-entry" href="{{ kind_routes['book'] }}">
+      <span class="shelf-icon" aria-hidden="true">▦</span>
+      <span class="kind-entry-text">Books</span>
+      <small>{{ grouped_publications['book']|length }} published</small>
+      <span class="kind-arrow" aria-hidden="true">→</span>
+    </a>
   </div>
 </section>
-
-{% for kind, items in grouped_publications.items() %}
-<section class="panel">
-  <div class="section-heading">
-    <h3>{{ kind_labels[kind] }}</h3>
-    <a class="section-link" href="{{ kind_routes[kind] }}">Browse {{ kind_labels[kind] }}</a>
-  </div>
-  {% if items %}
-  <ul class="publication-list">
-    {% for publication in items %}
-    <li>
-      <a href="{{ publication.href }}">{{ publication.title }}</a>
-      <span>{{ publication.description }}</span>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p class="empty-state">No {{ kind_labels[kind].lower() }} are published yet.</p>
-  {% endif %}
-</section>
-{% endfor %}
 {% endblock %}

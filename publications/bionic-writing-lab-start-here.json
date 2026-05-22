@@ -1,0 +1,17 @@
+{
+  "id": "bionic-writing-lab-start-here",
+  "title": "Bionic Writing Lab: Start Here",
+  "author": "Matt Faherty",
+  "kind": "essay",
+  "slug": "bionic-writing-lab-start-here",
+  "description": "A first public note on what Bionic Writing Lab is for: essays, fragments, pamphlets, books, notes, and unfinished machinery for making hidden systems visible.",
+  "status": "published",
+  "tags": ["bionic-writing-lab", "publishing", "systems"],
+  "source": "content/essays/bionic-writing-lab-start-here.md",
+  "web_route": "/essays/bionic-writing-lab-start-here/",
+  "output_formats": ["site", "markdown"],
+  "downloadable": true,
+  "order": 1,
+  "date": "2026-05-22",
+  "updated": "2026-05-22"
+}

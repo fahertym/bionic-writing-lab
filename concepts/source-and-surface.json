@@ -4,7 +4,7 @@
   "slug": "source-and-surface",
   "short_definition": "The distinction between canonical writing sources and generated publication outputs.",
   "description": "Source and surface names the repo's basic discipline: Markdown content and JSON manifests are the durable source, while site pages, downloads, feeds, and indexes are generated surfaces.",
-  "status": "published",
+  "status": "draft",
   "tags": ["example", "publishing"],
   "related_concepts": [],
   "publications": [

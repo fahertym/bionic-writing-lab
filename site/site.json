@@ -1,24 +1,18 @@
 {
   "site_title": "Bionic Writing Lab",
-  "tagline": "Systems essays, political machinery, speculative fiction, and working notes.",
+  "tagline": "Making hidden systems visible.",
   "author": "Matt Faherty",
-  "description": "Matt Faherty's publishing lab for writing about the machinery underneath things: capitalism, power, religion, governance, technology, injury, survival, and the institutions people keep pretending are natural.",
+  "description": "Bionic Writing Lab is Matt Faherty's public writing lab: essays, fragments, pamphlets, books, notes, and unfinished machinery for making hidden systems visible.",
   "about_description": "Matt Faherty writes about systems, power, institutions, political machinery, and the human consequences of structures people are taught to treat as natural.",
-  "base_url": "https://fahertym.github.io/bionic-writing-lab",
+  "base_url": "https://bionicwritinglab.com",
   "language": "en",
   "copyright": "(c) 2026 Matt Faherty",
   "nav_links": [
-    { "label": "About", "route": "/about/" },
-    { "label": "Paths", "route": "/paths/" },
-    { "label": "Concepts", "route": "/concepts/" },
-    { "label": "Books", "route": "/books/" },
+    { "label": "Writing", "route": "/writing/" },
     { "label": "Essays", "route": "/essays/" },
     { "label": "Fragments", "route": "/fragments/" },
-    { "label": "Poems", "route": "/poems/" },
-    { "label": "Posts", "route": "/posts/" },
-    { "label": "Pamphlets", "route": "/pamphlets/" },
-    { "label": "Collections", "route": "/collections/" },
-    { "label": "Series", "route": "/series/" },
+    { "label": "Books", "route": "/books/" },
+    { "label": "About", "route": "/about/" },
     { "label": "Search", "route": "/search/" }
   ]
 }

@@ -30,6 +30,8 @@ from publication_lib import (
     write_text,
 )
 
+ASSET_VERSION = "20260522"
+
 
 def prune_relationships(publications: list[dict]) -> None:
     included_ids = {publication["id"] for publication in publications}
@@ -45,12 +47,31 @@ def prune_relationships(publications: list[dict]) -> None:
         ]
 
 
-def build_navigation(site_config: dict, current_route: str) -> list[dict[str, str]]:
-    navigation = [{"label": "Home", "href": relative_route(current_route, "/")}]
+def build_navigation(site_config: dict, current_route: str) -> list[dict[str, str | bool]]:
+    stripped_current = current_route.strip("/")
+    normalized_current = "/" if not stripped_current else f"/{stripped_current}/"
+    home_item = {
+        "label": "Home",
+        "href": relative_route(current_route, "/"),
+        "is_current": normalized_current == "/",
+    }
+    navigation = [home_item]
     for link in site_config["nav_links"]:
-        href = link.get("href") or relative_route(current_route, link["route"])
-        navigation.append({"label": link["label"], "href": href})
+        route = link["route"]
+        href = link.get("href") or relative_route(current_route, route)
+        normalized_route = "/" + route.strip("/") + "/"
+        navigation.append(
+            {
+                "label": link["label"],
+                "href": href,
+                "is_current": normalized_current == normalized_route,
+            }
+        )
     return navigation
+
+
+def versioned_asset_href(current_route: str, asset_path: str) -> str:
+    return f"{relative_file(current_route, asset_path)}?v={ASSET_VERSION}"
 
 
 def build_page_meta(
@@ -585,7 +606,7 @@ def render_site() -> int:
             },
             kind_labels=kind_labels,
             kind_routes=kind_routes,
-            asset_href=relative_file("/", "assets/style.css"),
+            asset_href=versioned_asset_href("/", "assets/style.css"),
         ),
     )
 
@@ -604,7 +625,29 @@ def render_site() -> int:
             current_route=about_route,
             nav_items=build_navigation(site_config, about_route),
             visibility=visibility,
-            asset_href=relative_file(about_route, "assets/style.css"),
+            asset_href=versioned_asset_href(about_route, "assets/style.css"),
+        ),
+    )
+
+    writing_route = "/writing/"
+    write_text(
+        route_to_output_path(DIST_SITE_DIR, writing_route),
+        listing_template.render(
+            site=site_config,
+            meta=build_page_meta(
+                site_config,
+                route=writing_route,
+                title=f"Writing · {site_config['site_title']}",
+                description="Published essays, fragments, pamphlets, books, notes, and long-form work from Bionic Writing Lab.",
+                og_type="website",
+            ),
+            current_route=writing_route,
+            nav_items=build_navigation(site_config, writing_route),
+            visibility=visibility,
+            listing_title="Writing",
+            listing_description="Published essays, fragments, pamphlets, books, notes, and long-form work from the lab.",
+            publications=linkify_publications(publication_contexts, writing_route),
+            asset_href=versioned_asset_href(writing_route, "assets/style.css"),
         ),
     )
 
@@ -624,7 +667,7 @@ def render_site() -> int:
             nav_items=build_navigation(site_config, paths_route),
             visibility=visibility,
             reading_paths=linkify_reading_paths(reading_path_contexts, paths_route),
-            asset_href=relative_file(paths_route, "assets/style.css"),
+            asset_href=versioned_asset_href(paths_route, "assets/style.css"),
         ),
     )
 
@@ -650,7 +693,7 @@ def render_site() -> int:
                 nav_items=build_navigation(site_config, current_route),
                 visibility=visibility,
                 reading_path=render_path,
-                asset_href=relative_file(current_route, "assets/style.css"),
+                asset_href=versioned_asset_href(current_route, "assets/style.css"),
             ),
         )
 
@@ -670,7 +713,7 @@ def render_site() -> int:
             nav_items=build_navigation(site_config, concepts_route),
             visibility=visibility,
             concepts=linkify_concepts(concept_contexts, concepts_route),
-            asset_href=relative_file(concepts_route, "assets/style.css"),
+            asset_href=versioned_asset_href(concepts_route, "assets/style.css"),
         ),
     )
 
@@ -700,7 +743,7 @@ def render_site() -> int:
                 nav_items=build_navigation(site_config, current_route),
                 visibility=visibility,
                 concept=render_concept,
-                asset_href=relative_file(current_route, "assets/style.css"),
+                asset_href=versioned_asset_href(current_route, "assets/style.css"),
             ),
         )
 
@@ -724,7 +767,7 @@ def render_site() -> int:
                 listing_title=kind_labels[kind],
                 listing_description=f"{kind_labels[kind]} published through the Bionic Writing Lab system.",
                 publications=linkify_publications(items, route),
-                asset_href=relative_file(route, "assets/style.css"),
+                asset_href=versioned_asset_href(route, "assets/style.css"),
             ),
         )
 
@@ -743,7 +786,7 @@ def render_site() -> int:
             current_route=search_route,
             nav_items=build_navigation(site_config, search_route),
             visibility=visibility,
-            asset_href=relative_file(search_route, "assets/style.css"),
+            asset_href=versioned_asset_href(search_route, "assets/style.css"),
             search_index_href=relative_file(search_route, "search-index.json"),
         ),
     )
@@ -796,7 +839,7 @@ def render_site() -> int:
                 nav_items=build_navigation(site_config, publication["_route"]),
                 visibility=visibility,
                 publication=render_publication,
-                asset_href=relative_file(publication["_route"], "assets/style.css"),
+                asset_href=versioned_asset_href(publication["_route"], "assets/style.css"),
             ),
         )
 
@@ -824,7 +867,7 @@ def render_site() -> int:
                         visibility=visibility,
                         publication=render_publication,
                         section=build_section_page_context(publication, section, section_route),
-                        asset_href=relative_file(section_route, "assets/style.css"),
+                        asset_href=versioned_asset_href(section_route, "assets/style.css"),
                     ),
                 )
 

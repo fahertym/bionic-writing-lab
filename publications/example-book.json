@@ -6,7 +6,7 @@
   "kind": "book",
   "slug": "example-book",
   "description": "A small sample book built from multiple Markdown chapters.",
-  "status": "published",
+  "status": "draft",
   "tags": ["book", "example", "long-form"],
   "relationships": {
     "related": ["example-collection"]

@@ -5,7 +5,7 @@
   "kind": "fragment",
   "slug": "example-fragment",
   "description": "A short example of a fragment as a seed form for later work.",
-  "status": "published",
+  "status": "draft",
   "tags": ["fragment", "example", "seed-form"],
   "source": "content/fragments/example-fragment.md",
   "web_route": "/fragments/example-fragment/",

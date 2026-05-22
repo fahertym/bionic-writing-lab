@@ -238,6 +238,7 @@ Create a local virtual environment and install dependencies:
 
 ```bash
 python3 -m venv .venv
+.venv/bin/python -m pip install --upgrade pip
 .venv/bin/python -m pip install -r requirements.txt
 ```
 
@@ -265,7 +266,44 @@ make serve
 
 This serves `dist/site/` with Python's built-in HTTP server. Open `http://localhost:8000/`.
 
-## GitHub Pages Deployment
+## Publish A Piece
+
+The fastest path is to use the scaffold:
+
+```bash
+make new kind=essay title="My New Essay"
+```
+
+That creates a Markdown source under `content/` and a matching manifest under `publications/`.
+Write in the Markdown file, then use the manifest status to control visibility:
+
+- `draft`, `imported`, `review`, and `private` stay out of normal public builds.
+- `published` appears in public listing pages, search, feeds, and downloads.
+
+Before publishing, run:
+
+```bash
+make validate
+make build
+make smoke
+```
+
+## Cloudflare Pages Deployment
+
+Bionic Writing Lab v1 is designed to deploy as a static Cloudflare Pages site from the Git repository.
+
+Expected Pages settings:
+
+- Framework preset: none or static site
+- Build command: `make build`
+- Build output directory: `dist/site`
+- Production branch: `main`
+- Canonical custom domain: `bionicwritinglab.com`
+- Optional `www.bionicwritinglab.com`: redirect or alias to the canonical domain
+
+The generated `dist/site/` directory is intentionally ignored by git. Cloudflare Pages should build it during deployment from the committed Markdown, manifests, templates, scripts, and static assets.
+
+## Legacy GitHub Pages Workflow
 
 The repository includes `.github/workflows/publish-site.yml`, which:
 

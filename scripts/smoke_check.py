@@ -21,20 +21,12 @@ REQUIRED_FILES = (
     "index.html",
     "about/index.html",
     "concepts/index.html",
-    "concepts/source-and-surface/index.html",
     "paths/index.html",
+    "writing/index.html",
     "publications.json",
     "feed.json",
     "search-index.json",
     "search/index.html",
-    "books/example-book/index.html",
-    "essays/example-essay/index.html",
-    "fragments/example-fragment/index.html",
-    "poems/example-poem/index.html",
-    "posts/example-post/index.html",
-    "pamphlets/example-pamphlet/index.html",
-    "collections/example-collection/index.html",
-    "series/example-series/index.html",
 )
 
 SEARCH_INDEX_REQUIRED_FIELDS = (
@@ -77,6 +69,13 @@ def main() -> int:
                     f"search-index publication {item.get('id', '<unknown>')} missing "
                     f"{', '.join(missing_fields)}"
                 )
+
+    for publication in publications:
+        require_path(
+            route_to_output_path(DIST_SITE_DIR, publication["_route"]),
+            f"publication route {publication['_route']}",
+            failures,
+        )
 
     for publication in publications:
         if not publication["multi_file"]:
