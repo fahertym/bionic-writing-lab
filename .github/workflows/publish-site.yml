@@ -43,6 +43,9 @@ jobs:
       - name: Validate and build
         run: make build
 
+      - name: Smoke check outputs
+        run: make smoke
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -58,4 +61,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-

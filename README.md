@@ -353,19 +353,23 @@ The site builder uses `site/site.json` `base_url` to generate canonical URLs and
 - Index, listing, and search pages use site-level metadata.
 - Publication pages use publication metadata.
 - Standalone section pages point their canonical URL back to the full publication page so the full publication remains the canonical version.
+- The build also writes `dist/site/CNAME` from the same `base_url`, so the deployed Pages artifact declares the same custom domain used by the generated metadata.
 
 ## Smoke Checks
 
-Use `make smoke` after a build to confirm that core outputs exist, including the homepage, JSON indexes, search page, example publication routes, multi-file section routes, and downloads directory.
+Use `make smoke` after a build to confirm that core outputs exist, including the homepage, `CNAME`, custom-domain canonical metadata, JSON indexes, search page, example publication routes, multi-file section routes, and downloads directory.
 
-## Custom Domains Later
+## Custom Domain
 
-This repo is compatible with GitHub Pages and can grow into a public Bionic Writing Lab site. A custom domain can be added later by:
+The configured canonical domain is `bionicwritinglab.com`.
 
-1. adding a `CNAME` file to the built site or workflow
-2. pointing DNS at GitHub Pages
-3. updating the canonical site URL in manifests or site config when the final domain is known
+The repo handles the in-repo pieces:
 
-That keeps the current scaffold simple while leaving room for a future `bionicwritinglab.com` setup.
+- `site/site.json` sets `base_url` to `https://bionicwritinglab.com`.
+- `make build` writes `dist/site/CNAME`.
+- the quality and publish workflows smoke-check the generated artifact.
 
-See [docs/custom-domain.md](/home/matt/docs/bionic-writing-lab/docs/custom-domain.md) for the planned approach and [docs/importing-villain.md](/home/matt/docs/bionic-writing-lab/docs/importing-villain.md) for the future Villain import plan.
+Outside the repo, point DNS and Pages settings at `bionicwritinglab.com`, then verify HTTPS after propagation.
+For the GitHub Actions Pages workflow, the Pages custom-domain setting is still required outside the repo; the generated `CNAME` makes the built artifact reproducible and inspectable.
+
+See [docs/custom-domain.md](/home/matt/docs/bionic-writing-lab/docs/custom-domain.md) for the domain checklist and [docs/importing-villain.md](/home/matt/docs/bionic-writing-lab/docs/importing-villain.md) for the future Villain import plan.

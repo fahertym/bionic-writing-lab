@@ -6,9 +6,11 @@
 <section class="hero">
   <div class="hero-stage">
     <div class="hero-copy">
-      <p class="kicker">Public writing lab and systems archive</p>
+      <p class="kicker">Built for continuity</p>
       <h2>Writing about the machinery underneath things.</h2>
-      <p class="lede">Bionic Writing Lab is Matt Faherty's public writing lab: essays, fragments, pamphlets, books, notes, and unfinished machinery for making hidden systems visible.</p>
+      <p class="lede">I built this for work that does not survive the feed: essays, books, notes, fiction, political theory, and systems writing that need memory, shape, and time.</p>
+      <p>Not a blog trying to become a brand. Not a content funnel. A working archive where arguments, maps, drafts, and finished pieces can stay connected instead of dissolving into the scroll.</p>
+      <p>The tools are modern. The voice is mine.</p>
     </div>
     <div class="hero-orbit" aria-hidden="true">
       <span class="orbit-core"></span>
@@ -23,22 +25,15 @@
     <div class="shelf-summary">
       <span class="shelf-icon" aria-hidden="true">▤</span>
       <div>
-      <h3>Writing</h3>
-      <p>Public work that can be browsed, cited, revised, and treated like more than a passing feed item.</p>
-      </div>
-    </div>
-    <div class="shelf-summary">
-      <span class="shelf-icon" aria-hidden="true">◇</span>
-      <div>
-      <h3>Fragments</h3>
-      <p>Seeds, notes, argument scraps, rough machinery, and unfinished pieces that still deserve a durable surface.</p>
+      <h3>Essays</h3>
+      <p>Arguments about power, coercion, technology, dignity, and the structures people are taught to mistake for fate.</p>
       </div>
     </div>
     <div class="shelf-summary">
       <span class="shelf-icon" aria-hidden="true">▦</span>
       <div>
       <h3>Books and pamphlets</h3>
-      <p>Long-form work, compact releases, and larger structures that need room to breathe.</p>
+      <p>Longer projects, sharper releases, and work that needs more room than a platform is built to give it.</p>
       </div>
     </div>
   </div>
@@ -46,8 +41,8 @@
 
 <section class="panel">
   <div class="section-heading">
-    <h3>Recent Writing</h3>
-    <p class="section-copy">The latest things published here.</p>
+    <h3>Recent Work</h3>
+    <p class="section-copy">The newest public pieces from the lab.</p>
   </div>
   <div class="card-grid home-recent-grid">
     {% for publication in recent_publications %}
@@ -57,7 +52,7 @@
       {% if publication.subtitle %}
       <p class="subtitle">{{ publication.subtitle }}</p>
       {% endif %}
-      <p>{{ publication.excerpt }}</p>
+      <p>{{ publication.description }}</p>
       <a class="card-arrow" href="{{ publication.href }}" aria-label="Read {{ publication.title }}">→</a>
     </article>
     {% endfor %}
@@ -67,25 +62,13 @@
 <section class="panel">
   <div class="section-heading">
     <h3>Main Shelves</h3>
-    <p class="section-copy">Browse by the shape of the thing.</p>
+    <p class="section-copy">Plain doors. The work can be strange.</p>
   </div>
   <div class="kind-entry-grid">
-    <a class="kind-entry" href="writing/">
-      <span class="shelf-icon" aria-hidden="true">▤</span>
-      <span class="kind-entry-text">Writing</span>
-      <small>{{ recent_publications|length }} published</small>
-      <span class="kind-arrow" aria-hidden="true">→</span>
-    </a>
     <a class="kind-entry" href="{{ kind_routes['essay'] }}">
       <span class="shelf-icon" aria-hidden="true">◇</span>
       <span class="kind-entry-text">Essays</span>
       <small>{{ grouped_publications['essay']|length }} published</small>
-      <span class="kind-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="kind-entry" href="{{ kind_routes['fragment'] }}">
-      <span class="shelf-icon" aria-hidden="true">⌁</span>
-      <span class="kind-entry-text">Fragments</span>
-      <small>{{ grouped_publications['fragment']|length }} published</small>
       <span class="kind-arrow" aria-hidden="true">→</span>
     </a>
     <a class="kind-entry" href="{{ kind_routes['book'] }}">

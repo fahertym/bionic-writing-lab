@@ -9,6 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
+from urllib.parse import urlparse
 
 import markdown
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -197,6 +198,11 @@ def join_url(base_url: str, route_or_path: str) -> str:
     if not normalized_path:
         return normalized_base + "/"
     return normalized_base + "/" + normalized_path
+
+
+def custom_domain_from_base_url(base_url: str) -> str:
+    parsed = urlparse(base_url)
+    return (parsed.netloc or parsed.path).strip("/")
 
 
 def resolve_manifest_path(publication: Dict[str, Any], reference: str) -> Path:

@@ -1,16 +1,14 @@
 {
   "site_title": "Bionic Writing Lab",
-  "tagline": "Making hidden systems visible.",
+  "tagline": "Human writing. Better instruments.",
   "author": "Matt Faherty",
-  "description": "Bionic Writing Lab is Matt Faherty's public writing lab: essays, fragments, pamphlets, books, notes, and unfinished machinery for making hidden systems visible.",
-  "about_description": "Matt Faherty writes about systems, power, institutions, political machinery, and the human consequences of structures people are taught to treat as natural.",
+  "description": "Matt Faherty's personal publishing lab for essays, books, notes, fiction, and systems writing made with human voice and better instruments.",
+  "about_description": "Matt Faherty writes about power, systems, institutions, bodies, memory, technology, coercion, dignity, and the structures people are taught to mistake for fate.",
   "base_url": "https://bionicwritinglab.com",
   "language": "en",
   "copyright": "(c) 2026 Matt Faherty",
   "nav_links": [
-    { "label": "Writing", "route": "/writing/" },
     { "label": "Essays", "route": "/essays/" },
-    { "label": "Fragments", "route": "/fragments/" },
     { "label": "Books", "route": "/books/" },
     { "label": "About", "route": "/about/" },
     { "label": "Search", "route": "/search/" }

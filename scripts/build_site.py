@@ -10,6 +10,7 @@ from publication_lib import (
     build_publication_contexts,
     clear_directory,
     copy_site_assets,
+    custom_domain_from_base_url,
     export_publication_downloads,
     filter_concepts_for_build,
     filter_publications_for_build,
@@ -543,6 +544,7 @@ def render_site() -> int:
 
     clear_directory(DIST_SITE_DIR)
     copy_site_assets(DIST_SITE_DIR)
+    write_text(DIST_SITE_DIR / "CNAME", custom_domain_from_base_url(site_config["base_url"]) + "\n")
     env = load_site_environment()
 
     all_publication_contexts = sort_publications(build_publication_contexts(publications))

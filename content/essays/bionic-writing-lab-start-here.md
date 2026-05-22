@@ -1,16 +1,15 @@
 # Bionic Writing Lab: Start Here
 
-Bionic Writing Lab is Matt Faherty's public writing lab: essays, fragments, pamphlets, books, notes, and unfinished machinery for making hidden systems visible.
+Bionic Writing Lab exists because feeds rot, platforms flatten work, and I needed somewhere my writing could keep its structure, memory, and teeth.
 
-This is not a generic blog. It is not a brand funnel, a SaaS landing page, an ICN front door, or a feed pretending to be an archive. It is a place for serious public work to live long enough to be revised, cited, argued with, and built on.
+It is not a generic blog. It is not a Substack clone. It is not an AI content mill or a clean little portfolio where everything pretends to have been born finished.
 
-Some pieces will be polished. Some will stay rough on purpose. The point is to keep the source durable and the surfaces useful: Markdown in the repo, static pages on the web, downloads when a piece needs to travel, and a structure that does not flatten every form into a post.
+It is my personal publishing machine: a place for essays, books, notes, fiction, political theory, systems analysis, arguments, maps, and artifacts that need more continuity than an algorithmic feed can give them.
 
-The lab starts small because the first job is the pipe:
+Bionic does not mean artificial. It means assisted.
 
-- write in Markdown
-- describe the piece in a manifest
-- build the static site
-- publish the result
+Archives, notes, drafts, transcripts, AI, code, memory, static publishing, and revision are scaffolding. They help unfold compressed thought into language that can be read, argued with, revised, and returned to.
 
-Everything else can grow from that.
+The work is still human.
+
+The machinery is just better.

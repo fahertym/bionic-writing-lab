@@ -7,12 +7,14 @@ from publication_lib import (
     DIST_SITE_DIR,
     build_download_filename,
     build_publication_contexts,
+    custom_domain_from_base_url,
     filter_concepts_for_build,
     filter_publications_for_build,
     filter_reading_paths_for_build,
     load_concepts,
     load_publications,
     load_reading_paths,
+    load_site_config,
     route_to_output_path,
 )
 
@@ -53,6 +55,25 @@ def main() -> int:
 
     for relative_path in REQUIRED_FILES:
         require_path(DIST_SITE_DIR / relative_path, relative_path, failures)
+
+    site_config = load_site_config()
+    custom_domain = custom_domain_from_base_url(site_config["base_url"])
+    cname_path = DIST_SITE_DIR / "CNAME"
+    if cname_path.exists():
+        actual_cname = cname_path.read_text(encoding="utf-8").strip()
+        if actual_cname != custom_domain:
+            failures.append(f"CNAME contains {actual_cname!r}, expected {custom_domain!r}")
+    else:
+        failures.append(f"missing CNAME: {cname_path}")
+
+    index_path = DIST_SITE_DIR / "index.html"
+    if index_path.exists():
+        index_html = index_path.read_text(encoding="utf-8")
+        canonical_url = f"{site_config['base_url'].rstrip('/')}/"
+        if f'<link rel="canonical" href="{canonical_url}" />' not in index_html:
+            failures.append(f"index canonical URL does not use {canonical_url}")
+        if f'<meta property="og:url" content="{canonical_url}" />' not in index_html:
+            failures.append(f"index Open Graph URL does not use {canonical_url}")
 
     publications = filter_publications_for_build(build_publication_contexts(load_publications()))
     reading_paths = filter_reading_paths_for_build(load_reading_paths())
