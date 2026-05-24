@@ -1,0 +1,28 @@
+{
+  "id": "we-built-the-machine-we-can-build-the-door",
+  "title": "We Built the Machine. We Can Build the Door.",
+  "subtitle": "A Declaration of Human Sovereignty",
+  "author": "Matt Faherty",
+  "kind": "pamphlet",
+  "slug": "we-built-the-machine-we-can-build-the-door",
+  "description": "A declaration against the legitimacy of systems that govern human life without genuine consent, material freedom, dignity, ecological responsibility, or democratic agency.",
+  "status": "review",
+  "tags": [
+    "human-sovereignty",
+    "anti-state",
+    "anti-capitalism",
+    "democratic-infrastructure",
+    "declaration"
+  ],
+  "source": "content/pamphlets/we-built-the-machine-we-can-build-the-door.md",
+  "web_route": "/pamphlets/we-built-the-machine-we-can-build-the-door/",
+  "output_formats": [
+    "site",
+    "markdown",
+    "pdf"
+  ],
+  "downloadable": true,
+  "order": 3,
+  "date": "2026-05-24",
+  "updated": "2026-05-24"
+}

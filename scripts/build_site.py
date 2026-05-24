@@ -31,7 +31,7 @@ from publication_lib import (
     write_text,
 )
 
-ASSET_VERSION = "20260522"
+ASSET_VERSION = "20260524"
 
 
 def prune_relationships(publications: list[dict]) -> None:
@@ -104,6 +104,13 @@ def linkify_publications(publications: list[dict], current_route: str) -> list[d
         item["href"] = relative_route(current_route, publication["_route"])
         linked.append(item)
     return linked
+
+
+def find_homepage_featured_publication(site_config: dict, publications: list[dict]) -> dict | None:
+    featured_id = site_config.get("homepage_featured_publication_id")
+    if not featured_id:
+        return None
+    return next((publication for publication in publications if publication["id"] == featured_id), None)
 
 
 def linkify_reading_paths(reading_paths: list[dict], current_route: str) -> list[dict]:
@@ -570,6 +577,12 @@ def render_site() -> int:
         kind: [item for item in publication_contexts if item["kind"] == kind]
         for kind in KIND_TO_SECTION
     }
+    featured_publication = find_homepage_featured_publication(site_config, publication_contexts)
+    secondary_publications = [
+        item
+        for item in publication_contexts
+        if not featured_publication or item["id"] != featured_publication["id"]
+    ][:4]
     kind_labels = {kind: kind_label(kind) for kind in KIND_TO_SECTION}
     kind_routes = {
         kind: relative_route("/", f"/{section}/")
@@ -601,6 +614,12 @@ def render_site() -> int:
             current_route="/",
             nav_items=build_navigation(site_config, "/"),
             visibility=visibility,
+            featured_publication=(
+                linkify_publications([featured_publication], "/")[0]
+                if featured_publication
+                else None
+            ),
+            secondary_publications=linkify_publications(secondary_publications, "/"),
             recent_publications=linkify_publications(publication_contexts[:6], "/"),
             grouped_publications={
                 kind: linkify_publications(items, "/")
