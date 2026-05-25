@@ -57,6 +57,12 @@ def main() -> int:
         require_path(DIST_SITE_DIR / relative_path, relative_path, failures)
 
     site_config = load_site_config()
+    social_image = site_config.get("social_image", "/assets/social-preview.jpg")
+    if not isinstance(social_image, str) or not social_image:
+        social_image = "/assets/social-preview.jpg"
+    if isinstance(social_image, str) and social_image.startswith("/assets/"):
+        require_path(DIST_SITE_DIR / social_image.lstrip("/"), "social preview image", failures)
+
     custom_domain = custom_domain_from_base_url(site_config["base_url"])
     cname_path = DIST_SITE_DIR / "CNAME"
     if cname_path.exists():
@@ -74,6 +80,14 @@ def main() -> int:
             failures.append(f"index canonical URL does not use {canonical_url}")
         if f'<meta property="og:url" content="{canonical_url}" />' not in index_html:
             failures.append(f"index Open Graph URL does not use {canonical_url}")
+        if '<meta property="og:image" content="' not in index_html:
+            failures.append("index Open Graph image metadata is missing")
+        if site_config.get("social_image_width") and '<meta property="og:image:width" content="' not in index_html:
+            failures.append("index Open Graph image width metadata is missing")
+        if site_config.get("social_image_height") and '<meta property="og:image:height" content="' not in index_html:
+            failures.append("index Open Graph image height metadata is missing")
+        if '<meta name="twitter:card" content="summary_large_image" />' not in index_html:
+            failures.append("index Twitter summary card metadata is missing")
 
     publications = filter_publications_for_build(build_publication_contexts(load_publications()))
     reading_paths = filter_reading_paths_for_build(load_reading_paths())
