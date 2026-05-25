@@ -1,8 +1,10 @@
 # Public Site
 
-Bionic Writing Lab is the public identity layer for Matt Faherty's writing.
+Bionic Writing Lab is the public home for Matt Faherty's writing.
 
-The homepage introduces the lab as a place for systems essays, political machinery, speculative fiction, working notes, pamphlets, poems, series, collections, concepts, reading paths, and long-form work. The About page provides the author frame and links to related InterCooperative Network infrastructure work.
+The homepage should center the work itself: a featured piece, a short authorial frame, and quiet routes into published writing. It should feel like a reading room, not a product page or a tour of the publishing system.
+
+The About page explains the site in human terms: Matt Faherty, the work, what bionic means, and adjacent infrastructure work. ICN can remain linked and named, but it is secondary to the writing-home identity.
 
 The site stays static:
 
@@ -12,3 +14,5 @@ The site stays static:
 - publication pages still come from Markdown content and JSON manifests.
 
 Public builds still include only `published` publications. Draft, imported, review, private, archived, and superseded material appears only in draft preview builds.
+
+The public surface should not overexplain implementation details. Search may be static and client-side; downloads may be generated; manifests may preserve concepts, paths, and relationships. Those facts should stay true underneath the surface, while public copy stays reader-facing and restrained.

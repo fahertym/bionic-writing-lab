@@ -59,23 +59,6 @@
     {% endif %}
   </header>
 
-  {% if publication.downloads %}
-  <section class="download-panel" aria-labelledby="downloads-heading">
-    <div>
-      <p class="kicker">Reader Copies</p>
-      <h3 id="downloads-heading">Downloads</h3>
-    </div>
-    <ul class="download-list">
-      {% for item in publication.downloads %}
-      <li><a href="{{ item.href }}">{{ item.label }}</a></li>
-      {% endfor %}
-    </ul>
-    {% if publication.download_warnings %}
-    <p class="download-note">Some requested formats were skipped during the current build.</p>
-    {% endif %}
-  </section>
-  {% endif %}
-
   {% if publication.multi_file %}
   <section class="toc-panel">
     <h3>Contents</h3>
@@ -87,6 +70,47 @@
       </li>
       {% endfor %}
     </ol>
+  </section>
+  {% endif %}
+
+  <section class="body-copy">
+    {% if publication.multi_file %}
+      {% for section in publication.sections %}
+      <section class="content-section" id="{{ section.anchor }}">
+        <header class="content-section-header">
+          <h3>{{ section.title }}</h3>
+          <p class="section-jump-link"><a href="{{ section.standalone_href }}">Read this section on its own page</a></p>
+        </header>
+        {{ section.html | safe }}
+        <nav class="section-nav" aria-label="Section navigation">
+          {% if section.previous_section %}
+          <a class="section-nav-link" href="{{ section.previous_section.href }}">Previous: {{ section.previous_section.title }}</a>
+          {% endif %}
+          {% if section.next_section %}
+          <a class="section-nav-link" href="{{ section.next_section.href }}">Next: {{ section.next_section.title }}</a>
+          {% endif %}
+        </nav>
+      </section>
+      {% endfor %}
+    {% else %}
+      {{ publication.body_html | safe }}
+    {% endif %}
+  </section>
+
+  {% if publication.downloads %}
+  <section class="download-panel" aria-labelledby="downloads-heading">
+    <div>
+      <p class="kicker">Copies</p>
+      <h3 id="downloads-heading">Download</h3>
+    </div>
+    <ul class="download-list">
+      {% for item in publication.downloads %}
+      <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+      {% endfor %}
+    </ul>
+    {% if publication.download_warnings %}
+    <p class="download-note">Some requested formats were skipped during the current build.</p>
+    {% endif %}
   </section>
   {% endif %}
 
@@ -106,7 +130,7 @@
 
   {% if publication.reading_paths %}
   <section class="member-panel">
-    <h3>Reading Paths</h3>
+    <h3>Paths through this work</h3>
     <ul class="publication-list">
       {% for reading_path in publication.reading_paths %}
       <li>
@@ -120,7 +144,7 @@
 
   {% if publication.concepts %}
   <section class="member-panel">
-    <h3>Concepts</h3>
+    <h3>Ideas in this piece</h3>
     <ul class="publication-list">
       {% for concept in publication.concepts %}
       <li>
@@ -134,7 +158,7 @@
 
   {% if publication.relationship_groups or publication.inverse_relationship_groups %}
   <section class="member-panel publication-relationships">
-    <h3>Publication Relationships</h3>
+    <h3>Related Work</h3>
     {% if publication.relationship_groups %}
     <div class="relationship-group-stack">
       {% for group in publication.relationship_groups %}
@@ -171,30 +195,5 @@
     {% endif %}
   </section>
   {% endif %}
-
-  <section class="body-copy">
-    {% if publication.multi_file %}
-      {% for section in publication.sections %}
-      <section class="content-section" id="{{ section.anchor }}">
-        <header class="content-section-header">
-          <p class="meta">Source {{ section.path }}</p>
-          <h3>{{ section.title }}</h3>
-          <p class="section-jump-link"><a href="{{ section.standalone_href }}">Read this section on its own page</a></p>
-        </header>
-        {{ section.html | safe }}
-        <nav class="section-nav" aria-label="Section navigation">
-          {% if section.previous_section %}
-          <a class="section-nav-link" href="{{ section.previous_section.href }}">Previous: {{ section.previous_section.title }}</a>
-          {% endif %}
-          {% if section.next_section %}
-          <a class="section-nav-link" href="{{ section.next_section.href }}">Next: {{ section.next_section.title }}</a>
-          {% endif %}
-        </nav>
-      </section>
-      {% endfor %}
-    {% else %}
-      {{ publication.body_html | safe }}
-    {% endif %}
-  </section>
 </article>
 {% endblock %}

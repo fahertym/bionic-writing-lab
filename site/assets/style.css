@@ -1,19 +1,19 @@
 :root {
-  --void: #0b0c0a;
+  --void: #090a08;
   --paper: #11120f;
   --panel: rgba(246, 239, 221, 0.035);
   --panel-strong: rgba(246, 239, 221, 0.055);
   --bone: #f0eadb;
   --bone-soft: #d4cbb8;
   --bone-dim: #9e9788;
-  --signal: #9ebc9f;
-  --signal-strong: #c1d4b9;
-  --signal-soft: rgba(158, 188, 159, 0.12);
+  --signal: #a4bda5;
+  --signal-strong: #c5d6bd;
+  --signal-soft: rgba(164, 189, 165, 0.1);
   --moss: #75806e;
   --line: rgba(240, 234, 219, 0.14);
   --line-signal: rgba(158, 188, 159, 0.34);
   --shadow: rgba(0, 0, 0, 0.46);
-  --max-width: 74rem;
+  --max-width: 76rem;
   --reading-width: 42rem;
   --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
   --sans: "Avenir Next", "Segoe UI", Arial, sans-serif;
@@ -26,6 +26,7 @@
 
 html {
   font-size: 18px;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -69,8 +70,15 @@ a:hover {
   text-decoration-color: var(--signal);
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 0.2rem;
+}
+
 .page-shell {
-  width: min(calc(100% - 2.5rem), var(--max-width));
+  width: min(calc(100% - clamp(1.5rem, 4vw, 3rem)), var(--max-width));
   margin: 0 auto;
   padding: 1.1rem 0 3.5rem;
 }
@@ -88,7 +96,7 @@ a:hover {
   margin: 0.08rem 0;
   color: var(--bone);
   font-family: var(--serif);
-  font-size: 2.8rem;
+  font-size: clamp(2.15rem, 4vw, 2.85rem);
   font-weight: 700;
   line-height: 0.98;
   letter-spacing: 0;
@@ -108,6 +116,7 @@ a:hover {
   max-width: 40rem;
   margin: 0;
   color: var(--bone-dim);
+  font-size: 0.96rem;
 }
 
 .eyebrow,
@@ -149,16 +158,11 @@ a:hover {
   position: relative;
   display: inline-flex;
   align-items: center;
-  min-height: 2rem;
+  min-height: 2.4rem;
+  padding: 0.1rem 0;
   color: var(--bone-soft);
   font-size: 0.88rem;
   text-decoration: none;
-}
-
-.site-nav a:last-child::before {
-  margin-right: 0.35rem;
-  color: var(--signal);
-  content: "/";
 }
 
 .site-nav a::after {
@@ -199,8 +203,8 @@ a:hover {
 
 .hero-stage {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.36fr);
-  gap: 3.2rem;
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.32fr);
+  gap: clamp(2rem, 5vw, 4rem);
   align-items: start;
 }
 
@@ -219,11 +223,19 @@ a:hover {
   margin: 0.24rem 0 0.9rem;
   color: var(--bone);
   font-family: var(--serif);
-  font-size: 3.25rem;
+  font-size: clamp(2.35rem, 4.8vw, 3.35rem);
   font-weight: 650;
   line-height: 1.04;
   letter-spacing: 0;
   text-shadow: none;
+}
+
+.home-intro {
+  max-width: 38rem;
+  margin: 0 0 1.35rem;
+  color: var(--bone-soft);
+  font-size: 1.05rem;
+  line-height: 1.55;
 }
 
 .hero h2 a {
@@ -256,7 +268,7 @@ a:hover {
 
 .selected-work {
   align-self: stretch;
-  padding: 0.2rem 0 0 1.05rem;
+  padding: 0.15rem 0 0 1.1rem;
   border-left: 1px solid var(--line);
   background: transparent;
 }
@@ -296,7 +308,7 @@ a:hover {
 
 .work-preview p {
   margin: 0.25rem 0 0;
-  color: var(--bone-soft);
+  color: var(--bone-dim);
   font-size: 0.84rem;
   line-height: 1.48;
 }
@@ -304,7 +316,7 @@ a:hover {
 .feature-link {
   display: inline-flex;
   align-items: center;
-  min-height: 2.35rem;
+  min-height: 2.65rem;
   padding: 0 0 0.7rem;
   border-bottom: 1px solid var(--line-signal);
   color: var(--signal-strong);
@@ -439,6 +451,12 @@ a:hover {
   border-color: var(--line-signal);
 }
 
+.card:focus-within,
+.kind-entry:focus-visible,
+.work-preview:focus-within {
+  border-color: var(--signal);
+}
+
 .card h3,
 .card h4 {
   margin: 0.25rem 0 0.45rem;
@@ -477,7 +495,7 @@ a:hover {
 }
 
 .publication {
-  max-width: var(--reading-width);
+  max-width: min(100%, 48rem);
   padding-top: 1.4rem;
 }
 
@@ -487,7 +505,8 @@ a:hover {
 }
 
 .publication-header h2 {
-  font-size: 2.85rem;
+  max-width: var(--reading-width);
+  font-size: clamp(2.15rem, 4.2vw, 2.9rem);
 }
 
 .publication-list,
@@ -538,6 +557,14 @@ a:hover {
   background: var(--panel);
 }
 
+.publication .download-panel,
+.publication .toc-panel,
+.publication .member-panel,
+.publication .relationship-panel {
+  color: var(--bone-soft);
+  background: transparent;
+}
+
 .download-panel {
   display: grid;
   grid-template-columns: minmax(8rem, 0.45fr) minmax(0, 1fr);
@@ -567,7 +594,7 @@ a:hover {
 .download-list a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.1rem;
+  min-height: 2.45rem;
   padding: 0.15rem 0.65rem;
   border: 1px solid var(--line);
   color: var(--bone);
@@ -684,6 +711,7 @@ a:hover {
 .text-button {
   display: inline-flex;
   align-items: center;
+  min-height: 2.55rem;
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--line);
   color: var(--bone);
@@ -712,11 +740,6 @@ a:hover {
   background: rgba(17, 18, 15, 0.72);
   color: var(--bone);
   font: inherit;
-}
-
-.search-input:focus {
-  border-color: var(--signal);
-  outline: 2px solid rgba(158, 188, 159, 0.18);
 }
 
 .search-help,
@@ -763,6 +786,7 @@ a:hover {
   grid-template-columns: auto 1fr;
   gap: 0.45rem;
   align-items: baseline;
+  min-height: 2rem;
   font-family: var(--sans);
   font-size: 0.86rem;
   line-height: 1.35;
@@ -790,15 +814,15 @@ code {
 .tag-list li {
   padding: 0.2rem 0.55rem;
   border: 1px solid var(--line);
-  background: var(--panel);
-  color: var(--bone-soft);
+  background: transparent;
+  color: var(--bone-dim);
   font-family: var(--mono);
   font-size: 0.74rem;
 }
 
 .body-copy {
   margin-top: 1.65rem;
-  font-size: 1.08rem;
+  font-size: clamp(1.02rem, 1.4vw, 1.09rem);
 }
 
 .body-copy > :first-child {
@@ -820,7 +844,7 @@ code {
 }
 
 .body-copy p {
-  margin: 1.05rem 0;
+  margin: 1.08rem 0;
 }
 
 .body-copy h2 {
@@ -867,6 +891,7 @@ code {
   padding-top: 1rem;
   border-top: 1px solid var(--line);
   color: var(--bone-dim);
+  font-size: 0.9rem;
 }
 
 .site-footer::before {
@@ -903,6 +928,8 @@ code {
   .selected-work {
     padding-left: 0;
     border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
   }
 
   .selected-work-list {
@@ -917,25 +944,25 @@ code {
   }
 
   .page-shell {
-    width: min(calc(100% - 1rem), var(--max-width));
+    width: min(calc(100% - 1.35rem), var(--max-width));
     padding-top: 0.85rem;
   }
 
-  .site-name {
-    font-size: 2.1rem;
+  .site-header {
+    gap: 0.85rem;
   }
 
   .site-nav {
-    gap: 0.28rem 0.75rem;
+    width: 100%;
+    gap: 0.2rem 0.8rem;
+  }
+
+  .site-nav a {
+    min-height: 2.6rem;
   }
 
   .hero-copy {
     padding: 0;
-  }
-
-  .hero h2,
-  .publication-header h2 {
-    font-size: 2.25rem;
   }
 
   .hero-stage {
@@ -949,6 +976,9 @@ code {
 
   .download-panel {
     grid-template-columns: 1fr;
+    padding: 0.85rem 0;
+    border-right: 0;
+    border-left: 0;
   }
 
   .section-heading {
@@ -968,6 +998,14 @@ code {
     max-width: none;
   }
 
+  .publication-header {
+    padding-bottom: 1rem;
+  }
+
+  .body-copy {
+    margin-top: 1.35rem;
+  }
+
   .toc-secondary-link {
     display: block;
     margin: 0.2rem 0 0;
@@ -975,5 +1013,50 @@ code {
 
   .site-footer {
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 430px) {
+  .page-content {
+    gap: 1.65rem;
+    margin-top: 1.55rem;
+  }
+
+  .hero {
+    padding: 1.35rem 0 1.55rem;
+  }
+
+  .lede {
+    padding-left: 0.7rem;
+  }
+
+  .kind-entry,
+  .card {
+    min-height: 0;
+  }
+
+  .download-list,
+  .section-nav {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .download-list a,
+  .section-nav-link,
+  .text-button {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .publication-list,
+  .download-list,
+  .tag-list,
+  .link-list {
+    padding-left: 0;
+  }
+
+  .publication-list,
+  .link-list {
+    list-style-position: inside;
   }
 }
