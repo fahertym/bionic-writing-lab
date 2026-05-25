@@ -6,8 +6,9 @@
 <section class="hero">
   <div class="hero-stage">
     <div class="hero-copy">
+      <p class="home-intro">This is where I keep the work that needs more room than a feed can give it.</p>
       {% if featured_publication %}
-      <p class="kicker">Featured Publication</p>
+      <p class="kicker">Featured Essay</p>
       <h2><a href="{{ featured_publication.href }}">{{ featured_publication.title }}</a></h2>
       {% if featured_publication.subtitle %}
       <p class="subtitle">{{ featured_publication.subtitle }}</p>
@@ -18,18 +19,17 @@
         · {{ featured_publication.word_count }} words
       </p>
       <p class="lede">{{ featured_publication.description }}</p>
-      <p><a class="feature-link" href="{{ featured_publication.href }}">Read {{ featured_publication.kind|title }}</a></p>
+      <p><a class="feature-link" href="{{ featured_publication.href }}">Read the {{ featured_publication.kind|title }}</a></p>
       {% else %}
-      <p class="kicker">Built for continuity</p>
+      <p class="kicker">Start Here</p>
       <h2>Writing about the machinery underneath things.</h2>
-      <p class="lede">I built this for work that does not survive the feed: essays, books, notes, fiction, political theory, and systems writing that need memory, shape, and time.</p>
-      <p>Not a blog trying to become a brand. Not a content funnel. A working archive where arguments, maps, drafts, and finished pieces can stay connected instead of dissolving into the scroll.</p>
+      <p class="lede">Essays, fragments, pamphlets, fiction, and longer works about power, bodies, memory, technology, coercion, dignity, and the stories people are taught to mistake for fate.</p>
       {% endif %}
     </div>
     <aside class="selected-work" aria-label="Selected work">
       <div class="section-heading">
-        <h3>Public Work</h3>
-        <p class="section-copy">Published pieces.</p>
+        <h3>Also Published</h3>
+        <p class="section-copy">More finished work.</p>
       </div>
       <div class="selected-work-list">
         {% for publication in secondary_publications %}
@@ -46,8 +46,8 @@
 
 <section class="panel">
   <div class="section-heading">
-    <h3>Public Shelves</h3>
-    <p class="section-copy">Essays and books.</p>
+    <h3>Shelves</h3>
+    <p class="section-copy">Ways into the work.</p>
   </div>
   <div class="kind-entry-grid">
     <a class="kind-entry" href="{{ kind_routes['essay'] }}">

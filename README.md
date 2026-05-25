@@ -114,7 +114,7 @@ Preview mode includes all statuses, including `private`, and marks non-published
 
 ## Public Site Identity
 
-The public site is framed as Matt Faherty's publishing lab for systems essays, political machinery, speculative fiction, notes, pamphlets, and long-form work. Site-level identity lives in `site/site.json`, with homepage and About page templates under `site/templates/`.
+The public site is framed as Matt Faherty's writing home: a reading-first place for essays, fragments, pamphlets, fiction, and longer work. Site-level identity lives in `site/site.json`, with homepage and About page templates under `site/templates/`.
 
 The lab should not adopt any external publishing model wholesale. It is not a Substack clone, WordPress blog, Medium publication, GitBook/doc site, portfolio, startup page, or generic feed. See [docs/identity-and-design.md](/home/matt/docs/bionic-writing-lab/docs/identity-and-design.md) for the durable identity and design doctrine, and [docs/public-site.md](/home/matt/docs/bionic-writing-lab/docs/public-site.md) for the small public-site surface area.
 

@@ -1,8 +1,10 @@
 # Identity And Design
 
-Bionic Writing Lab is Matt Faherty's Markdown-first publishing lab for writing about the machinery underneath things. It is a public archive with structure, a concept map, an argument genealogy system, and a machine for turning fragments into durable public artifacts.
+Bionic Writing Lab is Matt Faherty's writing home: a public surface for essays, fragments, pamphlets, fiction, and longer works about the machinery underneath things.
 
-The lab converts fragments, drafts, arguments, essays, books, fiction, and AI-assisted notes into structured public artifacts. Fragments should not die in the feed. They should be preserved, inspected, revised, related, compressed, expanded, and, when ready, published in the form they actually need.
+The writing is the center. The site is the room around it.
+
+The machinery matters because it lets the work keep structure, memory, and continuity, but the public surface should not read like a manual for that machinery. Readers should meet the work first: the argument, the voice, the pressure, the piece in front of them.
 
 ## Platform Rejection
 
@@ -22,7 +24,7 @@ This is not aesthetic snobbery. It is structural discipline.
 - A newsletter is too disposable.
 - A social feed is where thought goes to die.
 
-This repo is argument-shaped, provenance-shaped, concept-shaped, and artifact-shaped.
+This repo is argument-shaped, provenance-shaped, concept-shaped, and artifact-shaped. The public site, though, should feel writerly and reader-facing before it feels structural.
 
 ## Source And Surface
 
@@ -30,7 +32,7 @@ Source is durable; surfaces are generated.
 
 Markdown content and JSON manifests are the source. Website pages, downloads, feeds, indexes, search, concept pages, reading paths, and relationship views are generated surfaces. Generated output may be rebuilt, redesigned, exported, bundled, or replaced. Source should remain inspectable, portable, and plain enough to survive the failure of any one tool.
 
-The lab should preserve this discipline even as the public design becomes more expressive.
+The lab should preserve this discipline even as the public design becomes more expressive. Do not commit generated site output unless there is an explicit release reason.
 
 ## Form Matters
 
@@ -64,7 +66,7 @@ Categories sort piles. Reading paths guide readers through ordered routes.
 
 Chronology records when something appeared. Relationships record how arguments evolve: expansion, response, supersession, related work, excerpts, and adaptations.
 
-These layers are the reason the lab is not just a blog. The work is not only a stream of posts; it is a map of arguments, recurring machinery, and public artifacts.
+These layers are the reason the lab is not just a blog. On the public site, they should behave like quiet reader aids, not the main character.
 
 ## ICN Relationship
 
@@ -78,11 +80,11 @@ Do not turn every page into an ICN ad. Do not hard-code ICN as the center of the
 
 ## Visual Foundation
 
-The design direction is cybernetic scriptorium.
+The design direction is dark reading room.
 
-The visual language should feel dark-mode first, serious, archival, technical but readable, writerly, and public-infrastructure-adjacent. It should suggest a machine room for arguments and a reading room for durable work.
+The visual language should feel dark-mode first, serious, archival, writerly, and calm. It should suggest a room built around durable work: enough structure to hold long arguments, enough restraint that the prose remains the center.
 
-Avoid generic AI robot imagery, SaaS gradients, influencer-brand gloss, Matrix cosplay, fake futuristic clutter, and neon decoration for its own sake.
+Avoid generic AI robot imagery, SaaS gradients, influencer-brand gloss, Matrix cosplay, fake futuristic clutter, terminal cosplay, and neon decoration for its own sake.
 
 Suggested palette:
 
@@ -102,4 +104,4 @@ Suggested palette:
 - cyan: `#45E6FF` for active links
 - red: `#FF4D6D` only for warning and danger states
 
-Use color as structure, not spectacle. The site should remain readable on phones, fast to load, and calm enough for long reading.
+Use color as structure, not spectacle. The site should remain readable on phones, fast to load, and calm enough for long reading. Metadata, downloads, tags, concepts, paths, and relationships should help readers continue; they should not compete with the body of a piece.
