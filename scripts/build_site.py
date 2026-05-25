@@ -86,6 +86,8 @@ def build_page_meta(
 ) -> dict[str, str]:
     resolved_canonical_route = canonical_route or route
     canonical_url = join_url(site_config["base_url"], resolved_canonical_route)
+    social_image = site_config.get("social_image", "/assets/social-preview.jpg")
+    social_image_url = join_url(site_config["base_url"], social_image)
     return {
         "title": title,
         "description": description,
@@ -94,6 +96,10 @@ def build_page_meta(
         "og_description": description,
         "og_type": og_type,
         "og_url": canonical_url,
+        "og_image": social_image_url,
+        "og_image_width": "1200",
+        "og_image_height": "630",
+        "og_image_alt": site_config.get("social_image_alt", site_config["site_title"]),
     }
 
 

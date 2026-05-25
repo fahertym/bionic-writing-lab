@@ -29,6 +29,7 @@ REQUIRED_FILES = (
     "feed.json",
     "search-index.json",
     "search/index.html",
+    "assets/social-preview.jpg",
 )
 
 SEARCH_INDEX_REQUIRED_FIELDS = (
@@ -74,6 +75,10 @@ def main() -> int:
             failures.append(f"index canonical URL does not use {canonical_url}")
         if f'<meta property="og:url" content="{canonical_url}" />' not in index_html:
             failures.append(f"index Open Graph URL does not use {canonical_url}")
+        if '<meta property="og:image" content="' not in index_html:
+            failures.append("index Open Graph image metadata is missing")
+        if '<meta name="twitter:card" content="summary_large_image" />' not in index_html:
+            failures.append("index Twitter summary card metadata is missing")
 
     publications = filter_publications_for_build(build_publication_contexts(load_publications()))
     reading_paths = filter_reading_paths_for_build(load_reading_paths())
