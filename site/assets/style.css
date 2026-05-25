@@ -26,7 +26,6 @@
 
 html {
   font-size: 18px;
-  scroll-behavior: smooth;
 }
 
 body {
@@ -1058,11 +1057,5 @@ code {
   .publication-list,
   .link-list {
     list-style-position: inside;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
   }
 }
