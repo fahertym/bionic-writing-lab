@@ -4,7 +4,7 @@ Generated repo-ready content files for the first Bionic Writing Lab launch seque
 
 ## Generated Works
 
-1. `you-are-not-tired-because-you-are-weak` — essay, review
+1. `you-are-not-tired-because-you-are-weak` — essay, published
 2. `everyone-at-that-table` — essay, review
 3. `we-built-the-machine-we-can-build-the-door` — pamphlet, review
 
@@ -18,7 +18,7 @@ Generated repo-ready content files for the first Bionic Writing Lab launch seque
 - Publication metadata lives in `publications/*.json`.
 - Intake/provenance metadata lives in `intake/launch-canon/*.md`.
 - No standalone HTML page shells, embedded CSS, scripts, progress bars, or front matter were placed in rendered content files.
-- All publication statuses are `review` so the public build remains conservative until a deliberate launch pass.
+- `you-are-not-tired-because-you-are-weak` is `published`; the remaining two launch works are `review` so the public build remains conservative after the first launch pass.
 
 ## Recommended Validation After Copying Into Repo
 
@@ -31,10 +31,10 @@ INCLUDE_DRAFTS=1 make smoke
 git diff --check
 ```
 
-## Follow-up Before Publishing
+## Follow-up Before Publishing Remaining Launch Works
 
 - Inspect generated HTML pages in draft build.
 - Decide whether to add custom PDF artifact support for the designed `You Are Not Tired` PDF.
 - Add source notes for `Everyone at That Table` before making it public.
 - Add/update concept manifests in a separate metadata PR.
-- Flip publication statuses and `paths/start-here.json` to `published` only after review.
+- Flip the remaining review publication statuses and `paths/start-here.json` to `published` only after review.

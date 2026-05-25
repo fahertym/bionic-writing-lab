@@ -18,7 +18,7 @@
         · {{ featured_publication.word_count }} words
       </p>
       <p class="lede">{{ featured_publication.description }}</p>
-      <p><a class="feature-link" href="{{ featured_publication.href }}">Read the essay</a></p>
+      <p><a class="feature-link" href="{{ featured_publication.href }}">Read {{ featured_publication.kind|title }}</a></p>
       {% else %}
       <p class="kicker">Built for continuity</p>
       <h2>Writing about the machinery underneath things.</h2>

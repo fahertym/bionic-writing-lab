@@ -7,7 +7,7 @@ canonical_text_source: "files (24).zip/you-are-not-tired.html"
 visual_reference: "files (24).zip/You Are Not Tired Because You Are Weak - Matt Faherty (print, B&W).pdf"
 candidate_kind: essay
 launch_order: 1
-publication_status: review
+publication_status: published
 source_materials:
   - "files (24).zip/you-are-not-tired.html"
   - "files (24).zip/essay-content-block.html"
@@ -29,4 +29,4 @@ concept_candidates:
 - Converted standalone HTML article body to repo-native Markdown.
 - Removed embedded CSS, JavaScript, progress bar, masthead, and decorative section counters.
 - Preserved Sources & Notes and original publication note as reader-facing Markdown.
-- Kept status=review so generated output can be inspected before public launch.
+- Published as the first launch essay; the remaining launch-canon works stay in review for later inspection.
