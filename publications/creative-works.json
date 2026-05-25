@@ -1,0 +1,20 @@
+{
+  "id": "creative-works",
+  "title": "Creative Works",
+  "subtitle": "Poems, fragments, myths, satire, and experimental pieces from the lab",
+  "author": "Matt Faherty",
+  "kind": "collection",
+  "slug": "creative-works",
+  "description": "A curated artistic lane for Bionic Writing Lab: poetry, prose poems, cosmic indictments, mythic fragments, satire, body/pain work, and experimental creative pieces.",
+  "status": "draft",
+  "tags": ["creative-works", "poetry", "fragments", "satire", "cosmic", "experimental"],
+  "source": "content/collections/creative-works",
+  "sources": ["README.md", "the-universe-does-not-mourn-us.md"],
+  "members": ["the-universe-does-not-mourn-us"],
+  "web_route": "/collections/creative-works/",
+  "output_formats": ["site", "markdown", "epub"],
+  "downloadable": true,
+  "order": 20,
+  "date": "2026-05-25",
+  "updated": "2026-05-25"
+}

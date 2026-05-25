@@ -1,0 +1,21 @@
+{
+  "id": "the-universe-does-not-mourn-us",
+  "title": "The Universe Does Not Mourn Us",
+  "subtitle": "A creative synthesis from the cosmic, body, machine, and exile materials",
+  "author": "Matt Faherty",
+  "kind": "fragment",
+  "slug": "the-universe-does-not-mourn-us",
+  "description": "A refined prose-poem synthesizing the strongest motifs from the creative archive: cosmic judgment, body memory, machine critique, separation, exile, and reconnection.",
+  "status": "draft",
+  "tags": ["creative-works", "prose-poem", "cosmic", "body", "machine", "exile"],
+  "source": "content/collections/creative-works/the-universe-does-not-mourn-us.md",
+  "web_route": "/fragments/the-universe-does-not-mourn-us/",
+  "output_formats": ["site", "markdown"],
+  "downloadable": false,
+  "order": 21,
+  "date": "2026-05-25",
+  "updated": "2026-05-25",
+  "relationships": {
+    "adapted_from": ["creative-works"]
+  }
+}
