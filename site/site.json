@@ -4,6 +4,8 @@
   "author": "Matt Faherty",
   "description": "Essays, fragments, pamphlets, fiction, and longer works about power, systems, bodies, memory, technology, coercion, dignity, and the structures people are taught to mistake for fate.",
   "social_image": "/assets/social-preview.jpg",
+  "social_image_width": 1200,
+  "social_image_height": 630,
   "social_image_alt": "Bionic Writing Lab, writings and musings by Matt Faherty.",
   "homepage_featured_publication_id": "you-are-not-tired-because-you-are-weak",
   "about_description": "Bionic Writing Lab is Matt Faherty's home for writing about the machinery underneath things.",

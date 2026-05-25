@@ -32,6 +32,7 @@ from publication_lib import (
 )
 
 ASSET_VERSION = "20260525"
+DEFAULT_SOCIAL_IMAGE = "/assets/social-preview.jpg"
 
 
 def prune_relationships(publications: list[dict]) -> None:
@@ -75,6 +76,28 @@ def versioned_asset_href(current_route: str, asset_path: str) -> str:
     return f"{relative_file(current_route, asset_path)}?v={ASSET_VERSION}"
 
 
+def configured_social_image(site_config: dict) -> str:
+    image_path = site_config.get("social_image", DEFAULT_SOCIAL_IMAGE)
+    if isinstance(image_path, str) and image_path:
+        return image_path
+    return DEFAULT_SOCIAL_IMAGE
+
+
+def social_image_url(site_config: dict, image_path: str) -> str:
+    if image_path.startswith(("http://", "https://")):
+        return image_path
+    return join_url(site_config["base_url"], image_path)
+
+
+def social_image_dimension(site_config: dict, key: str) -> str:
+    value = site_config.get(key, "")
+    if isinstance(value, int) and value > 0:
+        return str(value)
+    if isinstance(value, str) and value.isdigit():
+        return value
+    return ""
+
+
 def build_page_meta(
     site_config: dict,
     *,
@@ -86,8 +109,8 @@ def build_page_meta(
 ) -> dict[str, str]:
     resolved_canonical_route = canonical_route or route
     canonical_url = join_url(site_config["base_url"], resolved_canonical_route)
-    social_image = site_config.get("social_image", "/assets/social-preview.jpg")
-    social_image_url = join_url(site_config["base_url"], social_image)
+    social_image = configured_social_image(site_config)
+    resolved_social_image_url = social_image_url(site_config, social_image)
     return {
         "title": title,
         "description": description,
@@ -96,9 +119,9 @@ def build_page_meta(
         "og_description": description,
         "og_type": og_type,
         "og_url": canonical_url,
-        "og_image": social_image_url,
-        "og_image_width": "1200",
-        "og_image_height": "630",
+        "og_image": resolved_social_image_url,
+        "og_image_width": social_image_dimension(site_config, "social_image_width"),
+        "og_image_height": social_image_dimension(site_config, "social_image_height"),
         "og_image_alt": site_config.get("social_image_alt", site_config["site_title"]),
     }
 

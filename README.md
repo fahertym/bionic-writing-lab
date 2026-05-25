@@ -348,7 +348,7 @@ This keeps long-form and grouped reading navigable without turning the site into
 
 ## Canonical Metadata
 
-The site builder uses `site/site.json` `base_url` to generate canonical URLs and social preview metadata.
+The site builder uses `site/site.json` `base_url` to generate canonical URLs. Social preview image metadata comes from `social_image`, `social_image_width`, `social_image_height`, and `social_image_alt`; `social_image` may be a site-local path such as `/assets/social-preview.jpg` or an absolute URL.
 
 - Index, listing, and search pages use site-level metadata.
 - Publication pages use publication metadata.
