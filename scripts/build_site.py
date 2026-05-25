@@ -31,7 +31,7 @@ from publication_lib import (
     write_text,
 )
 
-ASSET_VERSION = "20260524"
+ASSET_VERSION = "20260525"
 
 
 def prune_relationships(publications: list[dict]) -> None:
