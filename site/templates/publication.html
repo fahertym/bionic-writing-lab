@@ -60,8 +60,11 @@
   </header>
 
   {% if publication.downloads %}
-  <section class="download-panel">
-    <h3>Downloads</h3>
+  <section class="download-panel" aria-labelledby="downloads-heading">
+    <div>
+      <p class="kicker">Reader Copies</p>
+      <h3 id="downloads-heading">Downloads</h3>
+    </div>
     <ul class="download-list">
       {% for item in publication.downloads %}
       <li><a href="{{ item.href }}">{{ item.label }}</a></li>

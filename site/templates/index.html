@@ -6,62 +6,47 @@
 <section class="hero">
   <div class="hero-stage">
     <div class="hero-copy">
+      {% if featured_publication %}
+      <p class="kicker">Featured Publication</p>
+      <h2><a href="{{ featured_publication.href }}">{{ featured_publication.title }}</a></h2>
+      {% if featured_publication.subtitle %}
+      <p class="subtitle">{{ featured_publication.subtitle }}</p>
+      {% endif %}
+      <p class="meta">
+        {{ featured_publication.kind|title }}
+        {% if featured_publication.date %} · {{ featured_publication.date }}{% endif %}
+        · {{ featured_publication.word_count }} words
+      </p>
+      <p class="lede">{{ featured_publication.description }}</p>
+      <p><a class="feature-link" href="{{ featured_publication.href }}">Read {{ featured_publication.kind|title }}</a></p>
+      {% else %}
       <p class="kicker">Built for continuity</p>
       <h2>Writing about the machinery underneath things.</h2>
       <p class="lede">I built this for work that does not survive the feed: essays, books, notes, fiction, political theory, and systems writing that need memory, shape, and time.</p>
       <p>Not a blog trying to become a brand. Not a content funnel. A working archive where arguments, maps, drafts, and finished pieces can stay connected instead of dissolving into the scroll.</p>
-      <p>The tools are modern. The voice is mine.</p>
-    </div>
-    <div class="hero-orbit" aria-hidden="true">
-      <span class="orbit-core"></span>
-      <span class="orbit-line orbit-line-a"></span>
-      <span class="orbit-line orbit-line-b"></span>
-      <span class="orbit-node orbit-node-a"></span>
-      <span class="orbit-node orbit-node-b"></span>
-      <span class="orbit-node orbit-node-c"></span>
-    </div>
-  </div>
-  <div class="hero-grid">
-    <div class="shelf-summary">
-      <span class="shelf-icon" aria-hidden="true">▤</span>
-      <div>
-      <h3>Essays</h3>
-      <p>Arguments about power, coercion, technology, dignity, and the structures people are taught to mistake for fate.</p>
-      </div>
-    </div>
-    <div class="shelf-summary">
-      <span class="shelf-icon" aria-hidden="true">▦</span>
-      <div>
-      <h3>Books and pamphlets</h3>
-      <p>Longer projects, sharper releases, and work that needs more room than a platform is built to give it.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="panel">
-  <div class="section-heading">
-    <h3>Recent Work</h3>
-    <p class="section-copy">The newest public pieces from the lab.</p>
-  </div>
-  <div class="card-grid home-recent-grid">
-    {% for publication in recent_publications %}
-    <article class="card">
-      <p class="meta">{{ publication.kind|title }}{% if publication.updated %} · {{ publication.updated }}{% endif %}</p>
-      <h4><a href="{{ publication.href }}">{{ publication.title }}</a></h4>
-      {% if publication.subtitle %}
-      <p class="subtitle">{{ publication.subtitle }}</p>
       {% endif %}
-      <p>{{ publication.description }}</p>
-      <a class="card-arrow" href="{{ publication.href }}" aria-label="Read {{ publication.title }}">→</a>
-    </article>
-    {% endfor %}
+    </div>
+    <aside class="selected-work" aria-label="Selected work">
+      <div class="section-heading">
+        <h3>Public Work</h3>
+        <p class="section-copy">Signal, fixed.</p>
+      </div>
+      <div class="selected-work-list">
+        {% for publication in secondary_publications %}
+        <article class="work-preview">
+          <p class="meta">{{ publication.kind|title }}{% if publication.updated %} · {{ publication.updated }}{% endif %}</p>
+          <h4><a href="{{ publication.href }}">{{ publication.title }}</a></h4>
+          <p>{{ publication.description }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </aside>
   </div>
 </section>
 
 <section class="panel">
   <div class="section-heading">
-    <h3>Main Shelves</h3>
+    <h3>Public Shelves</h3>
     <p class="section-copy">Plain doors. The work can be strange.</p>
   </div>
   <div class="kind-entry-grid">

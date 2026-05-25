@@ -1,0 +1,28 @@
+{
+  "id": "you-are-not-tired-because-you-are-weak",
+  "title": "You Are Not Tired Because You Are Weak",
+  "subtitle": "On the machinery of your exhaustion, and the right to build something worthy of human life",
+  "author": "Matt Faherty",
+  "kind": "essay",
+  "slug": "you-are-not-tired-because-you-are-weak",
+  "description": "An essay on exhaustion, capitalism, empire, political democracy, material freedom, and the machinery people are taught to mistake for personal failure.",
+  "status": "published",
+  "tags": [
+    "political-economy",
+    "human-sovereignty",
+    "capitalism",
+    "coercion",
+    "systems"
+  ],
+  "source": "content/essays/you-are-not-tired-because-you-are-weak.md",
+  "web_route": "/essays/you-are-not-tired-because-you-are-weak/",
+  "output_formats": [
+    "site",
+    "markdown",
+    "pdf"
+  ],
+  "downloadable": true,
+  "order": 1,
+  "date": "2026-05-24",
+  "updated": "2026-05-24"
+}

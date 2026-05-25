@@ -1,0 +1,28 @@
+{
+  "id": "everyone-at-that-table",
+  "title": "Everyone at That Table",
+  "subtitle": "On empire, betrayal, grace, and the shapes people take under pressure",
+  "author": "Matt Faherty",
+  "kind": "essay",
+  "slug": "everyone-at-that-table",
+  "description": "A political and moral reading of the Last Supper as a diagnostic instrument for betrayal, panic, obedience, institutional self-preservation, shame, and grace under pressure.",
+  "status": "review",
+  "tags": [
+    "religion",
+    "empire",
+    "betrayal",
+    "institutional-laundering",
+    "legitimacy"
+  ],
+  "source": "content/essays/everyone-at-that-table.md",
+  "web_route": "/essays/everyone-at-that-table/",
+  "output_formats": [
+    "site",
+    "markdown",
+    "pdf"
+  ],
+  "downloadable": true,
+  "order": 2,
+  "date": "2026-05-24",
+  "updated": "2026-05-24"
+}
