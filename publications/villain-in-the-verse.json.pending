@@ -1,0 +1,59 @@
+{
+  "id": "villain-in-the-verse",
+  "title": "The Villain in the Verse",
+  "subtitle": "Reading the Bible's Actual Antagonist",
+  "author": "Matt Faherty",
+  "kind": "book",
+  "slug": "villain-in-the-verse",
+  "description": "A book-length prosecution that reads the Bible as a text and judges its central character by his actions: engineered failure, collective punishment, and obedience sold as virtue. Work in progress.",
+  "status": "draft",
+  "tags": [
+    "villain-in-the-verse",
+    "book",
+    "religion",
+    "ethics",
+    "long-form"
+  ],
+  "target_words": 80000,
+  "source": "content/books/villain-in-the-verse",
+  "sources": [
+    "00-cold-open.md",
+    "00-frontmatter.md",
+    "part1-the-setup/01-reading-instructions.md",
+    "part1-the-setup/02-eden.md",
+    "part2-the-violence/03-the-flood.md",
+    "part2-the-violence/04-genocide.md",
+    "part2-the-violence/05-women-as-loot.md",
+    "part2-the-violence/06-the-terms-of-service.md",
+    "part2-the-violence/07-petty-god-body-count.md",
+    "part3-the-injustice/08-collective-punishment.md",
+    "part3-the-injustice/09-job.md",
+    "part4-the-system/10-the-salvation-shell-game.md",
+    "part4-the-system/11-the-blood-economy.md",
+    "part4-the-system/12-the-math-that-breaks.md",
+    "part5-the-exit/11b-interlude-the-pattern.md",
+    "part5-the-exit/12-fear-is-not-morality.md",
+    "part5-the-exit/13-the-smuggled-ethics.md",
+    "part5-the-exit/14-the-divine-without-the-tyrant.md",
+    "part5-the-exit/15-the-exit.md",
+    "99-backmatter.md"
+  ],
+  "web_route": "/books/villain-in-the-verse/",
+  "output_formats": [
+    "site",
+    "markdown"
+  ],
+  "downloadable": false,
+  "relationships": {
+    "related": [
+      "collective-punishment-as-coercion",
+      "bitter-water-as-control",
+      "coercion-with-gift-wrapping",
+      "cosmic-monarchy-fossilized",
+      "gods-name-on-the-letterhead"
+    ]
+  },
+  "order": 5,
+  "date": "2026-06-13",
+  "updated": "2026-06-13"
+}

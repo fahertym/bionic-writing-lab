@@ -1,0 +1,63 @@
+name: Deploy site
+
+# Builds the static site from publication manifests and publishes dist/site
+# to GitHub Pages on every push to main. Drafts are excluded automatically
+# (INCLUDE_DRAFTS is not set), so only `published` work goes live.
+#
+# To switch hosts later (e.g. Cloudflare Pages), keep the build step the same
+# -- the deployable artifact is always the dist/site/ directory -- and point
+# the new host at: build command `python scripts/build_site.py`, output `dist/site`.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one in-flight deploy at a time; let the newest win.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Optional: enables PDF/EPUB/DOCX downloads for publications that request
+      # them. Without pandoc the build still succeeds (those exports are skipped).
+      - name: Install pandoc
+        run: sudo apt-get update && sudo apt-get install -y pandoc
+
+      - name: Build site
+        run: python scripts/build_site.py
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
