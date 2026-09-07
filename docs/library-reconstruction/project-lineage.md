@@ -31,7 +31,7 @@ platform timestamps — never ingestion timestamps.
 | 2024-09-24/25 | *The Silent Scream of Existence*; *The Great Illusion* | |
 | **2024-09-25** | **Gospel of Liberation created** | |
 | **2024-09-27** | **The Great Unraveling: Reimagining Society in an Age of Collapse** | the constructive turn |
-| 2024-10-05 → 10-09 | five Gospel of Liberation sessions, ~93,500 w | the largest single burst in the corpus |
+| 2024-10-05 → 10-09 | five Gospel sessions, 93,565 w generated, **5,807 kept (94% discarded)** | text not preserved; word counts only |
 | 2025-02-21 | **The Narrative That Writes Us** | internalized systems, explicit |
 | 2025-02-23 → 2025-03-08 | *The Engineered Collapse*; *The Terminal Economy* | |
 | 2025-02-25 | "God is Damned" poems | |
@@ -39,7 +39,7 @@ platform timestamps — never ingestion timestamps.
 | 2025-03-15 → 03-18 | trilogy exported and reviewed; Books 1 and 2 last modified | **trilogy work ends** |
 | 2025-07-09 | *Where Did the Nazis Get Their Ideology? The Western Roots* | Western lineage, essay-length |
 | 2025-10-30 → 2026-09 | *The Villain in the Verse* | |
-| 2025-12-30 | Gospel of Liberation last modified | **the only pre-Villain book still being touched** |
+| 2025-12-30 | Gospel of Liberation last modified | **format touch only** — 0.98 similarity to the earlier snapshot; no development |
 
 ---
 
@@ -96,7 +96,7 @@ them. Q3 remains closed at `NO_CAUSAL_EVIDENCE`.
 | *The Radical Carpenter* (2023) | **abandoned** at 9 chapters; its instinct survives in Villain Ch 13 |
 | *The Great Illusion: How Capitalism Turned the American Dream into a Nightmare* (2024-09-25) | **overlaps Book 2 Ch 1** (*The Big Lie — Deconstructing the Myth of the American Dream*); likely a spun-out or spun-in essay |
 | Book 3 | **stalled 2024-09-08**, four months after starting; the least finished thing in the corpus |
-| *Gospel of Liberation* | **alive** — touched 2025-12-30, the most recent non-Villain activity |
+| *Gospel of Liberation* | **dormant since Oct 2024.** The 2025-12-30 timestamp is an export artifact, not development |
 | *The Great Unraveling* (2024-09-27) | **dormant outline**, never developed |
 | cosmic-horror cluster (2025-02/03) | a distinct register, not obviously part of any book |
 

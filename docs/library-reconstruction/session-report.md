@@ -16,7 +16,7 @@ written into `villain-in-the-verse`.
 | Trilogy structure | full chapter extraction from 3 manuscripts | 30 chapters mapped; Book 3 missing ch 6 |
 | Exceptionalism lineage | **8 text probes** of Book 1 body against 2024 posts | **resolved — it IS Book 1** |
 | Live Drive | MCP `search_files`, 2 queries | real `createdTime` for all three books + folder listing |
-| Absent titles | archive + both repos + live OneDrive + live Drive | zero hits, four independent sources |
+| Absent titles | archive + both repos + live OneDrive + live Drive | **six exact titles**, zero hits, four sources — exact-string absence only |
 | Western civilization | posts table, 22 rows | 2024-06-22 "comorbidities" post found |
 | Internalized systems | Drive read | *The Narrative That Writes Us* read in full |
 | Constructive side | ICN repo + design principles | invariants in code, CI-enforced |
@@ -45,7 +45,9 @@ written into `villain-in-the-verse`.
 
 - ***The Property Trick*, *The Machine Is Not Broken*, *Declaration of Human
   Sovereignty*, *Humanity v. Yahweh*, *The Fire We Owe Each Other*, *They
-  Called It Reality*: zero hits.** Searched archive titles, archive document
+  Called It Reality* — **six** exact titles, zero hits.** This is an
+  exact-string finding. It does not establish that the underlying arguments or
+  source material are absent. Searched archive titles, archive document
   bodies, posts, `bionic-writing-lab`, `villain-in-the-verse`, live OneDrive
   (2026 files), and live Google Drive by title. `UNKNOWN`.
 - No developed material found on borders/citizenship, prisons, housing/finance,
@@ -64,7 +66,9 @@ written into `villain-in-the-verse`.
 
 ## Unresolved
 
-1. Do the five absent titles exist anywhere, or were they intended works?
+1. Do the six absent exact titles correspond to real works, or were they
+   intended/working titles? (Exact-title absence only; conceptual absence not
+   demonstrated.)
 2. Is *Gospel of Liberation* alive, superseded by *Villain*, or a distinct book?
 3. What is *The Terminal Economy*'s intended scope?
 4. Does *Empire Exposed* or *American Imperialism Unhinged* win as the title?
@@ -81,3 +85,75 @@ touched here).
 Derived intermediates go to `.research-work/` (gitignored). Archive access is
 read-only via `scripts/library_reconstruction/config.py`, resolving from
 `$BWL_ARCHIVE_ROOT` first so the work is portable off Zenith.
+
+---
+
+# Continuation — 2026-09-07: Gospel of Liberation excavation
+
+Closed the one evidentiary hole the previous session named as highest value.
+
+## Count correction, made first
+
+The artifacts said "five" absent titles while listing **six**. Corrected in
+`library-reconstruction.md`, `candidate-library.md`, `source-manifest.tsv` and
+this file.
+
+**Scope caveat added everywhere:** this is an **exact-title-string** negative
+finding across the archive, both repos, live OneDrive and live Drive. It does
+**not** establish conceptual absence. Property-as-command and punishment are
+demonstrably present in the corpus under other names.
+
+## Method — reproducible
+
+| Step | What was done |
+|---|---|
+| Gospel document | **read in full** via Drive `read_file_content` |
+| Chronology | word-level diff of two archive snapshots (`715a58dde93132e8` vs `afd16699f2645e1d`) using `difflib.SequenceMatcher` |
+| Session provenance | `openai_archive.db` — `conversations.uw/aw`, `messages.role/wc/ts` for 5 Gospel cids |
+| Text recovery attempt | queried all 211,636 messages for non-empty text |
+
+**Sampling honesty:** the October sessions were **not sampled — they were not
+readable.** Zero of 211,636 OpenAI messages retain text. No conversation was
+partially read and reported as read. What was analysed is turn-level metadata.
+
+## Findings
+
+1. **Gospel is 5,807 words, not 84 KB of prose.** The Drive `fileSize` is Docs
+   formatting overhead. Previous session's framing was misleading.
+2. **The 2025-12-30 modification is a format touch.** 0.9802 similarity; all
+   109 differing blocks are HTML entities, a "Tab 1" artifact, or an image
+   placeholder. No development since October 2024.
+3. **Chapter 1 was generated from 37 user words into 10,475 assistant words.**
+   Across five sessions: Matt 20,124 w / model 73,441 w (21.5% user).
+4. **94% discard rate** — ~93,500 generated, 5,807 kept. The selection is the
+   strongest `DIRECT_MATT` element.
+5. **Gospel Chapter 4 is the internalized-systems thesis**, five months earlier
+   than the previously recorded ancestor.
+6. **Gospel Chapter 5 is a five-article covenant** — the most explicit
+   constructive statement in the prose corpus.
+7. **No God, no Jesus, no Christianity in it.** Scripture's form, emptied of
+   deity.
+
+## Claim revised
+
+*"The critique is in prose, the construction is in code"* → **qualified**:
+
+> The diagnosis is in prose. The principles are in *Gospel of Liberation*. The
+> mechanism is in code. Nothing yet connects the three.
+
+## Artifacts changed
+
+`gospel-of-liberation-reconstruction.md` (new) · `library-reconstruction.md` ·
+`project-lineage.md` · `american-trilogy-reassessment.md` · `concept-map.md` ·
+`constructive-corpus.md` · `candidate-library.md` · `bwl-research-standard.md`
+(new §8 on unrecoverable text) · `bwl-icn-boundary.md` · `source-manifest.tsv`.
+
+`intersection-matrix.md` unchanged — Gospel adds no new load-bearing edge.
+
+## Still unresolved
+
+1. Do the six absent exact titles correspond to real works?
+2. Does the October 2024 Gospel session text survive in a ChatGPT export not
+   ingested into this archive? `UNKNOWN`.
+3. *The Terminal Economy*'s intended scope.
+4. Book 1 chapter 3's title — not extractable from the HTML.

@@ -38,6 +38,28 @@ carry. **Not a task for this year and not a dependency for any book.**
 
 ---
 
+## A prose ancestor exists, and it is not evidence of influence
+
+`ESTABLISHED_ARCHIVAL_FINDING` — *Gospel of Liberation* (Oct 2024) contains, in
+prophetic register: councils and assemblies, consensus decision-making,
+*"authority is granted only by the consent of the governed"*, *"no kings, no
+rulers, no masters"*, federation of tribes retaining difference, commons
+stewardship, and a covenant explicitly framed as *"a living document, open to
+change and adaptation."*
+
+Those are conceptual cousins of ICN's scoped authority, consent, subsidiarity
+and revisability.
+
+**Explicitly not claimed:** that Gospel influenced ICN, or that ICN implements
+Gospel. No document connects them, and Matt has never said so. The same
+boundary that governs the Villain adjacency governs this one — conceptual
+resemblance is not causal evidence.
+
+**What it is useful for:** it demonstrates that the constructive commitments
+existed in Matt's prose before they existed as invariants, which means a book
+can state them **without citing ICN at all.** That is the cleanest possible
+answer to the propaganda risk.
+
 ## The test that keeps this honest
 
 Before ICN appears in any manuscript, one question:

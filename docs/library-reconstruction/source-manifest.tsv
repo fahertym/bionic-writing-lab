@@ -6,8 +6,8 @@ book2-archive	manuscript	documents.id=4822200aae47df4e	n/a	ingestion_only	47513 
 book3-drive	manuscript	Drive 1Y2RNEJhBR2udYfpiMTH58PAKLvYncUpA2NMRXGM-3wU	created 2024-07-02, mod 2024-09-08	drive_createdTime	28 KB	MATT_EDITED_OR_DIRECTED	structure	stalled; smallest of the three
 book3-archive	manuscript	documents.id=a3891fc1a0627f11	n/a	ingestion_only	38536 w	MATT_EDITED_OR_DIRECTED	full chapter list	Chapter 6 missing; two conclusions
 manifesto-2024	outline	documents title "Manifesto for a Global Awakening" x3	2024-04-29	conversation_timestamp	2679/17977/13606 w	MATT_EDITED_OR_DIRECTED	titles + outline items	trilogy ancestor
-gospel-liberation	manuscript	Drive 1w082YB15zhpK98cWbb8edTdluWCPFKArjSzAx6t7VAo	created 2024-09-25, mod 2025-12-30	drive_createdTime	84 KB	MATT_EDITED_OR_DIRECTED	metadata only	NOT READ - highest-value unfinished task
-gospel-sessions	drafting	5 openai conversations 2024-10-05..09	2024-10	conversation_timestamp	~93500 w	MATT_EDITED_OR_DIRECTED	titles only	largest single burst in corpus
+gospel-liberation	short work	Drive 1w082YB15zhpK98cWbb8edTdluWCPFKArjSzAx6t7VAo	created 2024-09-25; content frozen Oct 2024	drive_createdTime + snapshot diff	5807 w (84 KB was Docs overhead)	AI_RESPONSE prose / DIRECT_MATT selection	READ IN FULL	5 chapters; 2025-12-30 mod is format only (0.98 similarity)
+gospel-sessions	drafting	openai_archive.db conversations+messages, 5 cids	2024-10-05..09	conversation create_time	93565 w total: Matt 20124 / model 73441	AI_RESPONSE	word counts + roles + timestamps ONLY	TEXT UNRECOVERABLE - 0 of 211636 messages retain text
 great-unraveling	outline	Drive 1ZXrlD9H4XdotBU7qHWZnhYX06hYRpz8RdR_do27ab4M	2024-09-27	drive_createdTime	13 KB	MATT_EDITED_OR_DIRECTED	metadata only	dormant constructive outline
 narrative-writes-us	essay	Drive 1H-9ki_QQqfl_1nRp1-CVDW7qUU_Jm0VRDfMh76J9KTM	2025-02-21	drive_createdTime	2.9 KB	MATT_EDITED_OR_DIRECTED	READ IN FULL	internalized-script ancestor; model sign-off left in file
 terminal-economy	short work	Drive 1O1tPC79V8S4e1ufRwlk54e7WzzwO8JP5JnA9OHe-Rb0 + 2 PDFs	2025-03-08	drive_createdTime	18 KB	MATT_EDITED_OR_DIRECTED	metadata only	scope UNKNOWN
@@ -17,4 +17,5 @@ bwl-concepts	ontology	bionic-writing-lab/concepts/*.json	n/a	n/a	11 nodes	DERIVE
 bwl-repo	publishing system	fahertym/bionic-writing-lab	n/a	n/a	n/a	n/a	structure + CLAUDE.md	canonical home
 icn-principles	spec	icn/docs/DESIGN_PRINCIPLES.md	reviewed 2026-05-17	doc header	n/a	DIRECT_MATT (directed)	read	3-tier invariants, CI-enforced
 villain-memory	prior findings	villain-in-the-verse memory + audits	2026-09	n/a	n/a	DERIVED_ARCHIVE_ANALYSIS	loaded	bwl-library-program, matt-audit-method
-absent-titles	negative result	archive + both repos + OneDrive + Drive	n/a	n/a	0 hits	n/a	searched	5 named titles do not exist anywhere
+absent-titles	negative result	archive + both repos + OneDrive + Drive	n/a	n/a	0 hits	n/a	searched	6 exact title strings not found; exact-string absence only, conceptual absence NOT demonstrated
+openai-archive	database	schema/openai_archive.db	n/a	n/a	13854 convs / 211636 msgs	n/a	queried	text column empty throughout; uw/aw word counts survive and are usable as provenance proxy

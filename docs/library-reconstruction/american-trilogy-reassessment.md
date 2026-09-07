@@ -216,6 +216,31 @@ A structure the record supports:
 
 Titles are placeholders. **The claim is the re-division, not the names.**
 
+### Does Gospel add a missing mechanism? — added 2026-09-07
+
+**Yes: collective agency, and it does not require a fifth book.**
+
+*Gospel of Liberation*'s five covenant articles map onto the re-division
+already proposed, which is itself evidence the re-division is cutting along a
+real joint:
+
+| Gospel article | Goes to |
+|---|---|
+| 1 — earth as trust, not possession | the extraction argument (currently Book 2 ch 5) |
+| 2 — *"No person shall go hungry, no person shall be without shelter, and no person shall suffer alone"* | ***What Is Owed*** — the clearest statement of that book's thesis anywhere in the corpus |
+| 3 — no kings, councils, consensus, *"authority granted only by the consent of the governed"* | the governance material salvaged from Book 3 chs 1–2 |
+| 4 — confront injustice "in our own hearts", unlearn what empire instilled | ***The Internalized Script***, as frame |
+| 5 — liberation as ongoing practice; a *"living document, open to change"* | **the connective tissue of the whole library** |
+
+**Recommendation:** these belong **inside each book's constructive movement**,
+the way *Villain* Movement III works — not gathered into a separate
+constructive volume. Article 5's revisability is the exception: it is the
+commitment that distinguishes this library from the systems it audits, and it
+belongs everywhere.
+
+`SUPPORTED_INTERPRETATION`, not `MATT_DECISION`. The mechanism-based
+re-division stands unchanged; Gospel supplies its constructive half.
+
 `MATT_DECISION` needed: whether the existing titles survive. They can. *American
 Imperialism Unhinged*, *American Capitalism Unchecked* and *American Democracy
 Undone* are serviceable titles for a differently organised argument, and the

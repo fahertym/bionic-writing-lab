@@ -45,18 +45,33 @@ lineage. Book 1's remainder, the 2025-07-09 Nazi-roots essay, the 2024-06-22
 civilisational generalisation. Only viable if the American record stays the
 spine. See `american-trilogy-reassessment.md` §4.
 
-**6. Gospel of Liberation** — ~93,500 w of 2024-10 sessions plus an 84 KB doc
-**last modified 2025-12-30**, making it the most recently active pre-Villain
-work. `UNKNOWN`: this session did not read it. Its size and recency mean it
-could belong in Tier 1 or could be superseded by *Villain*. **Reading it is
-the single highest-value unfinished research task.**
+**6. ~~Gospel of Liberation~~ — READ 2026-09-07. Removed from the ranking.**
+It is **5,807 words**, not a book: the 84 KB was Docs overhead, the 93,565
+session words were 78.5% model output with the text unrecoverable, and the
+2025-12-30 timestamp is a format touch, not development.
+
+**It does not become Tier 1, and it does not absorb any candidate.** What it
+does is **feed several of them**: Article 2 is the clearest statement of *What
+Is Owed* in the corpus; Article 3 belongs to the governance material; Chapter 4
+is the earliest full statement of *The Internalized Script*.
+
+Reclassified as **source material for constructive movements across multiple
+books**, and as the corpus's only readable statement of what the whole project
+is *for*. See [`gospel-of-liberation-reconstruction.md`](gospel-of-liberation-reconstruction.md).
 
 ## Tier 3 — a real mechanism, insufficient material
 
-**7. The Internalized Script** — systems reproducing through the people they
-form. Ancestor: *The Narrative That Writes Us* (2025-02-21, class B).
-Currently a seam running through every book rather than a book. `FUTURE_RESEARCH_HYPOTHESIS`:
-this may be the *frame* for the library rather than a volume in it.
+**7. The Internalized Script — promoted within Tier 3, and now the best
+candidate to become the library's frame.** Systems reproducing through the
+people they form. Ancestry is deeper than previously recorded: ***Gospel*
+Chapter 4 (Oct 2024)** states it in full, five months before *The Narrative
+That Writes Us* (2025-02-21), and both predate the Villain closeout that
+treated it as new synthesis.
+
+`FUTURE_RESEARCH_HYPOTHESIS`: this is the *frame* for the library rather than a
+volume in it — and it is the concept that resolves the Villain seam. *Villain*:
+the villain was never in you. *Gospel*: the empire is in you, and getting it out
+is the harder half. Both are Matt's, sixteen months apart.
 
 **8. Ownership of Cognition** — technology, compute, AI, who owns the means of
 thinking. Book 2 ch 10 has outgrown its chapter; ICN supplies mechanism.
@@ -68,6 +83,7 @@ mechanism is proven; the subject has never been written.
 
 ## Not books
 
+- ***Gospel of Liberation*** — 5,807 w; a covenant and a bridge, not a volume. See above.
 - **The Terminal Economy**, *The Engineered Collapse*, *The Great Illusion* — essay scale.
 - **The cosmic-horror cluster** (six pieces, Feb–Mar 2025) — a distinct register; a collection or pamphlet, not an argument.
 - **The Radical Carpenter** — abandoned, and its surviving instinct is already in *Villain* ch 13.
@@ -75,7 +91,11 @@ mechanism is proven; the subject has never been written.
 
 ## Absent
 
-*The Property Trick*, *The Machine Is Not Broken*, *Declaration of Human
-Sovereignty*, *Humanity v. Yahweh*, *The Fire We Owe Each Other*, *They Called
-It Reality*: **zero hits** in the archive, both repos, live OneDrive and live
-Google Drive. `UNKNOWN` — see `session-report.md`.
+**Six** exact titles — *The Property Trick*, *The Machine Is Not Broken*,
+*Declaration of Human Sovereignty*, *Humanity v. Yahweh*, *The Fire We Owe Each
+Other*, *They Called It Reality* — returned **zero hits** across the archive,
+both repos, live OneDrive and live Google Drive.
+
+**Exact-string absence only.** Their underlying mechanisms are not shown to be
+absent; property-as-command and punishment are demonstrably present in the
+corpus under other names. `UNKNOWN` — see `session-report.md`.

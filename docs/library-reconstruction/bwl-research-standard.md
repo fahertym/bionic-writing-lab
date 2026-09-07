@@ -102,7 +102,35 @@ paraphrase; propose any direct quotation in a review artifact first; never
 identify a correspondent; treat medical, financial, family and relationship
 material as prohibited unless Matt raises it.
 
-## 8. Search methodology
+## 8. When the text is gone, count the turns
+
+Added 2026-09-07 after the Gospel excavation, which the standard did not
+anticipate.
+
+**Zero of 211,636 messages in the OpenAI archive retain any text.** An entire
+platform's conversational record is present as metadata and absent as content.
+No amount of careful reading recovers it.
+
+But `conversations` retains per-conversation `uw` / `aw` (user and assistant
+word counts) and `messages` retains per-message `role`, `wc` and `ts`. That is
+enough to answer the provenance question **quantitatively** when it cannot be
+answered textually:
+
+- Gospel ch 1: **37 user words produced 10,475 assistant words** — the seed
+  prose is unambiguously the model's.
+- Across five sessions: 20,124 user words, 73,441 assistant words, 21.5% user.
+- Against a 5,807-word kept document: a **94% discard rate**, which is real
+  editorial work and is attributable to Matt with confidence.
+
+**Standard: where message text is unrecoverable, report turn-level word
+counts, roles and timestamps, and say plainly that the text was not read.**
+
+**Two cautions.** A high user word count does not mean the user *composed*
+those words — pasting an existing draft registers as user words. And a low user
+word count does not mean disengagement; it may mean a precise prompt. Word
+share measures **who supplied the tokens**, nothing more.
+
+## 9. Search methodology
 
 Two lessons, both learned by failing:
 

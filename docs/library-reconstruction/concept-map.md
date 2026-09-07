@@ -54,8 +54,18 @@ motivation essay about being "intimidated to try and fail."
 *No existing node. **This is the gap in the ontology.***
 
 `ESTABLISHED_ARCHIVAL_FINDING`: this is **not** a new synthesis from the
-Villain closeout. *The Narrative That Writes Us* (2025-02-21) is an entire
-essay on it:
+Villain closeout, and it is **five months older than the previous session
+said**. *Gospel of Liberation* Chapter 4 (October 2024) is built entirely on
+it:
+
+> "the seeds of the empire were planted deep within you. Its laws, its ways,
+> its hierarchies — they live in your thoughts, your desires, and your fears...
+> the empire is not only a system outside of you, but a poison that has seeped
+> into your soul."
+
+> "The greatest battle lies not in the streets, but in your hearts."
+
+*The Narrative That Writes Us* (2025-02-21) then states it in essay form:
 
 > "You were taught to see the world a certain way, to believe that things are
 > the way they are because they must be... the systems we live under? They are
@@ -63,7 +73,8 @@ essay on it:
 
 Earlier appearances: Book 3 ch 3 *Education in Crisis — Manufacturing
 Compliance* (2024); Book 1 ch 6 *Manufacturing Consent* (2024); Book 2 ch 1
-*The Big Lie* (2024).
+*The Big Lie* (2024). **Gospel ch 4 (Oct 2024) is the earliest place it is the
+whole subject rather than a mechanism inside another argument.**
 
 **Provenance caution:** *The Narrative That Writes Us* still carries the
 model's sign-off at the end of the file. Class B — the idea is his, the prose
@@ -73,10 +84,11 @@ is not evidence of his voice.
 
 Steps 6–7 of the audit method. Villain Movement III. *The Great Unraveling*
 (2024-09-27). ICN's entire existence. Book 2's conclusion *"Toward a New Vision
-for America."*
+for America."* And — found this session — ***Gospel of Liberation* Chapter 5,
+a five-article covenant that is the most explicit constructive statement in the
+prose corpus.**
 
-**This is the weakest-evidenced spine concept in prose and the strongest in
-code.** See [`constructive-corpus.md`](constructive-corpus.md).
+**Weaker in prose than in code, but no longer absent from prose.** See [`constructive-corpus.md`](constructive-corpus.md).
 
 ---
 
@@ -92,7 +104,7 @@ the end rather than padded out.
 | punishment vs development | 2011-11 coaching | Villain ch 12; Book 3 ch 3 | penalties teach the wrong lesson about the tool | high |
 | institutional laundering | 2011-03 (linguistic form) | Book 1 ch 1/6/7; Villain | renaming changes reception, not the act | high |
 | manufactured desert | 2015-11 (personal) | Book 2 ch 1, 7; Villain inherited guilt | outcomes made to feel earned | medium-high |
-| internalized script | 2024 (Books) → 2025-02-21 (explicit) | Villain seam | systems reproduce through the people they form | medium |
+| internalized script | 2024 (Books) → **2024-10 Gospel ch 4 (explicit)** → 2025-02-21 | Villain seam | systems reproduce through the people they form | medium-high |
 | property as command | Book 2 (2024) | `property-as-command` node | ownership as practical rule over others | medium |
 | artificial scarcity | Book 2 ch 5, 7 | `artificial-scarcity` node | abundance converted to leverage | medium |
 | empire / imperial lineage | 2024-04-29 Manifesto | Book 1; 2025-07-09 Nazi-roots essay | American case of a Western lineage | medium-high |

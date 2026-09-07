@@ -6,19 +6,26 @@ does critique outrun design?
 
 ---
 
-## The headline
+## The headline — revised 2026-09-07 after reading Gospel
 
-**The critique is in prose. The construction is in code.**
+The previous formulation was *"the critique is in prose, the construction is in
+code."* Reading *Gospel of Liberation* **qualified it rather than confirming or
+breaking it.**
 
-`ESTABLISHED_ARCHIVAL_FINDING`. Across ~163,000 words of trilogy plus 78,500
-words of *Villain*, the constructive material amounts to two chapter-length
-conclusions, one 13 KB dormant outline (*The Great Unraveling*, 2024-09-27),
-and *Gospel of Liberation*. Meanwhile ICN carries normative design principles,
-invariants encoded in `icn-kernel-api/src/invariants.rs`, and a denylist
-enforced in CI.
+> **The diagnosis is in prose. The principles are in *Gospel of Liberation*.
+> The mechanism is in code. Nothing yet connects the three.**
 
-That asymmetry is the single most important structural fact about the library.
-**Matt's strongest constructive work is not currently readable as prose.**
+`ESTABLISHED_ARCHIVAL_FINDING`. *Gospel* Chapter 5 is a five-article covenant
+— the most explicit constructive statement anywhere in the prose corpus, and
+the previous session was wrong to imply readable constructive prose did not
+exist. But it is **principle without mechanism**: Article 3 rejects hierarchy
+and mandates councils and consensus **without saying how a large group decides
+anything**, how disputes resolve, or what happens when a council is captured.
+
+ICN still holds the only detailed machinery. The asymmetry is real; it is a
+three-layer gap rather than a two-layer one, and the **missing connective
+tissue between principle and mechanism is the library's real structural
+problem.**
 
 ---
 
@@ -34,6 +41,8 @@ That asymmetry is the single most important structural fact about the library.
 | Community infrastructure | homelab, federated storage, public infrastructure work | yes, personal scale | demonstration |
 | Meaning / ritual / community after religion | *Villain* ch 14–15 | n/a | **strong prose, no mechanism claimed** — correctly |
 | Post-collapse social design | *The Great Unraveling* (2024-09-27) | no | **13 KB outline, dormant two years** |
+| **Constructive principles** | ***Gospel of Liberation* ch 3 & 5** — councils, consensus, "authority granted only by the consent of the governed", no kings/rulers/masters, commons stewardship, a covenant explicitly framed as "a living document, open to change" | no | **principle without mechanism; dormant since Oct 2024** |
+| **Common provision as a right** | *Gospel* Article 2: "No person shall go hungry, no person shall be without shelter, and no person shall suffer alone" | no | the clearest statement of *What Is Owed* in the corpus |
 | Care / disability provision | scattered posts; Book 3 ch 8 | no | **critique only** |
 | Housing | named only | no | **absent** |
 | Policing / prisons | Book 3 ch 2 (courts) | no | **absent** |
@@ -88,7 +97,8 @@ makes of everything else.
 `SUPPORTED_INTERPRETATION`
 
 1. **Provision and care.** The strongest human material in the corpus —
-   disability, precarity, what is owed — has no proposed mechanism at all.
+   disability, precarity, what is owed — has a **principle** (Gospel Article 2)
+   and no mechanism whatsoever.
 2. **Punishment.** Eleven years of the best-evidenced argument in the corpus,
    and no constructive counterpart. What replaces prisons is never addressed.
 3. **Housing.** Named, never argued, no alternative.
@@ -104,9 +114,14 @@ interesting than the topics already covered.**
 
 `CURRENT_SYNTHESIS`
 
-*The Great Unraveling* should not be revived as a book. It is a 2024 outline
-written before ICN matured and before *Villain* worked out how to do a
-constructive movement without selling a replacement.
+Neither *The Great Unraveling* nor *Gospel of Liberation* should be revived as
+a book. Both are 2024 artifacts written before ICN matured and before *Villain*
+worked out how to do a constructive movement without selling a replacement.
+
+**Gospel's five covenant articles should instead be treated as source material
+for the constructive movement of each rebuilt book** — Article 2 into *What Is
+Owed*, Article 3 into the governance material, Article 1 into the extraction
+argument. That is what a 5,800-word covenant is good for.
 
 The constructive half belongs **inside** each book as its final movement,
 the way *Villain* Movement III works — the audit's steps 6 and 7, kept

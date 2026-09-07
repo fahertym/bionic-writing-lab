@@ -20,7 +20,7 @@ Google Drive, not from memory summaries.
 | **Book 1 — American Imperialism Unhinged** (internal title *Empire Exposed*) | ~76,800 w | 2024-06-27 | 2025-03-16 | complete draft, 10 chapters + intro, conclusion, epilogue |
 | **Book 2 — American Capitalism Unchecked** | ~47,500 w | 2024-06-27 | 2025-03-18 | complete draft, 10 chapters + intro, conclusion, epilogue |
 | **Book 3 — American Democracy Undone** | ~38,500 w (Drive doc only 28 KB) | 2024-07-02 | 2024-09-08 (doc) / 2025-03-17 (export) | **thinnest and least finished** |
-| **Gospel of Liberation** | ~84 KB doc; five Oct-2024 sessions totalling ~93,500 w | 2024-09-25 | **2025-12-30** | the most recently active non-Villain work |
+| **Gospel of Liberation** | **5,807 w** (the 84 KB was Docs overhead); five Oct-2024 sessions of 93,565 w, **text not preserved** | 2024-09-25 | 2025-12-30 (**format only**) | short constructive/bridge work; **not a book** |
 | **The Villain in the Verse** | 78,534 w | 2025 | 2026-09 | editorial, not releaseable |
 | **The Radical Carpenter** | ~10,400 w draft + conversations into late 2024 | 2023-09-19 | 2023-11-13 | abandoned at nine chapters |
 | **The Terminal Economy** | ~18 KB doc + PDF | 2025-03-08 | 2025-03-08 | short work, unclear scope |
@@ -33,14 +33,24 @@ The Silent Scream of Existence*), all Feb–Mar 2025, and a small number of
 standalone essays including **The Narrative That Writes Us** (2025-02-21).
 
 Total identified book-scale manuscript, excluding Villain: **roughly 163,000
-words of American trilogy plus ~93,500 words of Gospel of Liberation material.**
+words of American trilogy.** Gospel of Liberation is 5,807 words, not a book —
+see [`gospel-of-liberation-reconstruction.md`](gospel-of-liberation-reconstruction.md).
 
 ## 2. What is not here
 
 `ESTABLISHED_ARCHIVAL_FINDING` — searched the archive (titles, document
 bodies, posts), both local repositories, live OneDrive, and live Google Drive.
 
-**Five of the titles named at session start do not exist in any source:**
+**Six exact titles named at session start were not found in any source searched.**
+
+**Scope of this negative finding:** it establishes only that these *exact
+title strings* do not appear in the archive DuckDB (titles, document bodies,
+posts), either repository, live OneDrive, or live Google Drive by title. It
+does **not** establish that the underlying arguments or source material are
+absent. Several of these phrases describe mechanisms the corpus demonstrably
+does contain — property as command, punishment, sovereignty. Conceptual
+absence would require a separate search and has not been demonstrated.
+
 
 - *The Property Trick*
 - *The Machine Is Not Broken*
@@ -49,9 +59,10 @@ bodies, posts), both local repositories, live OneDrive, and live Google Drive.
 - *The Fire We Owe Each Other*
 - *They Called It Reality*
 
-Zero hits on titles, zero in document bodies, zero in posts, zero in Drive,
-zero in either repository. "Human sovereignty" occurs only as a phrase inside
-two short BWL essays, not as a work.
+Zero hits on the exact title strings across all four sources. "Human
+sovereignty" occurs as a *phrase* inside two short BWL essays, which is itself
+an illustration of the distinction: the phrase lives in the corpus; a work by
+that name does not.
 
 `UNKNOWN` — these may be intended works never started, working titles Matt
 remembers proposing, titles suggested in a conversation the archive did not
@@ -88,11 +99,11 @@ about the US, it's all of Western civilization that is ill with the
 comorbidities of imperialism and capitalism."* See
 [`american-trilogy-reassessment.md`](american-trilogy-reassessment.md) §4.
 
-**d. The constructive half exists but is thin and scattered.** *The Great
-Unraveling: Reimagining Society in an Age of Collapse* (2024-09-27) is a
-13 KB outline. *Gospel of Liberation* is the largest constructive-adjacent
-body. ICN is where the actual mechanism design lives, and it lives in code and
-specs rather than in prose. See
+**d. The constructive half exists in three disconnected layers.** *Gospel of
+Liberation* (Oct 2024) states the **principles** — a five-article covenant, in
+readable prose. *The Great Unraveling* (2024-09-27) is a 13 KB outline written
+two days later. ICN holds the **mechanism**, in code and CI-enforced
+invariants. Nothing connects the three. See
 [`constructive-corpus.md`](constructive-corpus.md).
 
 ## 4. The provenance situation
