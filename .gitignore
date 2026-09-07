@@ -16,3 +16,6 @@ Thumbs.db
 .idea/
 .vscode/
 
+
+# Library-reconstruction derived intermediates (uncleared excerpts)
+.research-work/
